@@ -1,4 +1,4 @@
-#include "includes/matrixHal.h"
+#include "../includes/matrixHal.h"
 
 // Initialise Matrix Voice GPIO pins
 void initGPIOPins(matrix_hal::GPIOControl* gpio)
