@@ -19,8 +19,8 @@ MotorControl::MotorControl() {
 	everloop = new matrix_hal::Everloop;								// Create Everloop object
 
 	everloop->Setup(&bus);												// Set everloop to use MatrixIOBus bus
-	
-	gpio = new matrix_hal::GPIOControl;									// Create GPIOControl object - General Purpose Input Output							
+
+	gpio = new matrix_hal::GPIOControl;									// Create GPIOControl object - General Purpose Input Output
 
 	gpio->Setup(&bus);													// Set gpio to use MatrixIOBus bus
 
