@@ -2,6 +2,12 @@
 class motorControl
 {
 private:
+	#define REVERSE                 -1
+	#define FORWARD                  1
+	#define LEFTTURN                 2
+	#define RIGHTTURN                3
+
+
 	int leftMotorSpeed;
 	int rightMotorSpeed;
 
