@@ -17,21 +17,13 @@
 #include "includes/icolearning.h"
 #include "includes/navigation.h"
 
-<<<<<<< HEAD
-#include <math.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <array>
-#include <iostream>
-=======
 #include <cmath>
->>>>>>> 5ebcf281b6353774ea95afa62fd1e47fea3f7819
 #include <ctime>
 #include <fstream>
 #include <iostream>
 #include <unistd.h>
 #include <raspicam/raspicam.h>
+//#include <pigpio.h>
 
 //OpenCV
 #include <opencv2/core.hpp>
@@ -45,19 +37,6 @@
 #include <matrix_hal/everloop_image.h>
 #include <matrix_hal/gpio_control.h>
 #include <matrix_hal/matrixio_bus.h>
-
-<<<<<<< HEAD
-#include "includes/motorControl.h"
-=======
-
->>>>>>> 5ebcf281b6353774ea95afa62fd1e47fea3f7819
-
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 5ebcf281b6353774ea95afa62fd1e47fea3f7819
 
 using namespace std;
 //using namespace cv;
