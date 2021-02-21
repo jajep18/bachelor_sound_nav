@@ -11,11 +11,13 @@
 #include "includes/defines.h"
 
 //Classes
-#include "includes/soundlocalization.h"
-#include "includes/motorcontrol.h"
-#include "includes/lidar.h"
-#include "includes/icolearning.h"
+#include "includes/soundLocalization.h"
+#include "includes/motorControl.h"
+#include "includes/LIDAR.h"
+#include "includes/learning.h"
+#include "includes/soundLocalization.h"
 #include "includes/navigation.h"
+
 
 #include <cmath>
 #include <ctime>
