@@ -1,4 +1,14 @@
 #pragma once
+/*
+ * Description:     Class for control of motor and MatrixLEDs
+ *
+ * Author:			Jaccob Fløe Jeppsen
+ * Institution: 	University of Southern Denmark
+ *
+ * Creation date:	13-02-2021
+ */
+
+
 #include <matrix_hal/everloop.h>
 #include <matrix_hal/everloop_image.h>
 #include <matrix_hal/gpio_control.h>
@@ -37,6 +47,16 @@
 #define MATRIX_LED_L_8          16
 #define MATRIX_LED_L_9          17
 
+// Motor commands
+#define	STOP			0
+#define FORWARD		1
+#define REVERSE		   -1
+#define LEFTTURN		2
+#define RIGHTTURN		3
+#define	FORWARDSPEED	25
+#define	REVERSESPEED	20
+
+
 class MotorControl {
 private:
 	matrix_hal::MatrixIOBus bus;				// Create MatrixIOBus object for hardware communication
@@ -50,8 +70,12 @@ public:
 
 
 	void initGPIOPins();
+
+
 	void setLeftMotorSpeedDirection(int speed, int dir);
 	void setRightMotorSpeedDirection(int speed, int dir);
+	void changeMotorCommand(int command);
+
 	void startupShowLEDRainbow();
 	void setMatrixVoiceLED(int ledn, int r, int g, int b);
 	void resetMatrixVoiceLEDs();

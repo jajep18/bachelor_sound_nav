@@ -47,9 +47,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	/*****************************************************************************
-	************************   INITIALISE MOTOR CONTROL   ************************
-	*****************************************************************************/
+	/************************   INITIALISE MOTOR CONTROL   ************************/
 
 	MotorControl motor_control;
 
@@ -62,60 +60,16 @@ int main(int argc, char** argv)
 	cout << "done." << endl;
 
 
-	/*****************************************************************************
-	************************   CONTROLLER LOOP   *********************************
-	*****************************************************************************/
-	while (true)
+	/************************   CONTROLLER LOOP   *********************************/
+	int run = 0;
+	while (run < 6)
 	{
-		// Wait 30ms for keypress and exit if ESC (ASCII code 27) is pressed
-		key_input = cv::waitKey(30);
-		if (key_input == 27)
-		{
-			motor_control.resetMatrixVoiceLEDs();
-			break;
-		}
-		else if (key_input == 'p')
-		{
-			cout << "PAUSE - manual steering enabled" << endl;
-			motor_control.setRightMotorSpeedDirection(0, 1);
-			motor_control.setLeftMotorSpeedDirection(0, 1);
-			while (true)
-			{
-				key_input = cv::waitKey(30);
-				switch (key_input) {
-				case 'w':
-					motor_control.setRightMotorSpeedDirection(30, 1);
-					motor_control.setLeftMotorSpeedDirection(30, 1);
-					break;
-				case 'a':
-					motor_control.setRightMotorSpeedDirection(25, 1);
-					motor_control.setLeftMotorSpeedDirection(25, 0);
-					break;
-				case 's':
-					motor_control.setRightMotorSpeedDirection(25, 0);
-					motor_control.setLeftMotorSpeedDirection(25, 0);
-					break;
-				case 'd':
-					motor_control.setRightMotorSpeedDirection(25, 0);
-					motor_control.setLeftMotorSpeedDirection(25, 1);
-					break;
-				case 'r':
-					cout << "RESUME" << endl;
-					break; break;
-				default:
-					motor_control.setRightMotorSpeedDirection(0, 1);
-					motor_control.setLeftMotorSpeedDirection(0, 1);
-				}
-			}
-		}
-		motor_control.setRightMotorSpeedDirection(30, 1);
-		motor_control.setLeftMotorSpeedDirection(30, 1);
+		MotorControl::changeMotorCommand(LEFTTURN);
 		usleep(3000000);
-		motor_control.setRightMotorSpeedDirection(30, 0);
-		motor_control.setLeftMotorSpeedDirection(30, 0);
+		MotorControl::changeMotorCommand(RIGHTTURN);
 		usleep(3000000);
 
-
+		run++;
 
 	} // End of while loop
 /*********************************   END OF CONTROLLER LOOP   *********************************/

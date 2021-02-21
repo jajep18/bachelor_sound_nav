@@ -1,4 +1,4 @@
-#include "../includes/motorcontrol.h"
+#include "../includes/motorControl.h"
 
 //Constructor
 MotorControl::MotorControl() {
@@ -103,6 +103,40 @@ void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*
 
 	gpio->SetPWM(1000, speed, TB6612_RIGHT_MOTOR_PWMA);
 }
+
+void MotorControl::changeMotorCommand(int command)
+{
+	switch (command)
+	{
+	STOP : 
+		setLeftMotorSpeedDirection(STOP, STOP );
+		setRightMotorSpeedDirection(STOP, STOP);
+		break;
+	FORWARD :
+		setLeftMotorSpeedDirection(FORWARDSPEED, FORWARD);
+		setRightMotorSpeedDirection(FORWARDSPEED, FORWARD);
+		break;
+	REVERSE :
+		setLeftMotorSpeedDirection(REVERSESPEED, REVERSE);
+		setRightMotorSpeedDirection(REVERSESPEED, REVERSE);
+		break;
+	LEFTTURN :
+		setLeftMotorSpeedDirection(REVERSESPEED, REVERSE);
+		setRightMotorSpeedDirection(FORWARDSPEED, FORWARD);
+		break;
+	RIGHTTURN :
+		setLeftMotorSpeedDirection(FORWARDSPEED, FORWARD);
+		setRightMotorSpeedDirection(REVERSESPEED, REVERSE);
+		break;
+
+	default :
+		std::cout << "Invalid motor command!\n";
+		break;
+	}
+
+}
+
+
 
 // Display a rainbow animation on the Matrix Voice LEDs
 void MotorControl::startupShowLEDRainbow(/*matrix_hal::Everloop* everloop, matrix_hal::EverloopImage* everloop_image*/)
