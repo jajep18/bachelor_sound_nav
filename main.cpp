@@ -51,13 +51,13 @@ int main(int argc, char** argv)
 {
 	/************************   INITIALISE MOTOR CONTROL   ************************/
 
-	MotorControl motor_control;
+	MotorControl motorControl;
 
 	/*********************************   DONE   *********************************/
 
 	int key_input;
 	// Wait 3 seconds for camera image to stabilise
-	cout << "Waiting for camera to stabilise...";
+	cout << "Waiting 3 secinds for setup...";
 	usleep(3000000);
 	cout << "done." << endl;
 
@@ -66,9 +66,9 @@ int main(int argc, char** argv)
 	int run = 0;
 	while (run < 2)
 	{
-		MotorControl::changeMotorCommand(LEFTTURN);
+		motorControl.changeMotorCommand(LEFTTURN);
 		usleep(3000000);
-		MotorControl::changeMotorCommand(RIGHTTURN);
+		motorControl.changeMotorCommand(RIGHTTURN);
 		usleep(3000000);
 
 		run++;
@@ -78,8 +78,8 @@ int main(int argc, char** argv)
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
 	// Stop all motors
-	motor_control.setRightMotorSpeedDirection(0, 1);
-	motor_control.setLeftMotorSpeedDirection(0, 1);
+	motorControl.setRightMotorSpeedDirection(0, 1);
+	motorControl.setLeftMotorSpeedDirection(0, 1);
 
 
 
