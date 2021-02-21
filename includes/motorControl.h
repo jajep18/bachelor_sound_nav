@@ -49,7 +49,7 @@
 
 // Motor commands
 #define	STOP			0
-#define FORWARD		1
+#define FORWARD			1
 #define REVERSE		   -1
 #define LEFTTURN		2
 #define RIGHTTURN		3

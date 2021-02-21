@@ -104,27 +104,31 @@ void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*
 	gpio->SetPWM(1000, speed, TB6612_RIGHT_MOTOR_PWMA);
 }
 
-void MotorControl::changeMotorCommand(int command)
+void MotorControl::changeMotorCommand(int commandInput)
 {
-	switch (command)
+	switch (commandInput)
 	{
-	STOP: 
-		setLeftMotorSpeedDirection(STOP, STOP );
-		setRightMotorSpeedDirection(STOP, STOP);
+	case STOP: 
+		setLeftMotorSpeedDirection(STOP, FORWARD );
+		setRightMotorSpeedDirection(STOP, FORWARD);
 		break;
-	FORWARD:
+
+	case FORWARD:
 		setLeftMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		setRightMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		break;
-	REVERSE:
+
+	case REVERSE:
 		setLeftMotorSpeedDirection(REVERSESPEED, REVERSE);
 		setRightMotorSpeedDirection(REVERSESPEED, REVERSE);
 		break;
-	LEFTTURN:
+
+	case LEFTTURN:
 		setLeftMotorSpeedDirection(REVERSESPEED, REVERSE);
 		setRightMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		break;
-	RIGHTTURN:
+
+	case RIGHTTURN:
 		setLeftMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		setRightMotorSpeedDirection(REVERSESPEED, REVERSE);
 		break;
