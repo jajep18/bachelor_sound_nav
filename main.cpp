@@ -3,13 +3,12 @@
  *
  * Author:			Jaccob Fløe Jeppsen
  * Institution: 	University of Southern Denmark
- * 
+ *
  * Creation date:	13-02-2021
  */
 
 
 
-#include <json.h>
 #include <math.h>
 #include <netinet/in.h>
 #include <string.h>
@@ -28,13 +27,11 @@
 #include <matrix_hal/matrixio_bus.h>
 
 #include "includes/motorControl.h"
-#include "includes/matrixHal.h"
-
 
 
 int main() {
 
-	
+
 
 
 	return 0;
