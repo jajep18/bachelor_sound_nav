@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 
 	/************************   CONTROLLER LOOP   *********************************/
 	int run = 0;
-	while (run < 6)
+	while (run < 2)
 	{
 		MotorControl::changeMotorCommand(LEFTTURN);
 		usleep(3000000);
@@ -70,6 +70,7 @@ int main(int argc, char** argv)
 		usleep(3000000);
 
 		run++;
+		std::cout << run << "\n";
 
 	} // End of while loop
 /*********************************   END OF CONTROLLER LOOP   *********************************/
