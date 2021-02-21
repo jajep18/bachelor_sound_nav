@@ -108,28 +108,28 @@ void MotorControl::changeMotorCommand(int command)
 {
 	switch (command)
 	{
-	STOP : 
+	STOP: 
 		setLeftMotorSpeedDirection(STOP, STOP );
 		setRightMotorSpeedDirection(STOP, STOP);
 		break;
-	FORWARD :
+	FORWARD:
 		setLeftMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		setRightMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		break;
-	REVERSE :
+	REVERSE:
 		setLeftMotorSpeedDirection(REVERSESPEED, REVERSE);
 		setRightMotorSpeedDirection(REVERSESPEED, REVERSE);
 		break;
-	LEFTTURN :
+	LEFTTURN:
 		setLeftMotorSpeedDirection(REVERSESPEED, REVERSE);
 		setRightMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		break;
-	RIGHTTURN :
+	RIGHTTURN:
 		setLeftMotorSpeedDirection(FORWARDSPEED, FORWARD);
 		setRightMotorSpeedDirection(REVERSESPEED, REVERSE);
 		break;
 
-	default :
+	default:
 		std::cout << "Invalid motor command!\n";
 		break;
 	}
