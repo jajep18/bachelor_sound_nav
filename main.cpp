@@ -17,6 +17,7 @@
 #include "includes/learning.h"
 #include "includes/soundLocalization.h"
 #include "includes/navigation.h"
+#include "includes/ODAS.h"
 
 
 #include <cmath>
@@ -48,7 +49,7 @@ int main(int argc, char** argv)
 	************************   INITIALISE MOTOR CONTROL   ************************
 	*****************************************************************************/
 
-	//MotorControl motor_control;
+	MotorControl motor_control;
 	ODAS odas;
 	//Vision vision;
 
@@ -64,7 +65,7 @@ int main(int argc, char** argv)
 /*****************************************************************************
 ************************   CONTROLLER LOOP   *********************************
 *****************************************************************************/
-	odas.updateODAS();
+    odas.updateODAS();
 	//while(true)
 	//{
 		//odas.updateODAS();
@@ -80,7 +81,7 @@ int main(int argc, char** argv)
 	//motor_control.setLeftMotorSpeedDirection(0,1);
 
 	//Test flag
-	cout << "End of main -------" << endl;
+	std::cout << "End of main -------" << std::endl;
 
 
 

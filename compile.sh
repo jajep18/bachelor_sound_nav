@@ -1,7 +1,8 @@
-g++ main.cpp sources/motorControl.cpp -o main.out \
+g++ main.cpp sources/motorControl.cpp sources/ODAS.cpp -o main.out \
 -Wall \
 -pthread \
 -L/usr/local/lib \
+-ljson-c \
 -I/usr/local/include/opencv4 \
 -lm \
 -lraspicam \

@@ -1,6 +1,7 @@
 #include "../includes/ODAS.h"
 
 
+
 ODAS::ODAS() {
 
 	// Everloop Initialization
@@ -18,8 +19,22 @@ ODAS::ODAS() {
 	everloop = new matrix_hal::Everloop;
 	// Set everloop to use MatrixIOBus bus
 	everloop->Setup(&bus);
+/******************************************/
 
-	// Clear all LEDs
+//		for (int i = 0; i < bus.MatrixLeds(); i++) {
+//
+//
+//			image1d->leds[i].red = 0;
+//			image1d->leds[i].green = 0;
+//			image1d->leds[i].blue = 80;
+//			image1d->leds[i].white = 0;
+//
+//
+//}
+//everloop->Write(image1d);
+
+/******************************************/
+	 //Clear all LEDs
 	for (matrix_hal::LedValue& led : image1d->leds) {
 		led.red = 0;
 		led.green = 0;
@@ -56,6 +71,7 @@ ODAS::ODAS() {
 
 	message = (char*)malloc(sizeof(char) * nBytes);
 
+
 	printf("Receiving data........... \n\n");
 
 }
@@ -71,22 +87,24 @@ void ODAS::updateODAS() {
 		json_parse(jobj);
 
 		for (int i = 0; i < bus.MatrixLeds(); i++) {
-			// led index to angle
-			int led_angle = bus.MatrixName() == matrix_hal::kMatrixCreator
-				? leds_angle_mcreator[i]
-				: led_angles_mvoice[i];
-			//int led_angle = led_angles_mvoice[i];
+
+			int led_angle = led_angles_mvoice[i];
+
 			// Convert from angle to pots index
 			int index_pots = led_angle * ENERGY_COUNT / 360;
-			// Mapping from pots values to color
+			// Mapping from pots values to color+
 			int color = energy_array[index_pots] * MAX_BRIGHTNESS / MAX_VALUE;
 			// Removing colors below the threshold
 			color = (color < MIN_THRESHOLD) ? 0 : color;
 
+			if(energy_array[index_pots] > 100)
+			std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energy_array[index_pots] << " Index pots value: "<< index_pots << std::endl;
+
 			image1d->leds[i].red = 0;
-			image1d->leds[i].green = 0;
-			image1d->leds[i].blue = color;
+			image1d->leds[i].green = color/4;
+			image1d->leds[i].blue = color/4;
 			image1d->leds[i].white = 0;
+
 		}
 		everloop->Write(image1d);
 	}
@@ -95,8 +113,11 @@ void ODAS::updateODAS() {
 void ODAS::increase_pots() {
 	// Convert x,y to angle. TODO: See why x axis from ODAS is inverted
 	double angle_xy = fmodf((atan2(y, x) * (180.0 / M_PI)) + 360, 360);
+	//std::cout << "angle_xy: " <<angle_xy << std::endl;
 	// Convert angle to index
-	int i_angle = angle_xy / 360 * ENERGY_COUNT;  // convert degrees to index
+	double d_angle = angle_xy / 360 * ENERGY_COUNT;  // convert degrees to index
+	int i_angle = d_angle;
+	//std::cout << "i_angle & d_anle: " << i_angle << d_angle <<std::endl;
 	// Set energy for this angle
 	energy_array[i_angle] += INCREMENT * E;
 	// Set limit at MAX_VALUE
@@ -181,6 +202,8 @@ void ODAS::json_parse(json_object* jobj)
 		case json_type_array:
 			json_parse_array(jobj, key);
 			break;
+        case json_type_null:
+            break;
 		}
 	}
 }
