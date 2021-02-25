@@ -40,49 +40,90 @@
 #include <matrix_hal/gpio_control.h>
 #include <matrix_hal/matrixio_bus.h>
 
-using namespace std;
-//using namespace cv;
-
-
-
 
 
 int main(int argc, char** argv)
 {
-	/************************   INITIALISE MOTOR CONTROL   ************************/
+	/*****************************************************************************
+	************************   INITIALISE MOTOR CONTROL   ************************
+	*****************************************************************************/
 
-	MotorControl motorControl;
+	//MotorControl motor_control;
+	ODAS odas;
+	//Vision vision;
 
-	/*********************************   DONE   *********************************/
+/*********************************   DONE   *********************************/
 
-	int key_input;
+
 	// Wait 3 seconds for camera image to stabilise
-	cout << "Waiting 3 secinds for setup...";
-	usleep(3000000);
-	cout << "done." << endl;
+	//cout << "Waiting for camera to stabilise...";
+	//usleep(3000000);
+	//cout << "done." << endl;
 
 
-	/************************   CONTROLLER LOOP   *********************************/
-	int run = 0;
-	while (run < 2)
-	{
-		motorControl.changeMotorCommand(LEFTTURN);
-		usleep(3000000);
-		motorControl.changeMotorCommand(RIGHTTURN);
-		usleep(3000000);
+/*****************************************************************************
+************************   CONTROLLER LOOP   *********************************
+*****************************************************************************/
+	odas.updateODAS();
+	//while(true)
+	//{
+		//odas.updateODAS();
+		//vision.updateCamera();
 
-		run++;
-		std::cout << run << "\n";
 
-	} // End of while loop
+
+	//} // End of while loop
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
 	// Stop all motors
-	motorControl.setRightMotorSpeedDirection(0, 1);
-	motorControl.setLeftMotorSpeedDirection(0, 1);
+	//motor_control.setRightMotorSpeedDirection(0,1);
+	//motor_control.setLeftMotorSpeedDirection(0,1);
+
+	//Test flag
+	cout << "End of main -------" << endl;
 
 
 
 
 	return 0;
 }
+
+
+//int main(int argc, char** argv)
+//{
+//	/************************   INITIALISE MOTOR CONTROL   ************************/
+//
+//	MotorControl motorControl;
+//
+//	/*********************************   DONE   *********************************/
+//
+//	// Wait 3 seconds for camera image to stabilise
+//	std::cout << "Waiting 3 seconds for setup...\n";
+//	usleep(3000000);
+//	std::cout << "Done. \n";
+//
+//
+//	/************************   CONTROLLER LOOP   *********************************/
+//	int run = 0;
+//	while (run < 2)
+//	{
+//		motorControl.changeMotorCommand(LEFTTURN);
+//		usleep(3000000);
+//		motorControl.changeMotorCommand(RIGHTTURN);
+//		usleep(3000000);
+//
+//		run++;
+//		std::cout << run << "\n";
+//
+//	} // End of while loop
+///*********************************   END OF CONTROLLER LOOP   *********************************/
+//
+//	// Stop all motors
+//	motorControl.setRightMotorSpeedDirection(0, 1);
+//	motorControl.setLeftMotorSpeedDirection(0, 1);
+//
+//
+//
+//
+//	return 0;
+//}

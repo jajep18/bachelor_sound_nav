@@ -8,7 +8,6 @@
  * Creation date:	13-02-2021
  */
 
-
 #include <matrix_hal/everloop.h>
 #include <matrix_hal/everloop_image.h>
 #include <matrix_hal/gpio_control.h>
@@ -18,7 +17,7 @@
 #include <ctime>
 #include <unistd.h>
 
-// GPIO via Matrix Voice
+// GPIO via Matrix Voice, placed on top of robot
 #define  TB6612_RIGHT_MOTOR_PWMA        14 // (Orange)
 #define  TB6612_LEFT_MOTOR_PWMB         8  // (Green)
 #define  TB6612_RIGHT_MOTOR_AIN1        12 // (Blue)
@@ -56,28 +55,27 @@
 #define	FORWARDSPEED	25
 #define	REVERSESPEED	20
 
-
 class MotorControl {
 private:
-	matrix_hal::MatrixIOBus bus;				// Create MatrixIOBus object for hardware communication
 	int ledCount;
+
+	matrix_hal::MatrixIOBus bus;				// Create MatrixIOBus object for hardware communication
 	matrix_hal::EverloopImage* everloop_image;	// Create EverloopImage object, with size of ledCount
 	matrix_hal::Everloop* everloop;				// Create Everloop object
 	matrix_hal::GPIOControl* gpio;				// Create GPIOControl object - General Purpose Input Output
+
 public:
 	MotorControl();
 	~MotorControl();
 
+	void initGPIOPins();									//Initializes General Purpose IO Pins
 
-	void initGPIOPins();
+	void setLeftMotorSpeedDirection(int speed, int dir);	//Controls speed and direction of left motor
+	void setRightMotorSpeedDirection(int speed, int dir);	//Controls speed and direction of left motor
+	void changeMotorCommand(int command);					//Changes motor speed and direction from commands: STOP, FORWARD, REVERSE, LEFTTURN, RIGHTTURN
 
-
-	void setLeftMotorSpeedDirection(int speed, int dir);
-	void setRightMotorSpeedDirection(int speed, int dir);
-	void changeMotorCommand(int command);
-
-	void startupShowLEDRainbow();
-	void setMatrixVoiceLED(int ledn, int r, int g, int b);
-	void resetMatrixVoiceLEDs();
+	void startupShowLEDRainbow();							//Shows rainbow of colors to test LEDs
+	void setMatrixVoiceLED(int ledn, int r, int g, int b);	//Changes LED 'n' to color from RGB value
+	void resetMatrixVoiceLEDs();							//Turns off LEDS on MatroixVoice
 };
 
