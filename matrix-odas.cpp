@@ -437,7 +437,7 @@ int main(int argc, char *argv[]) {
 
 
   while ((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
-    std::cout << "Matrix LEDs: " << bus.MatrixLeds() << std::endl;
+    //std::cout << "Matrix LEDs: " << bus.MatrixLeds() << std::endl;
 
 
     message[messageSize] = 0x00;
@@ -483,11 +483,11 @@ int main(int argc, char *argv[]) {
             currentMax = angleVec[i];
     }
     angle = currentMax;
-
+    if(angle != -1)
     std::cout << "Angle from currentMax: "<< angle<< "Angle from getAngle()" << getSoundAngle() << std::endl;
 
     /************* Behavior control ***************/
-
+/*
     switch (action) {
 
         case FORWARD :
@@ -526,11 +526,21 @@ int main(int argc, char *argv[]) {
                 action = LEFTTURN;
             break;
 
-        default :
+        case -1:
+            if (angle > 190 && angle < 360)
+                action = LEFTTURN;
+            else if(angle == 190)
+                action = FORWARD;
+
+            else if (angle < 190 && angle > 0)
+                action = RIGHTTURN;
+            break;
+
+            default :
             std::cout << "Default case, something went wrong. \n";
             break;
     }
-
+*/
     if(angle != -1)
     cout << "Direction of sound: " << angle << "\n";
 
