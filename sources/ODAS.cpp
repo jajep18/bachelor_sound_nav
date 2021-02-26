@@ -97,8 +97,14 @@ void ODAS::updateODAS() {
 			// Removing colors below the threshold
 			color = (color < MIN_THRESHOLD) ? 0 : color;
 
-			if(energy_array[index_pots] > 100)
-			std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energy_array[index_pots] << " Index pots value: "<< index_pots << std::endl;
+//			if(energy_array[index_pots] > 100)
+//			std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energy_array[index_pots] << " Index pots value: "<< index_pots << std::endl;
+
+    if(color > 0 ){
+        std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
+
+    }
+
 
 			image1d->leds[i].red = 0;
 			image1d->leds[i].green = color/4;
@@ -106,6 +112,7 @@ void ODAS::updateODAS() {
 			image1d->leds[i].white = 0;
 
 		}
+		testFlag =1;
 		everloop->Write(image1d);
 	}
 }

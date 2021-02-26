@@ -35,6 +35,7 @@ class ODAS
 {
 private:
 	double x, y, z, E;
+	int testFlag = 0;
 	int energy_array[ENERGY_COUNT];
 	const double led_angles_mvoice[18] = { 170, 150, 130, 110, 90,  70,
                                            50,  30,  10,  350, 330, 310,
