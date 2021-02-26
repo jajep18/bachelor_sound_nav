@@ -71,4 +71,7 @@ public:
 	~ODAS();
 
 	void updateODAS();
+
+	ODAS::getEnergyArray()
+	double ODAS::getSoundAngle()
 };

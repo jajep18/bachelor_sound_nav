@@ -290,6 +290,37 @@ void json_parse(json_object *jobj) {
   }
 }
 
+
+/*******/
+
+std::vector<int> getEnergyArray()
+{
+	std::vector<int> energy_vector(ENERGY_COUNT);
+	for (size_t i = 0; i < ENERGY_COUNT; i++)
+	{
+		energy_vector.push_back(energy_array[i]);
+	}
+	return energy_vector;
+}
+
+double getSoundAngle() {
+	int largest_element_index;
+	int largest_element = -1;
+	for (size_t i = 0; i < ENERGY_COUNT; i++)
+	{
+		if (energy_array[i] > largest_element)
+		{
+			largest_element = energy_array[i];
+			largest_element_index = i;
+		}
+	}
+	return (largest_element_index * 360 / ENERGY_COUNT);
+	//int index_pots = led_angle * ENERGY_COUNT / 360;
+}
+
+/******/
+
+
 int main(int argc, char *argv[]) {
 
 /*****************************************************************************
@@ -453,8 +484,10 @@ int main(int argc, char *argv[]) {
     }
     angle = currentMax;
 
+    std::cout << "Angle from currentMax: "<< angle<< "Angle from getAngle()" << getSoundAngle() << std::endl;
+
     /************* Behavior control ***************/
-/*
+
     switch (action) {
 
         case FORWARD :
@@ -503,7 +536,7 @@ int main(int argc, char *argv[]) {
 
     setRightMotorSpeedDirection(&gpio, motorR, motorRDir);
     setLeftMotorSpeedDirection(&gpio, motorL, motorLDir);
-*/
+
     everloop.Write(&image1d);
   }
 }

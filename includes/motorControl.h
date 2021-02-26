@@ -72,7 +72,7 @@ public:
 
 	void setLeftMotorSpeedDirection(int speed, int dir);	//Controls speed and direction of left motor
 	void setRightMotorSpeedDirection(int speed, int dir);	//Controls speed and direction of left motor
-	void changeMotorCommand(int command, int speed);					//Changes motor speed and direction from commands: STOP, FORWARD, REVERSE, LEFTTURN, RIGHTTURN
+	void changeMotorCommand(int command, int speedL, int speedR);					//Changes motor speed and direction from commands: STOP, FORWARD, REVERSE, LEFTTURN, RIGHTTURN
 
 	void startupShowLEDRainbow();							//Shows rainbow of colors to test LEDs
 	void setMatrixVoiceLED(int ledn, int r, int g, int b);	//Changes LED 'n' to color from RGB value
