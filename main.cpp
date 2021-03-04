@@ -79,6 +79,8 @@
 #define DECREMENT 1			// DECREMENT : controls delay in the dimming
 #define MIN_THRESHOLD 10//10	// MAX_BRIGHTNESS: Filters out low energy
 #define MAX_BRIGHTNESS 50	// MAX_BRIGHTNESS: 0 - 255
+#define ENERGY_THRESHOLD 30
+
 
 
 
@@ -88,7 +90,6 @@ using namespace std;
 
 double x, y, z, E;
 int energy_array[ENERGY_COUNT];
-int angle = -1, currentMax = -1, prevMax = -1;
 std::vector<int> angleVec;
 const double led_angles_mvoice[18] = { 170, 150, 130, 110, 90,  70,
 								  50,  30,  10,  350, 330, 310,
@@ -332,6 +333,14 @@ void updateODAS() {
 	}
 }
 
+void getSoundInformation(angle, energy) {
+	if (angle != angle_prev)
+	{
+		std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
+		prevAngle = angle;
+	}
+}
+
 
 /* Values for testing Braitenberg function */
 double test_angle = 270;
@@ -426,28 +435,25 @@ int main(int argc, char** argv)
 /*****************************************************************************
 ************************   CONTROLLER LOOP   *********************************
 *****************************************************************************/
+	int angle = -1, prevAngle = -1, currentMax = -1, prevMax = -1, energy = -1;
+
     //odas.updateODAS();
     //for(int i = 0; i < 15;i++)	{
     while(true){
 
         updateODAS();
-		//odas.updateODAS();
+		getSoundInformation(angle, energy);
 
-//		std::cout << odas.getSoundAngle() << std::endl;
-		//vision.updateCamera();
-//
-//		angle_prev = angle_current;
-//		angle_current = getODASAngle();
-//
-//		braitenberg(angle_current,&motorControl);
-//		usleep(500000);
-//
-//
-//        w_A = (abs(angle_current - 180) - abs(angle_prev - 180))/180 * S_L + (1 - S_L) * w_A;
+		if (angle != prevAngle) {
+			std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
+			prevAngle = angle;
+		}
 
+		if (energy > ENERGY_THRESHOLD)
+			braitenberg(angle, &motorControl);
+		else
+			motorControl.changeMotorCommand(STOP);
 
-
-        //motorControl.steerToAngle(getSoundAngle());
 
 	} // End of while loop
 
@@ -456,8 +462,8 @@ int main(int argc, char** argv)
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
 	// Stop all motors
-	//motor_control.setRightMotorSpeedDirection(0,1);
-	//motor_control.setLeftMotorSpeedDirection(0,1);
+	motor_control.setRightMotorSpeedDirection(0,1);
+	motor_control.setLeftMotorSpeedDirection(0,1);
 
 	//Test flag
 	std::cout << "End of main -------" << std::endl;

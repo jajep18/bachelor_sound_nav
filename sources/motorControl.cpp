@@ -140,12 +140,12 @@ void MotorControl::changeMotorCommand(int commandInput, int speedL, int speedR)
 
 }
 
-void MotorControl::steerToAngle(int angle){
+void MotorControl::steerToAngle(int angle, int speedL, int speedR){
     switch (action) {
 
         case FORWARD :
             std::cout << "Go straight! " << std::endl;
-            motorR = 25, motorL = 25; //Changed from 0 on both
+            //motorR = 25, motorL = 25; //Changed from 0 on both
 
 
             if (angle > 190 && angle < 360)
@@ -158,7 +158,7 @@ void MotorControl::steerToAngle(int angle){
 
         case LEFTTURN :
             std::cout << "Go left! \n";
-            motorR = 25, motorL = 20;
+            //motorR = 25, motorL = 20;
 
 
             if(angle == 190)
@@ -170,7 +170,7 @@ void MotorControl::steerToAngle(int angle){
 
         case RIGHTTURN :
             std::cout << "Go right! \n";
-            motorR = 20, motorL = 25;
+            //motorR = 20, motorL = 25;
 
 
             if(angle == 190)
@@ -183,7 +183,7 @@ void MotorControl::steerToAngle(int angle){
             std::cout << "Default case, something went wrong. \n";
             break;
     }
-    changeMotorCommand(action,motorL,motorR);
+	changeMotorCommand(action, motorL, motorR);
 }
 
 
