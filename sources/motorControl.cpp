@@ -108,7 +108,7 @@ void MotorControl::changeMotorCommand(int commandInput, int speedL, int speedR)
 {
 	switch (commandInput)
 	{
-	case STOP: 
+	case STOP:
 		setLeftMotorSpeedDirection(STOP, FORWARD );
 		setRightMotorSpeedDirection(STOP, FORWARD);
 		break;

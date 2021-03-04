@@ -336,6 +336,7 @@ int main(int argc, char *argv[]) {
 
         // Holds the number of LEDs on MATRIX device
         int ledCount = bus.MatrixLeds();
+        std::cout << "\n *bus.MatrixLeds " <<  bus.MatrixLeds() <<std::endl; 
         // Create EverloopImage object, with size of ledCount
         matrix_hal::EverloopImage everloop_image(ledCount);
         // Create Everloop object
@@ -395,7 +396,6 @@ int main(int argc, char *argv[]) {
   char *message;
   int messageSize;
 
-  int c;
   unsigned int portNumber = 9001;
   const unsigned int nBytes = 10240;
 

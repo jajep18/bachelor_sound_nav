@@ -17,24 +17,28 @@
 #include <matrix_hal/everloop.h>
 #include <matrix_hal/everloop_image.h>
 #include <matrix_hal/matrixio_bus.h>
+#include <matrix_hal/gpio_control.h>
+#include "matrix_hal/microphone_array.h"
 #include <netinet/in.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <array>
 #include <iostream>
 
-
 #define ENERGY_COUNT 36		// ENERGY_COUNT : Number of sound energy slots to maintain. Originally 36
 #define MAX_VALUE 200		// MAX_VALUE : controls smoothness
 #define INCREMENT 20		// INCREMENT : controls sensitivity
 #define DECREMENT 1			// DECREMENT : controls delay in the dimming
-#define MIN_THRESHOLD 8//10	// MAX_BRIGHTNESS: Filters out low energy
-#define MAX_BRIGHTNESS 50	// MAX_BRIGHTNESS: 0 - 255
+#define MIN_THRESHOLD 10	// MAX_BRIGHTNESS: Filters out low energy
+#define MAX_BRIGHTNESS 25	// MAX_BRIGHTNESS: 0 - 255
 
 class ODAS
 {
 private:
+
 	double x, y, z, E;
+    int angle = -1, currentMax = -1, prevMax = -1;
+	std::vector<int> angleVec;
 	int testFlag = 0;
 	int energy_array[ENERGY_COUNT];
 	const double led_angles_mvoice[18] = { 170, 150, 130, 110, 90,  70,
@@ -49,6 +53,8 @@ private:
 	matrix_hal::MatrixIOBus bus;				// Create MatrixIOBus object for hardware communication
 	matrix_hal::EverloopImage* image1d;			// Create EverloopImage object "image1d", with size of ledCount
 	matrix_hal::Everloop* everloop;				// Create Everloop object
+
+
 
 	//Connection variables
 	char verbose = 0x00;
@@ -67,11 +73,13 @@ private:
 	void json_parse(json_object* jobj);
 	void json_parse_array(json_object* jobj, char* key);
 public:
+
 	ODAS();
 	~ODAS();
 
 	void updateODAS();
 
-	ODAS::getEnergyArray()
-	double ODAS::getSoundAngle()
+	std::vector<int> getEnergyArray();
+	double getSoundAngle();
 };
+
