@@ -312,29 +312,29 @@ void updateODAS() {
 			image1d->leds[i].blue = color;//color;
 			image1d->leds[i].white = 0;
 
-            if(color > MIN_THRESHOLD)
-                angleVec[i] = led_angle;
-            else
-                angleVec[i] = -1;
+//            if(color > MIN_THRESHOLD)
+//                angleVec[i] = led_angle;
+//            else
+//                angleVec[i] = -1;
         }
 
-    currentMax = -1;
-    for(unsigned int i = 0; i < angleVec.size() ; i++){
-        if( currentMax < angleVec[i] )
-            currentMax = angleVec[i];
-    }
+//    currentMax = -1;
+//    for(unsigned int i = 0; i < angleVec.size() ; i++){
+//        if( currentMax < angleVec[i] )
+//            currentMax = angleVec[i];
+//    }
 
-    if(currentMax != -1 && getSoundAngle() > 0 && currentMax != prevMax){
-        prevMax = angle;
-        angle = currentMax;
-        //std::cout << "Angle from currentMax: "<< angle<< ", Angle from getAngle(): " << getSoundAngle() << std::endl;
-    }
+//    if(currentMax != -1 && getSoundAngle() > 0 && currentMax != prevMax){
+//        prevMax = angle;
+//        angle = currentMax;
+//        //std::cout << "Angle from currentMax: "<< angle<< ", Angle from getAngle(): " << getSoundAngle() << std::endl;
+//    }
 		everloop->Write(image1d);
 	}
 }
 
-void getSoundInformation(angle, energy) {
-	if (angle != angle_prev)
+void getSoundInformation(int &angle,int &energy) {
+	if (angle != prevAngle)
 	{
 		std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
 		prevAngle = angle;
@@ -462,8 +462,8 @@ int main(int argc, char** argv)
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
 	// Stop all motors
-	motor_control.setRightMotorSpeedDirection(0,1);
-	motor_control.setLeftMotorSpeedDirection(0,1);
+	motorControl.setRightMotorSpeedDirection(0,1);
+	motorControl.setLeftMotorSpeedDirection(0,1);
 
 	//Test flag
 	std::cout << "End of main -------" << std::endl;
