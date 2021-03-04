@@ -77,7 +77,7 @@
 #define MAX_VALUE 200		// MAX_VALUE : controls smoothness
 #define INCREMENT 20		// INCREMENT : controls sensitivity
 #define DECREMENT 1			// DECREMENT : controls delay in the dimming
-#define MIN_THRESHOLD 8//10	// MAX_BRIGHTNESS: Filters out low energy
+#define MIN_THRESHOLD 10//10	// MAX_BRIGHTNESS: Filters out low energy
 #define MAX_BRIGHTNESS 50	// MAX_BRIGHTNESS: 0 - 255
 
 
@@ -285,7 +285,8 @@ double getSoundAngle() {
 }
 
 void updateODAS() {
-	while ((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
+	//while ((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
+	if((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
 		message[messageSize] = 0x00;
 
 		// printf("message: %s\n\n", message);
@@ -325,7 +326,7 @@ void updateODAS() {
     if(currentMax != -1 && getSoundAngle() > 0 && currentMax != prevMax){
         prevMax = angle;
         angle = currentMax;
-        std::cout << "Angle from currentMax: "<< angle<< ", Angle from getAngle(): " << getSoundAngle() << std::endl;
+        //std::cout << "Angle from currentMax: "<< angle<< ", Angle from getAngle(): " << getSoundAngle() << std::endl;
     }
 		everloop->Write(image1d);
 	}
@@ -445,6 +446,8 @@ int main(int argc, char** argv)
 //        w_A = (abs(angle_current - 180) - abs(angle_prev - 180))/180 * S_L + (1 - S_L) * w_A;
 
 
+
+        //motorControl.steerToAngle(getSoundAngle());
 
 	} // End of while loop
 

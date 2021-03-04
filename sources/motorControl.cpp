@@ -140,6 +140,52 @@ void MotorControl::changeMotorCommand(int commandInput, int speedL, int speedR)
 
 }
 
+void MotorControl::steerToAngle(int angle){
+    switch (action) {
+
+        case FORWARD :
+            std::cout << "Go straight! " << std::endl;
+            motorR = 25, motorL = 25; //Changed from 0 on both
+
+
+            if (angle > 190 && angle < 360)
+                action = LEFTTURN;
+
+            else if (angle < 190 && angle > 0)
+                action = RIGHTTURN;
+
+            break;
+
+        case LEFTTURN :
+            std::cout << "Go left! \n";
+            motorR = 25, motorL = 20;
+
+
+            if(angle == 190)
+                action = FORWARD;
+            else if (angle < 190 && angle > 0)
+                action = RIGHTTURN;
+
+            break;
+
+        case RIGHTTURN :
+            std::cout << "Go right! \n";
+            motorR = 20, motorL = 25;
+
+
+            if(angle == 190)
+                action = FORWARD;
+            else if (angle > 190 && angle < 360)
+                action = LEFTTURN;
+            break;
+
+        default :
+            std::cout << "Default case, something went wrong. \n";
+            break;
+    }
+    changeMotorCommand(action,motorL,motorR);
+}
+
 
 
 // Display a rainbow animation on the Matrix Voice LEDs
