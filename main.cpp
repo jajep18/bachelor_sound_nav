@@ -89,7 +89,7 @@ using namespace std;
 //using namespace cv;
 
 double x, y, z, E;
-int energy_array[ENERGY_COUNT];
+int energyArray[ENERGY_COUNT];
 std::vector<int> angleVec;
 const double led_angles_mvoice[18] = { 170, 150, 130, 110, 90,  70,
 								  50,  30,  10,  350, 330, 310,
@@ -121,15 +121,15 @@ void increase_pots() {
 	//int i_angle = d_angle;
 	int i_angle = (angle_xy / 360 * ENERGY_COUNT);  // convert degrees to index
 	// Set energy for this angle
-	energy_array[i_angle] += INCREMENT * E;
+	energyArray[i_angle] += INCREMENT * E;
 	// Set limit at MAX_VALUE
-	energy_array[i_angle] =
-		energy_array[i_angle] > MAX_VALUE ? MAX_VALUE : energy_array[i_angle];
+	energyArray[i_angle] =
+		energyArray[i_angle] > MAX_VALUE ? MAX_VALUE : energyArray[i_angle];
 }
 
 void decrease_pots() {
 	for (int i = 0; i < ENERGY_COUNT; i++) {
-		energy_array[i] -= (energy_array[i] > 0) ? DECREMENT : 0;
+		energyArray[i] -= (energyArray[i] > 0) ? DECREMENT : 0;
 	}
 }
 
@@ -303,7 +303,7 @@ void updateODAS() {
 			// Convert from angle to pots index
 			int index_pots = led_angle * ENERGY_COUNT / 360;
 			// Mapping from pots values to color
-			int color = energy_array[index_pots] * MAX_BRIGHTNESS / MAX_VALUE;
+			int color = energyArray[index_pots] * MAX_BRIGHTNESS / MAX_VALUE;
 			// Removing colors below the threshold
 			color = (color < MIN_THRESHOLD) ? 0 : color;
 
@@ -333,14 +333,24 @@ void updateODAS() {
 	}
 }
 
-void getSoundInformation(int &angle,int &energy) {
-	if (angle != prevAngle)
+
+void getSoundInformation(int& angle, int& energy) {
+	int largestElementIndex;
+	int largestElement = -1;
+	for (size_t i = 0; i < ENERGY_COUNT; i++)
 	{
-		std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
-		prevAngle = angle;
+		if (energyArray[i] > largestElement)
+		{
+			largestElement = energyArray[i];
+			largestElementIndex = i;
+		}
+	}
+	if (largestElement != -1)
+	{
+		angle = (largestElementIndex * 360 / ENERGY_COUNT);
+		energy = largestElement;
 	}
 }
-
 
 /* Values for testing Braitenberg function */
 double test_angle = 270;
