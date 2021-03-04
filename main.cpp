@@ -271,19 +271,19 @@ void setupOdas() {
 	printf("Receiving data........... \n\n");
 }
 
-double getSoundAngle() {
-	int largest_element_index;
-	int largest_element = -1;
-	for (size_t i = 0; i < ENERGY_COUNT; i++)
-	{
-		if (energy_array[i] > largest_element)
-		{
-			largest_element = energy_array[i];
-			largest_element_index = i;
-		}
-	}
-	return (largest_element_index * 360 / ENERGY_COUNT);
-}
+//double getSoundAngle() {
+//	int largest_element_index;
+//	int largest_element = -1;
+//	for (size_t i = 0; i < ENERGY_COUNT; i++)
+//	{
+//		if (energy_array[i] > largest_element)
+//		{
+//			largest_element = energy_array[i];
+//			largest_element_index = i;
+//		}
+//	}
+//	return (largest_element_index * 360 / ENERGY_COUNT);
+//}
 
 void updateODAS() {
 	//while ((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
@@ -445,7 +445,7 @@ int main(int argc, char** argv)
 /*****************************************************************************
 ************************   CONTROLLER LOOP   *********************************
 *****************************************************************************/
-	int angle = -1, prevAngle = -1, currentMax = -1, prevMax = -1, energy = -1;
+	int angle = -1, prevAngle = -1, energy = -1;
 
     //odas.updateODAS();
     //for(int i = 0; i < 15;i++)	{
