@@ -59,23 +59,21 @@
 
 #define REFLEX_THRESHOLD	80
 #define AVOIDANCE_THRESHOLD	65
-#define VELOCITY_OFFSET		12
+#define VELOCITY_OFFSET		0
 
 #include <matrix_hal/everloop.h>
 #include <matrix_hal/everloop_image.h>
 #include <matrix_hal/gpio_control.h>
 #include <matrix_hal/matrixio_bus.h>
 
-#define REFLEX_THRESHOLD	80
-#define AVOIDANCE_THRESHOLD	65
-#define VELOCITY_OFFSET		12
 
 
 double activationFunction(double input) {
-	return 50 / (1 + exp(-input));
+    return 30* std::tanh(3*input);
+	//return 50 / (1 + exp(-input));
 }
 
-void braitenberg(double angle, MotorControl * _motorControl) { //Braitenberg aggression vehicle
+void braitenberg(double angle, MotorControl * motorControl_) { //Braitenberg aggression vehicle
 //	if (angle < 180) { //Object is on RIGHT side
 //		_motorControl->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
 //	}
@@ -92,16 +90,21 @@ void braitenberg(double angle, MotorControl * _motorControl) { //Braitenberg agg
 
 	int motorCommand = 0;
 
-	if (motorSpeedL > motorSpeedR)
-		motorCommand = RIGHTTURN
+	if (motorSpeedL - 1 == motorSpeedR || motorSpeedR - 1 == motorSpeedL){
+        motorCommand = FORWARD;
+        motorSpeedL = 20;
+        motorSpeedR = 20;
+    }
+	else if (motorSpeedL > motorSpeedR)
+		motorCommand = RIGHTTURN;
 	else if (motorSpeedL < motorSpeedR)
 		motorCommand = LEFTTURN;
 	else
-		motorCommand = FORWARD;
+		motorCommand = STOP;
 
-    std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
+    //std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
-    _motorControl->changeMotorCommand(motorCommand,motorSpeedL,motorSpeedR);
+    motorControl_->changeMotorCommand(motorCommand,motorSpeedL,motorSpeedR);
 }
 
 

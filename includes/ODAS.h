@@ -31,7 +31,7 @@
 #define DECREMENT 1			// DECREMENT : controls delay in the dimming
 #define MIN_THRESHOLD 10	// MAX_BRIGHTNESS: Filters out low energy
 #define MAX_BRIGHTNESS 25	// MAX_BRIGHTNESS: 0 - 255
-#define ENERGY_THRESHOLD 30
+#define ENERGY_THRESHOLD 50
 
 class ODAS
 {
