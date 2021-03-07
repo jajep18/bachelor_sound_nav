@@ -1,29 +1,33 @@
 #include "../includes/motorControl.h"
 
 //Constructor
-MotorControl::MotorControl() {
+MotorControl::MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_, matrix_hal::GPIOControl* gpio_){
 	/*********   INITIALISE MATRIX VOICE DEVICE   **********************/
 
 
-	if (!bus.Init())
-		throw("Bus Init failed");										// Initialize bus and exit program if error occurs
+	//if (!bus.Init())
+	//	throw("Bus Init failed");										// Initialize bus and exit program if error occurs
 
-	std::cout << "Bus Init successful..." << std::endl;
-
-
-	ledCount = bus.MatrixLeds();										// Holds the number of LEDs on MATRIX device
-
-	everloop_image = new matrix_hal::EverloopImage(ledCount);			// Create EverloopImage object, with size of ledCount
+	//std::cout << "Bus Init successful..." << std::endl;
 
 
-	everloop = new matrix_hal::Everloop;								// Create Everloop object
+	//ledCount = bus.MatrixLeds();										// Holds the number of LEDs on MATRIX device
 
-	everloop->Setup(&bus);												// Set everloop to use MatrixIOBus bus
+	//everloop_image = new matrix_hal::EverloopImage(ledCount);			// Create EverloopImage object, with size of ledCount
 
-	gpio = new matrix_hal::GPIOControl;									// Create GPIOControl object - General Purpose Input Output
 
-	gpio->Setup(&bus);													// Set gpio to use MatrixIOBus bus
+	//everloop = new matrix_hal::Everloop;								// Create Everloop object
 
+	//everloop->Setup(&bus);												// Set everloop to use MatrixIOBus bus
+
+	//gpio = new matrix_hal::GPIOControl;									// Create GPIOControl object - General Purpose Input Output
+
+	//gpio->Setup(&bus);													// Set gpio to use MatrixIOBus bus
+
+	bus = bus_;
+	everloop = everloop_;
+	image1d = image1d_;
+	gpio = gpio_;
 
 	startupShowLEDRainbow();											// Display rainbow animation
 

@@ -76,7 +76,7 @@ private:
 	void json_parse_array(json_object* jobj, char* key);
 public:
 
-	ODAS();
+	ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_);
 	~ODAS();
 
 	void updateODAS();

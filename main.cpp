@@ -68,11 +68,10 @@
 
 #define REFLEX_THRESHOLD	80
 #define AVOIDANCE_THRESHOLD	65
-
 #define VELOCITY_OFFSET		12
 
 
-double activation(double input) {
+double activationFunction(double input) {
 	return 50 / (1 + exp(-input));
 }
 
@@ -120,12 +119,22 @@ void navigationICO(double angle, MotorControl * motor_control, double w_A) {
 int main(int argc, char** argv)
 {
 	/*****************************************************************************
-	************************   INITIALISE CLASSES   ************************
+	************************   INITIALISE MATRIXIO  ************************
+	*****************************************************************************/
+	matrix_hal::MatrixIOBus bus;									// Create MatrixIOBus object for hardware communication
+	if (!bus.Init())												// Set gpio to use MatrixIOBus bus
+		throw("Bus Init failed");
+	matrix_hal::EverloopImage everloop_image(bus.MatrixLeds());		// Create EverloopImage object "image1d", with size of ledCount
+	matrix_hal::Everloop everloop;									// Create Everloop object
+	everloop.Setup(&bus);											// Set everloop to use MatrixIOBus bus
+	matrix_hal::GPIOControl gpio;									// Create GPIOControl object - General Purpose Input Output
+	gpio.Setup(&bus);
+	/*****************************************************************************
+	************************   INITIALISE CLASSES  ************************
 	*****************************************************************************/
 
-	MotorControl motorControl;
-	motorControl.changeMotorCommand(STOP); //Stops all motors
-	ODAS soundLocalization;
+	ODAS odas = ODAS(&bus, &everloop, &everloop_image);				
+	MotorControl motor_control = MotorControl(&bus, &everloop, &everloop_image, &gpio);
 	//Vision vision;
 
 	// Wait 3 seconds for camera image to stabilise

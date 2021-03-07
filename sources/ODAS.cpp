@@ -102,25 +102,27 @@ void ODAS::json_parse(json_object* jobj)
 	}
 }
 
-ODAS::ODAS() {
+ODAS::ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_) {
 
-	// Everloop Initialization
-	// Initialize bus and exit program if error occurs
-	if (!bus.Init())
-		throw("Bus Init failed");
-
-// Holds the number of LEDs on MATRIX device
-	ledCount = bus.MatrixLeds();
-	//std::cout << "\n bus.MatrixLeds: " <<  bus.MatrixLeds() <<std::endl;
-	// Create EverloopImage object, with size of ledCount
-	image1d = new matrix_hal::EverloopImage(ledCount);
-
-	// Create Everloop object
-	everloop = new matrix_hal::Everloop;
-	// Set everloop to use MatrixIOBus bus
-	everloop->Setup(&bus);
+//	// Everloop Initialization
+//	// Initialize bus and exit program if error occurs
+//	if (!bus.Init())
+//		throw("Bus Init failed");
+//
+//// Holds the number of LEDs on MATRIX device
+//	ledCount = bus.MatrixLeds();
+//	//std::cout << "\n bus.MatrixLeds: " <<  bus.MatrixLeds() <<std::endl;
+//	// Create EverloopImage object, with size of ledCount
+//	image1d = new matrix_hal::EverloopImage(ledCount);
+//
+//	// Create Everloop object
+//	everloop = new matrix_hal::Everloop;
+//	// Set everloop to use MatrixIOBus bus
+//	everloop->Setup(&bus);
 /******************************************/
-
+	bus = bus_;
+	everloop = everloop_;
+	image1d = image1d_;
 /******************************************/
 	 //Clear all LEDs
 	for (matrix_hal::LedValue& led : image1d->leds) {
@@ -180,7 +182,7 @@ void ODAS::updateODAS() {
 			json_object* jobj = json_tokener_parse(message);
 			json_parse(jobj);
 
-			for (int i = 0; i < bus.MatrixLeds(); i++) {
+			for (int i = 0; i < bus->MatrixLeds(); i++) {
 
 				int led_angle = led_angles_mvoice[i];								//Define angle for `
 				int index_pots = led_angle * ENERGY_COUNT / 360;					// Convert from angle to pots index
