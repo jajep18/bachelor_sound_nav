@@ -186,13 +186,13 @@ void ODAS::updateODAS() {
 				int index_pots = led_angle * ENERGY_COUNT / 360;					// Convert from angle to pots index
 				int color = energyArray[index_pots] * MAX_BRIGHTNESS / MAX_VALUE; 	// Mapping from pots values to color+
 				color = (color < MIN_THRESHOLD) ? 0 : color; 						// Removing colors below the threshold
-		
 
-				if(energyArray[index_pots] > 100)
-				std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energyArray[index_pots] << " Index pots value: "<< index_pots << std::endl;
 
-				if(color > 0)
-				std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
+//				if(energyArray[index_pots] > 100)
+//				std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energyArray[index_pots] << " Index pots value: "<< index_pots << std::endl;
+//
+//				if(color > 0)
+//				std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
 
 				image1d->leds[i].red = 0;
 				image1d->leds[i].green = color/2;
@@ -253,8 +253,8 @@ void ODAS::updateSoundInformation() {
 	}
 
 	if (angle != prevAngle) {
-		std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
-		anglePrev = angle
+		//std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
+		prevAngle = angle;
 	}
 }
 

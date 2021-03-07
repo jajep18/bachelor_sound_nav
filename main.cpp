@@ -77,19 +77,16 @@ double activation(double input) {
 }
 
 void braitenberg(double angle, MotorControl * _motorControl) { //Braitenberg aggression vehicle
-	if (angle < 180) { //Object is on RIGHT side
-		_motorControl->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
-	}
-	else { // angle >= 180 //object is on LEFT side
-		_motorControl->setMatrixVoiceLED(MATRIX_LED_L_9, 0, MAX_BRIGHTNESS, 0);
-	}
+//	if (angle < 180) { //Object is on RIGHT side
+//		_motorControl->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
+//	}
+//	else { // angle >= 180 //object is on LEFT side
+//		_motorControl->setMatrixVoiceLED(MATRIX_LED_L_9, 0, MAX_BRIGHTNESS, 0);
+//	}
 
 	// Update sensor signals
 	double angleL = (((360 - angle) - 180) / 180); // Normalize
 	double angleR = (angle-180) / 180; // Normalize
-
-//	motorControl->setRightMotorSpeedDirection(activation(angleR) + VELOCITY_OFFSET, 1);
-//	motorControl->setLeftMotorSpeedDirection(activation(angleL) + VELOCITY_OFFSET, 1);
 
     int motorSpeedL = activation(angleL) + VELOCITY_OFFSET;
     int motorSpeedR = activation(angleR) + VELOCITY_OFFSET;
@@ -101,12 +98,12 @@ void braitenberg(double angle, MotorControl * _motorControl) { //Braitenberg agg
 
 
 void navigationICO(double angle, MotorControl * motor_control, double w_A) {
-	if (angle < 180) { //Object is on RIGHT side
-		motor_control->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
-	}
-	else { // angle >= 180 //object is on LEFT side
-		motor_control->setMatrixVoiceLED(MATRIX_LED_L_9, 0, MAX_BRIGHTNESS, 0);
-	}
+//	if (angle < 180) { //Object is on RIGHT side
+//		motor_control->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
+//	}
+//	else { // angle >= 180 //object is on LEFT side
+//		motor_control->setMatrixVoiceLED(MATRIX_LED_L_9, 0, MAX_BRIGHTNESS, 0);
+//	}
 
 	// Update sensor signals
 	double angleL = (((360 - angle) - 180) / 180); // Normalize
@@ -147,7 +144,7 @@ int main(int argc, char** argv)
 *****************************************************************************/
 
 
-    while(true){
+    for(int i = 0; i < 4000 ; i++){
 
         soundLocalization.updateODAS();
 

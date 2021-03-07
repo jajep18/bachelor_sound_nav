@@ -39,7 +39,7 @@ private:
 
 	double x, y, z, E;
     int angle = -1, currentMax = -1, prevMax = -1, currentMaxIndex;
-    int angle = -1, prevAngle = -1, energy = -1;
+    int prevAngle = -1, energy = -1;
 	std::vector<int> angleVec;
 	int testFlag = 0;
 	int energyArray[ENERGY_COUNT] = { 0 };
