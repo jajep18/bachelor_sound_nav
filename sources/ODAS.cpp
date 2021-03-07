@@ -172,68 +172,39 @@ ODAS::~ODAS() {}
 
 void ODAS::updateODAS() {
 
-//    for(int i = 0; i< bus.MatrixLeds(); i++){
-//            image1d->leds[i].red = 30;
-//			image1d->leds[i].green = 0;
-//			image1d->leds[i].blue = 0;
-//			image1d->leds[i].white = 0;
-//            everloop->Write(image1d);
-//            std::this_thread::sleep_for(std::chrono::milliseconds(20));
-//    }
+	if((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
 
+			message[messageSize] = 0x00;
 
-if((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
+			//printf("message: %s\n\n", message);
+			json_object* jobj = json_tokener_parse(message);
+			json_parse(jobj);
 
-		message[messageSize] = 0x00;
+			for (int i = 0; i < bus.MatrixLeds(); i++) {
 
-		//printf("message: %s\n\n", message);
-		json_object* jobj = json_tokener_parse(message);
-		json_parse(jobj);
+				int led_angle = led_angles_mvoice[i];								//Define angle for `
+				int index_pots = led_angle * ENERGY_COUNT / 360;					// Convert from angle to pots index
+				int color = energyArray[index_pots] * MAX_BRIGHTNESS / MAX_VALUE; 	// Mapping from pots values to color+
+				color = (color < MIN_THRESHOLD) ? 0 : color; 						// Removing colors below the threshold
+		
 
-		for (int i = 0; i < bus.MatrixLeds(); i++) {
+				if(energyArray[index_pots] > 100)
+				std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energyArray[index_pots] << " Index pots value: "<< index_pots << std::endl;
 
-			int led_angle = led_angles_mvoice[i];
-			//std::cout << "Led Angle: "<<led_angle <<std::endl;
+				if(color > 0)
+				std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
 
-			// Convert from angle to pots index
-			int index_pots = led_angle * ENERGY_COUNT / 360;
-			// Mapping from pots values to color+
-			int color = energyArray[index_pots] * MAX_BRIGHTNESS / MAX_VALUE;
-			// Removing colors below the threshold
-			color = (color < MIN_THRESHOLD) ? 0 : color;
-			//std::cout<< "LED angle: " << led_angle << " Index pots "<< index_pots << " Color " <<color << std::endl;
+				image1d->leds[i].red = 0;
+				image1d->leds[i].green = color/2;
+				image1d->leds[i].blue = 0;
+				image1d->leds[i].white = 0;
 
-			if(energyArray[index_pots] > 100)
-			std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energyArray[index_pots] << " Index pots value: "<< index_pots << std::endl;
+			}
 
-            if(color > 0)
-            std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
+			everloop->Write(image1d); //Writes to LEDs
 
-			image1d->leds[i].red = 0;
-			image1d->leds[i].green = color/2;
-			image1d->leds[i].blue = 0;
-			image1d->leds[i].white = 0;
-
-            if(color > MIN_THRESHOLD)
-                angleVec[i] = led_angle;
-            else
-                angleVec[i] = -1;
-        }
-
-//    currentMax = -1;
-//    for(unsigned int i = 0; i < angleVec.size() ; i++){
-//        if( currentMax < angleVec[i] )
-//            currentMax = angleVec[i];
-//    }
-
-//    if(currentMax != -1 && getSoundAngle() > 0 && currentMax != prevMax){
-//        prevMax = angle;
-//        angle = currentMax;
-//        std::cout << "Angle from currentMax: "<< angle<< ", Angle from getAngle(): " << getSoundAngle() << std::endl;
-//    }
-        getSoundInformation(angle, energy)
-		everloop->Write(image1d);
-	}
+			updateSoundInformation(); //Updates sound angle and energy
+		}
 
 }
 
@@ -264,7 +235,7 @@ double ODAS::getSoundAngle() {
 	//int index_pots = led_angle * ENERGY_COUNT / 360;
 }
 
-void ODAS::updateSoundInformation(int& angle, int& energy) {
+void ODAS::updateSoundInformation() {
 	int largestElementIndex;
 	int largestElement = -1;
 	for (size_t i = 0; i < ENERGY_COUNT; i++)
@@ -280,15 +251,21 @@ void ODAS::updateSoundInformation(int& angle, int& energy) {
 		angle = (largestElementIndex * 360 / ENERGY_COUNT);
 		energy = largestElement;
 	}
+
+	if (angle != prevAngle) {
+		std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
+		anglePrev = angle
+	}
 }
 
 
-	int ODAS::getAngle(){
-	}
-    int ODAS::getEnergy(){
-    }
-    int ODAS::getPrevAngle(){
-    }
+int ODAS::getAngle() {
+	return angle;
+}
+
+int ODAS::getEnergy() {
+	return energy;
+}
 
 
 

@@ -123,17 +123,13 @@ void navigationICO(double angle, MotorControl * motor_control, double w_A) {
 int main(int argc, char** argv)
 {
 	/*****************************************************************************
-	************************   INITIALISE MOTOR CONTROL   ************************
+	************************   INITIALISE CLASSES   ************************
 	*****************************************************************************/
 
 	MotorControl motorControl;
-	//setupOdas();
-	ODAS odas;
+	motorControl.changeMotorCommand(STOP); //Stops all motors
+	ODAS soundLocalization;
 	//Vision vision;
-
-	motorControl.changeMotorCommand(STOP);
-/*********************************   DONE   *********************************/
-
 
 	// Wait 3 seconds for camera image to stabilise
 	//cout << "Waiting for camera to stabilise...";
@@ -153,16 +149,10 @@ int main(int argc, char** argv)
 
     while(true){
 
-        odas.updateODAS();
-		odas.getSoundInformation(angle, energy);
+        soundLocalization.updateODAS();
 
-		if (angle != prevAngle) {
-			std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
-			prevAngle = angle;
-		}
-
-		if (energy > ENERGY_THRESHOLD)
-			braitenberg(angle, &motorControl);
+		if (soundLocalization.getEnergy() > ENERGY_THRESHOLD)
+			braitenberg(soundLocalization.getAngle(), &motorControl);
 		else
 			motorControl.changeMotorCommand(STOP);
 

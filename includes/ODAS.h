@@ -38,7 +38,7 @@ class ODAS
 private:
 
 	double x, y, z, E;
-    int angle = -1, currentMax = -1, prevMax = -1;
+    int angle = -1, currentMax = -1, prevMax = -1, currentMaxIndex;
     int angle = -1, prevAngle = -1, energy = -1;
 	std::vector<int> angleVec;
 	int testFlag = 0;
@@ -84,10 +84,10 @@ public:
 	std::vector<int> getEnergyArray();
 	double getSoundAngle();
 
-	void updateSoundInformation(int& angle, int& energy);
+	void updateSoundInformation();
 
 	int getAngle();
     int getEnergy();
-    int getPrevAngle();
+
 };
 
