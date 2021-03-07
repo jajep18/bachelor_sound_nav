@@ -184,8 +184,6 @@ void ODAS::updateODAS() {
 
 while((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
 
-
-
 		message[messageSize] = 0x00;
 
 		//printf("message: %s\n\n", message);
@@ -210,7 +208,6 @@ while((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
 
             if(color > 0)
             std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
-
 
 			image1d->leds[i].red = 0;
 			image1d->leds[i].green = color/2;

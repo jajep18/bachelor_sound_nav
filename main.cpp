@@ -469,6 +469,7 @@ int main(int argc, char** argv)
 
 	motorControl.changeMotorCommand(STOP);
 	motorControl.resetMatrixVoiceLEDs();
+
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
 	// Stop all motors
@@ -477,9 +478,6 @@ int main(int argc, char** argv)
 
 	//Test flag
 	std::cout << "End of main -------" << std::endl;
-
-
-
 
 	return 0;
 }

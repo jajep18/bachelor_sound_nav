@@ -40,7 +40,7 @@ private:
     int angle = -1, currentMax = -1, prevMax = -1;
 	std::vector<int> angleVec;
 	int testFlag = 0;
-	int energy_array[ENERGY_COUNT];
+	int energy_array[ENERGY_COUNT] = { 0 };
 	const double led_angles_mvoice[18] = { 170, 150, 130, 110, 90,  70,
                                            50,  30,  10,  350, 330, 310,
                                            290, 270, 250, 230, 210, 190 }; //LED angles for MATRIX Voice
