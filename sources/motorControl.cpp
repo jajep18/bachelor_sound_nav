@@ -74,13 +74,13 @@ void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN2, 0);
 	}
 
-	// Set motor speed via PWM signal (min. = 0, max. = 100)
-	if (speed > 100)
-		speed = 100;
-	if (speed < 0)
-		speed = 0;
+	//// Set motor speed via PWM signal (min. = 0, max. = 100)
+	//if (speed > 100)
+	//	speed = 100;
+	//if (speed < 0)
+	//	speed = 0;
 
-	gpio->SetPWM(1000, speed, TB6612_LEFT_MOTOR_PWMB);
+	gpio->SetPWM(1000, abs(speed), TB6612_LEFT_MOTOR_PWMB);
 }
 
 // Set speed and direction of RIGHT motor
@@ -99,13 +99,13 @@ void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN2, 0);
 	}
 
-	// Set motor speed via PWM signal (min. = 0, max. = 100)
-	if (speed > 100)
-		speed = 100;
-	if (speed < 0)
-		speed = 0;
+	//// Set motor speed via PWM signal (min. = 0, max. = 100)
+	//if (speed > 100)
+	//	speed = 100;
+	//if (speed < 0)
+	//	speed = 0;
 
-	gpio->SetPWM(1000, speed, TB6612_RIGHT_MOTOR_PWMA);
+	gpio->SetPWM(1000, abs(speed), TB6612_RIGHT_MOTOR_PWMA);
 }
 
 void MotorControl::changeMotorCommand(int commandInput, int speedL, int speedR)

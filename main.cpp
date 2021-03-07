@@ -90,9 +90,18 @@ void braitenberg(double angle, MotorControl * _motorControl) { //Braitenberg agg
     int motorSpeedL = activationFunction(angleL) + VELOCITY_OFFSET;
     int motorSpeedR = activationFunction(angleR) + VELOCITY_OFFSET;
 
+	int motorCommand = 0;
+
+	if (motorSpeedL > motorSpeedR)
+		motorCommand = RIGHTTURN
+	else if (motorSpeedL < motorSpeedR)
+		motorCommand = LEFTTURN;
+	else
+		motorCommand = FORWARD;
+
     std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
-    _motorControl->changeMotorCommand(FORWARD,motorSpeedL,motorSpeedR);
+    _motorControl->changeMotorCommand(motorCommand,motorSpeedL,motorSpeedR);
 }
 
 
