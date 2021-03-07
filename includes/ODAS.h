@@ -31,6 +31,7 @@
 #define DECREMENT 1			// DECREMENT : controls delay in the dimming
 #define MIN_THRESHOLD 10	// MAX_BRIGHTNESS: Filters out low energy
 #define MAX_BRIGHTNESS 25	// MAX_BRIGHTNESS: 0 - 255
+#define ENERGY_THRESHOLD 30
 
 class ODAS
 {
@@ -38,9 +39,10 @@ private:
 
 	double x, y, z, E;
     int angle = -1, currentMax = -1, prevMax = -1;
+    int angle = -1, prevAngle = -1, energy = -1;
 	std::vector<int> angleVec;
 	int testFlag = 0;
-	int energy_array[ENERGY_COUNT] = { 0 };
+	int energyArray[ENERGY_COUNT] = { 0 };
 	const double led_angles_mvoice[18] = { 170, 150, 130, 110, 90,  70,
                                            50,  30,  10,  350, 330, 310,
                                            290, 270, 250, 230, 210, 190 }; //LED angles for MATRIX Voice
@@ -81,5 +83,11 @@ public:
 
 	std::vector<int> getEnergyArray();
 	double getSoundAngle();
+
+	void updateSoundInformation(int& angle, int& energy);
+
+	int getAngle();
+    int getEnergy();
+    int getPrevAngle();
 };
 

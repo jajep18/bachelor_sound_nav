@@ -11,15 +11,15 @@ void ODAS::increase_pots() {
 	int i_angle = d_angle;
 	//std::cout << "i_angle & d_anle: " << i_angle << d_angle <<std::endl;
 	// Set energy for this angle
-	energy_array[i_angle] += INCREMENT * E;
+	energyArray[i_angle] += INCREMENT * E;
 	// Set limit at MAX_VALUE
-	energy_array[i_angle] =
-		energy_array[i_angle] > MAX_VALUE ? MAX_VALUE : energy_array[i_angle];
+	energyArray[i_angle] =
+		energyArray[i_angle] > MAX_VALUE ? MAX_VALUE : energyArray[i_angle];
 }
 
 void ODAS::decrease_pots() {
 	for (int i = 0; i < ENERGY_COUNT; i++) {
-		energy_array[i] -= (energy_array[i] > 0) ? DECREMENT : 0;
+		energyArray[i] -= (energyArray[i] > 0) ? DECREMENT : 0;
 	}
 }
 
@@ -182,7 +182,7 @@ void ODAS::updateODAS() {
 //    }
 
 
-while((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
+if((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
 
 		message[messageSize] = 0x00;
 
@@ -198,13 +198,13 @@ while((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
 			// Convert from angle to pots index
 			int index_pots = led_angle * ENERGY_COUNT / 360;
 			// Mapping from pots values to color+
-			int color = energy_array[index_pots] * MAX_BRIGHTNESS / MAX_VALUE;
+			int color = energyArray[index_pots] * MAX_BRIGHTNESS / MAX_VALUE;
 			// Removing colors below the threshold
 			color = (color < MIN_THRESHOLD) ? 0 : color;
 			//std::cout<< "LED angle: " << led_angle << " Index pots "<< index_pots << " Color " <<color << std::endl;
 
-			if(energy_array[index_pots] > 100)
-			std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energy_array[index_pots] << " Index pots value: "<< index_pots << std::endl;
+			if(energyArray[index_pots] > 100)
+			std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energyArray[index_pots] << " Index pots value: "<< index_pots << std::endl;
 
             if(color > 0)
             std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
@@ -220,18 +220,18 @@ while((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
                 angleVec[i] = -1;
         }
 
-    currentMax = -1;
-    for(unsigned int i = 0; i < angleVec.size() ; i++){
-        if( currentMax < angleVec[i] )
-            currentMax = angleVec[i];
-    }
+//    currentMax = -1;
+//    for(unsigned int i = 0; i < angleVec.size() ; i++){
+//        if( currentMax < angleVec[i] )
+//            currentMax = angleVec[i];
+//    }
 
-    if(currentMax != -1 && getSoundAngle() > 0 && currentMax != prevMax){
-        prevMax = angle;
-        angle = currentMax;
-        std::cout << "Angle from currentMax: "<< angle<< ", Angle from getAngle(): " << getSoundAngle() << std::endl;
-    }
-
+//    if(currentMax != -1 && getSoundAngle() > 0 && currentMax != prevMax){
+//        prevMax = angle;
+//        angle = currentMax;
+//        std::cout << "Angle from currentMax: "<< angle<< ", Angle from getAngle(): " << getSoundAngle() << std::endl;
+//    }
+        getSoundInformation(angle, energy)
 		everloop->Write(image1d);
 	}
 
@@ -244,7 +244,7 @@ std::vector<int> ODAS::getEnergyArray()
 	std::vector<int> energy_vector(ENERGY_COUNT);
 	for (size_t i = 0; i < ENERGY_COUNT; i++)
 	{
-		energy_vector.push_back(energy_array[i]);
+		energy_vector.push_back(energyArray[i]);
 	}
 	return energy_vector;
 }
@@ -254,13 +254,41 @@ double ODAS::getSoundAngle() {
 	int largest_element = -1;
 	for (size_t i = 0; i < ENERGY_COUNT; i++)
 	{
-		if (energy_array[i] > largest_element)
+		if (energyArray[i] > largest_element)
 		{
-			largest_element = energy_array[i];
+			largest_element = energyArray[i];
 			largest_element_index = i;
 		}
 	}
 	return (largest_element_index * 360 / ENERGY_COUNT);
 	//int index_pots = led_angle * ENERGY_COUNT / 360;
 }
+
+void ODAS::updateSoundInformation(int& angle, int& energy) {
+	int largestElementIndex;
+	int largestElement = -1;
+	for (size_t i = 0; i < ENERGY_COUNT; i++)
+	{
+		if (energyArray[i] > largestElement)
+		{
+			largestElement = energyArray[i];
+			largestElementIndex = i;
+		}
+	}
+	if (largestElement != -1)
+	{
+		angle = (largestElementIndex * 360 / ENERGY_COUNT);
+		energy = largestElement;
+	}
+}
+
+
+	int ODAS::getAngle(){
+	}
+    int ODAS::getEnergy(){
+    }
+    int ODAS::getPrevAngle(){
+    }
+
+
 
