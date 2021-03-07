@@ -52,7 +52,7 @@ private:
 //											283, 273, 262, 252, 242, 231, 221, 211, 201, 190, 180 };
 
 	int ledCount;
-	matrix_hal::MatrixIOBus bus;				// Create MatrixIOBus object for hardware communication
+	matrix_hal::MatrixIOBus* bus;				// Create MatrixIOBus object for hardware communication
 	matrix_hal::EverloopImage* image1d;			// Create EverloopImage object "image1d", with size of ledCount
 	matrix_hal::Everloop* everloop;				// Create Everloop object
 

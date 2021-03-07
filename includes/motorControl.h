@@ -65,7 +65,7 @@ private:
 	matrix_hal::GPIOControl* gpio;				// Create GPIOControl object - General Purpose Input Output
 
 public:
-	MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_, matrix_hal::GPIOControl* gpio_);
+	MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* everloop_image_, matrix_hal::GPIOControl* gpio_);
 	~MotorControl();
 
 	void initGPIOPins();									//Initializes General Purpose IO Pins

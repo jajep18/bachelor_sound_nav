@@ -15,4 +15,4 @@ g++ main.cpp sources/motorControl.cpp sources/ODAS.cpp -o main.out \
 -lgflags
 
 echo "To run, type:"
-echo "./runRobot.out"
+echo "./runRobot.sh"

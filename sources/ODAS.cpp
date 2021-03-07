@@ -135,7 +135,7 @@ ODAS::ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matri
 
 	//Test values - 25/02 problems with not all matrix voice LEDs lighting up as expected
 	//printf("\nDefines: ENERGY_COUNT:%d - MAX_BRIGHTNESS:%d - MAX_VALUE%d - MIN_THRESHOLD:%d - INCREMENT:%d",ENERGY_COUNT, MAX_BRIGHTNESS, MAX_VALUE, MIN_THRESHOLD,INCREMENT);
-	printf("\nbus.MatrixLeds(): %d --------------\n", bus.MatrixLeds());
+	printf("\nbus.MatrixLeds(): %d --------------\n", bus->MatrixLeds());
 
 
 	server_id = socket(AF_INET, SOCK_STREAM, 0);
@@ -162,9 +162,6 @@ ODAS::ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matri
 	message = (char *)malloc(sizeof(char) * nBytes);
 
 
-    for(int i=0; i < bus.MatrixLeds(); i++){
-        angleVec.push_back(-1);
-    }
 
 	printf("Receiving data........... \n\n");
 

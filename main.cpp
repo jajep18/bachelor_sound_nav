@@ -132,9 +132,9 @@ int main(int argc, char** argv)
 	/*****************************************************************************
 	************************   INITIALISE CLASSES  ************************
 	*****************************************************************************/
-
-	ODAS soundLocalization = ODAS(&bus, &everloop, &everloop_image);
 	MotorControl motorControl = MotorControl(&bus, &everloop, &everloop_image, &gpio);
+	ODAS soundLocalization = ODAS(&bus, &everloop, &everloop_image);
+
 	//Vision vision;
 
 	// Wait 3 seconds for camera image to stabilise

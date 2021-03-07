@@ -1,7 +1,7 @@
 #include "../includes/motorControl.h"
 
 //Constructor
-MotorControl::MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_, matrix_hal::GPIOControl* gpio_){
+MotorControl::MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* everloop_image_, matrix_hal::GPIOControl* gpio_){
 	/*********   INITIALISE MATRIX VOICE DEVICE   **********************/
 
 
