@@ -59,7 +59,7 @@ class MotorControl {
 private:
 	int ledCount, action = 1, motorL, motorR;
 
-	matrix_hal::MatrixIOBus bus;				// Create MatrixIOBus object for hardware communication
+	matrix_hal::MatrixIOBus* bus;				// Create MatrixIOBus object for hardware communication
 	matrix_hal::EverloopImage* everloop_image;	// Create EverloopImage object, with size of ledCount
 	matrix_hal::Everloop* everloop;				// Create Everloop object
 	matrix_hal::GPIOControl* gpio;				// Create GPIOControl object - General Purpose Input Output

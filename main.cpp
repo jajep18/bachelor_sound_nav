@@ -87,8 +87,8 @@ void braitenberg(double angle, MotorControl * _motorControl) { //Braitenberg agg
 	double angleL = (((360 - angle) - 180) / 180); // Normalize
 	double angleR = (angle-180) / 180; // Normalize
 
-    int motorSpeedL = activation(angleL) + VELOCITY_OFFSET;
-    int motorSpeedR = activation(angleR) + VELOCITY_OFFSET;
+    int motorSpeedL = activationFunction(angleL) + VELOCITY_OFFSET;
+    int motorSpeedR = activationFunction(angleR) + VELOCITY_OFFSET;
 
     std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
@@ -108,10 +108,10 @@ void navigationICO(double angle, MotorControl * motor_control, double w_A) {
 	double angleL = (((360 - angle) - 180) / 180); // Normalize
 	double angleR = (angle - 180) / 180; // Normalize
 
-	motor_control->setRightMotorSpeedDirection(activation(angleR)*w_A + VELOCITY_OFFSET, 1);
-	motor_control->setLeftMotorSpeedDirection(activation(angleL)*w_A + VELOCITY_OFFSET, 1);
+	motor_control->setRightMotorSpeedDirection(activationFunction(angleR)*w_A + VELOCITY_OFFSET, 1);
+	motor_control->setLeftMotorSpeedDirection(activationFunction(angleL)*w_A + VELOCITY_OFFSET, 1);
 	//TEST - Print motor values
-	std::cout << "Left speed: " << (activation(angleL) + VELOCITY_OFFSET) << " - Right speed: " << (activation(angleR) + VELOCITY_OFFSET) << std::endl;
+	std::cout << "Left speed: " << (activationFunction(angleL) + VELOCITY_OFFSET) << " - Right speed: " << (activationFunction(angleR) + VELOCITY_OFFSET) << std::endl;
 }
 
 
@@ -133,8 +133,8 @@ int main(int argc, char** argv)
 	************************   INITIALISE CLASSES  ************************
 	*****************************************************************************/
 
-	ODAS odas = ODAS(&bus, &everloop, &everloop_image);				
-	MotorControl motor_control = MotorControl(&bus, &everloop, &everloop_image, &gpio);
+	ODAS soundLocalization = ODAS(&bus, &everloop, &everloop_image);
+	MotorControl motorControl = MotorControl(&bus, &everloop, &everloop_image, &gpio);
 	//Vision vision;
 
 	// Wait 3 seconds for camera image to stabilise

@@ -26,7 +26,7 @@ MotorControl::MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* 
 
 	bus = bus_;
 	everloop = everloop_;
-	image1d = image1d_;
+	everloop_image = everloop_image_;
 	gpio = gpio_;
 
 	startupShowLEDRainbow();											// Display rainbow animation
