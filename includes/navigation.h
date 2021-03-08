@@ -9,6 +9,7 @@
  */
 #include "motorControl.h"
 #include <math.h>
+#include <fstream>
 
 class navigation
 {

@@ -43,7 +43,7 @@ void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { /
 
 	motorControl->changeMotorCommand(motorCommand, motorSpeedL, motorSpeedR);
 
-	outputBraitenberg << angleL<< "," << (activationFunction(angleL))<< "," << angleR << "," << (activationFunction(angleR)) << std::endl;
+	outputBraitenberg << angleL << "," << motorSpeedL << "," << angleR << "," << motorSpeedR << std::endl;
 }
 
 
