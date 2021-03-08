@@ -93,6 +93,14 @@ int main(int argc, char** argv)
 	/*****************************************************************************
 	************************   CONTROLLER LOOP   *********************************
 	*****************************************************************************/
+	
+	/*****************************************************************************
+	************************   Output stream    **********************************
+	*****************************************************************************/
+
+	std::ofstream outputStream;
+	outputStream.open("./data/braitenbergMotorCommands.csv", std::ofstream | std::ofstream::trunc);
+	outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
 
     for(int i = 0; i < 4000 ; i++){
@@ -100,13 +108,13 @@ int main(int argc, char** argv)
         soundLocalization.updateODAS();
 
 		if (soundLocalization.getEnergy() > ENERGY_THRESHOLD)
-			navigationObj.braitenberg(soundLocalization.getAngle());
+			navigationObj.braitenberg(soundLocalization.getAngle(),  outputStream);
 		else
 			motorControl.changeMotorCommand(STOP);
 
 
 	} // End of while loop
-
+	outputStream.close();
 	motorControl.changeMotorCommand(STOP);
 	motorControl.resetMatrixVoiceLEDs();
 

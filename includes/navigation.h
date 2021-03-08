@@ -26,7 +26,7 @@ public:
 
     navigation(MotorControl* motorControl_);
 
-	void braitenberg(double angle);				//Braitenberg aggression vehicle
+	void braitenberg(double angle, std::ofstream & outputBraitenberg);				//Braitenberg aggression vehicle
 
 	void navigationICO(double angle, double w_A);	//ICO learning - work in progress
 

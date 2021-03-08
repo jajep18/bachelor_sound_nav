@@ -17,7 +17,7 @@ double navigation::activationFunction(double input) {
 	//return 20 * 2 * atan(tanh(5 * input));	//Gudermannian								[-pi/2, pi/2]
 }
 
-void navigation::braitenberg(double angle) { //Braitenberg aggression vehicle
+void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { //Braitenberg aggression vehicle
 
 	// Update sensor signals
 	angleL = (((360 - angle) - 180) / 180); // Normalize
@@ -42,6 +42,8 @@ void navigation::braitenberg(double angle) { //Braitenberg aggression vehicle
 	std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
 	motorControl->changeMotorCommand(motorCommand, motorSpeedL, motorSpeedR);
+
+	outputBraitenberg << angleL<< "," << (activationFunction(angleL))<< "," << angleR << "," << (activationFunction(angleR)) << std::endl;
 }
 
 
