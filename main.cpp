@@ -74,7 +74,8 @@ int main(int argc, char** argv)
 	*****************************************************************************/
 	MotorControl motorControl = MotorControl(&bus, &everloop, &everloop_image, &gpio);
 	ODAS soundLocalization = ODAS(&bus, &everloop, &everloop_image);
-	navigation navigation(motorControl);
+	navigation navigationObj = navigation(&motorControl);
+
 
 	//Vision vision;
 
@@ -99,7 +100,7 @@ int main(int argc, char** argv)
         soundLocalization.updateODAS();
 
 		if (soundLocalization.getEnergy() > ENERGY_THRESHOLD)
-			navigation.braitenberg(soundLocalization.getAngle(), &motorControl);
+			navigationObj.braitenberg(soundLocalization.getAngle());
 		else
 			motorControl.changeMotorCommand(STOP);
 

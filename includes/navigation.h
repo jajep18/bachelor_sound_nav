@@ -15,7 +15,7 @@ class navigation
 private:
 
 	double angleL = 0, angleR = 0;
-	int motorSpeedL = 0, motorSpeed = 0, motorCommand = 0;
+	int motorSpeedL = 0, motorSpeedR = 0, motorCommand = 0;
 
 	MotorControl* motorControl;
 
@@ -24,11 +24,11 @@ private:
 
 public:
 
-	void navigation(MotorControl* motorControl_);								//Constructor 							
+    navigation(MotorControl* motorControl_);
 
 	void braitenberg(double angle);				//Braitenberg aggression vehicle
-	
-	void navigationICO(double angle, double w_A);	//ICO learning - work in progress 
+
+	void navigationICO(double angle, double w_A);	//ICO learning - work in progress
 
 };
 
