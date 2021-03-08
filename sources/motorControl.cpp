@@ -74,11 +74,11 @@ void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN2, 0);
 	}
 
-	//// Set motor speed via PWM signal (min. = 0, max. = 100)
-	//if (speed > 100)
-	//	speed = 100;
-	//if (speed < 0)
-	//	speed = 0;
+	// Set motor speed via PWM signal (min. = -100, max. = 100)
+	if (speed > 100)
+		speed = 100;
+	if (speed < -100)
+		speed = -100;
 
 	gpio->SetPWM(1000, abs(speed), TB6612_LEFT_MOTOR_PWMB);
 }
@@ -99,11 +99,11 @@ void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN2, 0);
 	}
 
-	//// Set motor speed via PWM signal (min. = 0, max. = 100)
-	//if (speed > 100)
-	//	speed = 100;
-	//if (speed < 0)
-	//	speed = 0;
+	// Set motor speed via PWM signal (min. = -100, max. = 100)
+	if (speed > 100)
+		speed = 100;
+	if (speed < -100)
+		speed = -100;
 
 	gpio->SetPWM(1000, abs(speed), TB6612_RIGHT_MOTOR_PWMA);
 }
@@ -231,29 +231,20 @@ void MotorControl::startupShowLEDRainbow(/*matrix_hal::Everloop* everloop, matri
 // Set individual LEDs on the Matrix Voice
 void MotorControl::setMatrixVoiceLED( int ledn, int r, int g, int b)
 {
-	for (int i = 0; i < 18; i++)
+	if (ledn < 18)
 	{
-		if (i == ledn)
-		{
-			everloop_image->leds[ledn].red = r;
-			everloop_image->leds[ledn].green = g;
-			everloop_image->leds[ledn].blue = b;
-			everloop_image->leds[ledn].white = 0;
-		}
+		everloop_image->leds[ledn].red = r;
+		everloop_image->leds[ledn].green = g;
+		everloop_image->leds[ledn].blue = b;
+		everloop_image->leds[ledn].white = 0;
 	}
 	everloop->Write(everloop_image);
 }
 
 //Turn off all matrix voice LEDS
 void MotorControl::resetMatrixVoiceLEDs() {
-	setMatrixVoiceLED(MATRIX_LED_R_1, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_L_9, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_R_3, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_L_7, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_R_4, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_L_6, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_R_5, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_L_5, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
-	setMatrixVoiceLED(MATRIX_LED_L_1, 0, 0, 0);
+	for (int i = 0; i < 18; i++) {
+		setMatrixVoiceLED(i, 0, 0, 0);
+	}
 }
+

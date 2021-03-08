@@ -1,6 +1,7 @@
 #pragma once
 /* Includes all defines used in the project*/
-// GPIO via Matrix Voice
+
+// GPIO via Matrix Voice, placed on top of robot
 #define  TB6612_RIGHT_MOTOR_PWMA        14 // (Orange)
 #define  TB6612_LEFT_MOTOR_PWMB         8  // (Green)
 #define  TB6612_RIGHT_MOTOR_AIN1        12 // (Blue)
@@ -29,6 +30,21 @@
 #define MATRIX_LED_L_8          16
 #define MATRIX_LED_L_9          17
 
-#define REFLEX_THRESHOLD	80
-#define AVOIDANCE_THRESHOLD	65
+// Motor commands
+#define	STOP				0
+#define FORWARD				1
+#define REVERSE			   -1
+#define LEFTTURN			2
+#define RIGHTTURN			3
+#define	FORWARDSPEED		25
+#define	REVERSESPEED		20
+#define VELOCITY_OFFSET		0
 
+//Sound localization
+#define ENERGY_COUNT 36		// ENERGY_COUNT : Number of sound energy slots to maintain. Originally 36
+#define MAX_VALUE 200		// MAX_VALUE : controls smoothness
+#define INCREMENT 20		// INCREMENT : controls sensitivity
+#define DECREMENT 1			// DECREMENT : controls delay in the dimming
+#define MIN_THRESHOLD 10	// MAX_BRIGHTNESS: Filters out low energy
+#define MAX_BRIGHTNESS 30	// MAX_BRIGHTNESS: 0 - 255
+#define ENERGY_THRESHOLD 50	

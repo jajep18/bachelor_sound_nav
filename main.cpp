@@ -32,15 +32,13 @@
 #include "includes/soundLocalization.h"
 #include "includes/navigation.h"
 #include "includes/ODAS.h"
+#include "includes/navigation.h"
 
-
-//#include <cmath>
 #include <ctime>
 #include <fstream>
 #include <iostream>
 #include <unistd.h>
 #include <raspicam/raspicam.h>
-//#include <pigpio.h>
 #include "json-c/json.h"
 
 //OpenCV
@@ -55,76 +53,6 @@
 #include <matrix_hal/everloop_image.h>
 #include <matrix_hal/gpio_control.h>
 #include <matrix_hal/matrixio_bus.h>
-
-
-#define REFLEX_THRESHOLD	80
-#define AVOIDANCE_THRESHOLD	65
-#define VELOCITY_OFFSET		0
-
-#include <matrix_hal/everloop.h>
-#include <matrix_hal/everloop_image.h>
-#include <matrix_hal/gpio_control.h>
-#include <matrix_hal/matrixio_bus.h>
-
-
-
-double activationFunction(double input) {
-    return 30* std::tanh(3*input);
-	//return 50 / (1 + exp(-input));
-}
-
-void braitenberg(double angle, MotorControl * motorControl_) { //Braitenberg aggression vehicle
-//	if (angle < 180) { //Object is on RIGHT side
-//		_motorControl->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
-//	}
-//	else { // angle >= 180 //object is on LEFT side
-//		_motorControl->setMatrixVoiceLED(MATRIX_LED_L_9, 0, MAX_BRIGHTNESS, 0);
-//	}
-
-	// Update sensor signals
-	double angleL = (((360 - angle) - 180) / 180); // Normalize
-	double angleR = (angle-180) / 180; // Normalize
-
-    int motorSpeedL = activationFunction(angleL) + VELOCITY_OFFSET;
-    int motorSpeedR = activationFunction(angleR) + VELOCITY_OFFSET;
-
-	int motorCommand = 0;
-
-	if (motorSpeedL - 1 == motorSpeedR || motorSpeedR - 1 == motorSpeedL){
-        motorCommand = FORWARD;
-        motorSpeedL = 20;
-        motorSpeedR = 20;
-    }
-	else if (motorSpeedL > motorSpeedR)
-		motorCommand = RIGHTTURN;
-	else if (motorSpeedL < motorSpeedR)
-		motorCommand = LEFTTURN;
-	else
-		motorCommand = STOP;
-
-    //std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
-
-    motorControl_->changeMotorCommand(motorCommand,motorSpeedL,motorSpeedR);
-}
-
-
-void navigationICO(double angle, MotorControl * motor_control, double w_A) {
-//	if (angle < 180) { //Object is on RIGHT side
-//		motor_control->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
-//	}
-//	else { // angle >= 180 //object is on LEFT side
-//		motor_control->setMatrixVoiceLED(MATRIX_LED_L_9, 0, MAX_BRIGHTNESS, 0);
-//	}
-
-	// Update sensor signals
-	double angleL = (((360 - angle) - 180) / 180); // Normalize
-	double angleR = (angle - 180) / 180; // Normalize
-
-	motor_control->setRightMotorSpeedDirection(activationFunction(angleR)*w_A + VELOCITY_OFFSET, 1);
-	motor_control->setLeftMotorSpeedDirection(activationFunction(angleL)*w_A + VELOCITY_OFFSET, 1);
-	//TEST - Print motor values
-	std::cout << "Left speed: " << (activationFunction(angleL) + VELOCITY_OFFSET) << " - Right speed: " << (activationFunction(angleR) + VELOCITY_OFFSET) << std::endl;
-}
 
 
 
@@ -146,6 +74,7 @@ int main(int argc, char** argv)
 	*****************************************************************************/
 	MotorControl motorControl = MotorControl(&bus, &everloop, &everloop_image, &gpio);
 	ODAS soundLocalization = ODAS(&bus, &everloop, &everloop_image);
+	navigation navigation(motorControl);
 
 	//Vision vision;
 
@@ -154,15 +83,15 @@ int main(int argc, char** argv)
 	//usleep(3000000);
 	//cout << "done." << endl;
 
-/*****************************************************************************
-************************   ICO LEARNING   ************************************
-*****************************************************************************/
+	/*****************************************************************************
+	************************   ICO LEARNING   ************************************
+	*****************************************************************************/
 //	double angle_current = 270.0;
 //	double angle_prev;
 
-/*****************************************************************************
-************************   CONTROLLER LOOP   *********************************
-*****************************************************************************/
+	/*****************************************************************************
+	************************   CONTROLLER LOOP   *********************************
+	*****************************************************************************/
 
 
     for(int i = 0; i < 4000 ; i++){
@@ -170,7 +99,7 @@ int main(int argc, char** argv)
         soundLocalization.updateODAS();
 
 		if (soundLocalization.getEnergy() > ENERGY_THRESHOLD)
-			braitenberg(soundLocalization.getAngle(), &motorControl);
+			navigation.braitenberg(soundLocalization.getAngle(), &motorControl);
 		else
 			motorControl.changeMotorCommand(STOP);
 

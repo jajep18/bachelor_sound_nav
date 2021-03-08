@@ -1,7 +1,5 @@
 #include "../includes/ODAS.h"
 
-#include <chrono>
-#include <thread>
 void ODAS::increase_pots() {
 	// Convert x,y to angle. TODO: See why x axis from ODAS is inverted
 	double angle_xy = fmodf((atan2(y, x) * (180.0 / M_PI)) + 360, 360);
