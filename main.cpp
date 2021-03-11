@@ -93,13 +93,13 @@ int main(int argc, char** argv)
 	/*****************************************************************************
 	************************   CONTROLLER LOOP   *********************************
 	*****************************************************************************/
-	
+
 	/*****************************************************************************
 	************************   Output stream    **********************************
 	*****************************************************************************/
 
 	std::ofstream outputStream;
-	outputStream.open("./data/braitenbergMotorCommands.csv", std::ofstream | std::ofstream::trunc);
+	outputStream.open("./data/braitenbergMotorCommands.csv", std::ofstream::out | std::ofstream::trunc);
 	outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
 
