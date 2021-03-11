@@ -15,7 +15,7 @@ class navigation
 private:
 
 	double angleL = 0, angleR = 0;
-	int motorSpeedL = 0, motorSpeedR = 0, motorCommand = 0;
+	int motorSpeedL = 0, motorSpeedR = 0, motorCommand = 1;
 
 	MotorControl* motorControl;
 

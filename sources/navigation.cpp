@@ -14,6 +14,7 @@ double navigation::activationFunction(double input) {
 	//return 50 / (1 + exp(-3*input));		//Sigmoid or Logistic                       [0,1]
 	//return 30 * tanh(3 * input);			//Hyperbolic tangent (tanh)                 [-1,1]
 	//return 30 * atan(5 * input);			//Inverse Hyperbolic Tangent (arctanh)		[-1,1]
+
 	//return 20 * 2 * atan(tanh(5 * input));	//Gudermannian								[-pi/2, pi/2]
 }
 
@@ -27,11 +28,8 @@ void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { /
 	motorSpeedL = activationFunction(angleL) + VELOCITY_OFFSET;
 	motorSpeedR = activationFunction(angleR) + VELOCITY_OFFSET;
 
-	if (angle <= 190 && angle >= 170) { //Sound source is front
+	if (angle <= 190 && angle >= 170) //Sound source is front  <---- Test dette, om det er nødvendigt
 		motorCommand = FORWARD;
-		//motorSpeedL = 25;
-		//motorSpeedR = 25;
-	}
 	else if (motorSpeedL > motorSpeedR) //Sound source is right
 		motorCommand = RIGHTTURN;
 	else if (motorSpeedL < motorSpeedR) //Sound source is left
