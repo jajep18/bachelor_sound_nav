@@ -1,21 +1,25 @@
 #include "../includes/navigation.h"
 
-
-
 navigation::navigation(MotorControl* motorControl_)
 	: motorControl{ motorControl_ }{
 	std::cout << "Navigation ready!\n";
 }
 
 double navigation::activationFunction(double input) {
-	return 20 / (1 + exp(-10*input)) + 20;		//Sigmoid v4 or Logistic                       [20,40]
-//	return 20 / (1 + exp(-10*input)) + 15;		//Sigmoid v3 or Logistic                       [0,1]
-//	return 30 / (1 + exp(-10*input)) + 10;		//Sigmoid v2 or Logistic                       [0,1]
-	//return 50 / (1 + exp(-3*input));		//Sigmoid or Logistic                       [0,1]
-	//return 30 * tanh(3 * input);			//Hyperbolic tangent (tanh)                 [-1,1]
-	//return 30 * atan(5 * input);			//Inverse Hyperbolic Tangent (arctanh)		[-1,1]
+//	return 20 / (1 + exp(-10*input)) + 20;		//Sigmoid v4 or Logistic                       [20,40]
+////	return 20 / (1 + exp(-10*input)) + 15;		//Sigmoid v3 or Logistic                       [0,1]
+////	return 30 / (1 + exp(-10*input)) + 10;		//Sigmoid v2 or Logistic                       [0,1]
+//	//return 50 / (1 + exp(-3*input));		//Sigmoid or Logistic                       [0,1]
+//	//return 30 * tanh(3 * input);			//Hyperbolic tangent (tanh)                 [-1,1]
+//	//return 30 * atan(5 * input);			//Inverse Hyperbolic Tangent (arctanh)		[-1,1]
+//
+//	//return 20 * 2 * atan(tanh(5 * input));	//Gudermannian								[-pi/2, pi/2]
 
-	//return 20 * 2 * atan(tanh(5 * input));	//Gudermannian								[-pi/2, pi/2]
+	/* Test functions */
+	return 20 / (1 + exp(-10 * normalizedInput)) + 20;	//Sigmoid
+	//return 10 * tanh(5 * normalizedInput) + 30;			//Hyperbolic Tangent
+	//return 8 * atan(5 * normalizedInput) + 30;			//Inverse Hyperbolic
+	//return 12 * atan(tanh(5 * normalizedInput)) + 30;	//Gudermannian
 }
 
 void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { //Braitenberg aggression vehicle
@@ -45,7 +49,6 @@ void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { /
 
 	outputBraitenberg << angleL << "," << motorSpeedL << "," << angleR << "," << motorSpeedR << std::endl;
 }
-
 
 void navigation::navigationICO(double angle, double w_A) {
 	//	if (angle < 180) { //Object is on RIGHT side
