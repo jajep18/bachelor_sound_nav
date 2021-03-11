@@ -191,10 +191,10 @@ void ODAS::updateODAS() {
 //				if(color > 0)
 //				std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
 
-				image1d->leds[i].red = 0;
-				image1d->leds[i].green = color/2;
-				image1d->leds[i].blue = 0;
-				image1d->leds[i].white = 0;
+//				image1d->leds[i].red = 0;
+				image1d->leds[i].green = color;
+//				image1d->leds[i].blue = 0;
+//				image1d->leds[i].white = 0;
 
 			}
 
