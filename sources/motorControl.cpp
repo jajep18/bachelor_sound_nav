@@ -63,12 +63,12 @@ void MotorControl::initGPIOPins()
 // Speed -> 0-100% in steps of 1%
 void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ int speed, int dir)
 {
-	if (dir <= 0) // Reverse
+	if (speed <= 0) // Reverse
 	{
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN1, 0); // Rotate left motor clockwise
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN2, 1);
 	}
-	if ((dir > 0) || (dir >= 1)) // Forward
+	if ((speed > 0) || (speed >= 1)) // Forward
 	{
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN1, 1); // Rotate left motor counter-clockwise
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN2, 0);
@@ -88,12 +88,12 @@ void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/
 // Speed -> 0-100% in steps of 1%
 void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ int speed, int dir)
 {
-	if (dir <= 0) // Reverse
+	if (speed <= 0 ) // Reverse
 	{
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN1, 0); // Rotate right motor counter-clockwise
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN2, 1);
 	}
-	if ((dir > 0) || (dir >= 1)) // Forward
+	if ((speed > 0) || (speed >= 1)) // Forward
 	{
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN1, 1); // Rotate right motor clockwise
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN2, 0);

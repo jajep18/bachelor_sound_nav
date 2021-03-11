@@ -28,18 +28,20 @@ void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { /
 	motorSpeedL = activationFunction(angleL) + VELOCITY_OFFSET;
 	motorSpeedR = activationFunction(angleR) + VELOCITY_OFFSET;
 
-	if (angle <= 190 && angle >= 170) //Sound source is front  <---- Test dette, om det er nødvendigt
-		motorCommand = FORWARD;
-	else if (motorSpeedL > motorSpeedR) //Sound source is right
-		motorCommand = RIGHTTURN;
-	else if (motorSpeedL < motorSpeedR) //Sound source is left
-		motorCommand = LEFTTURN;
-	else
-		motorCommand = STOP;
+	//if (angle <= 190 && angle >= 170) //Sound source is front  <---- Test dette, om det er nødvendigt
+	//	motorCommand = FORWARD;
+	//else if (motorSpeedL > motorSpeedR) //Sound source is right
+	//	motorCommand = RIGHTTURN;
+	//else if (motorSpeedL < motorSpeedR) //Sound source is left
+	//	motorCommand = LEFTTURN;
+	//else
+	//	motorCommand = STOP;
 
 	std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
-	motorControl->changeMotorCommand(motorCommand, motorSpeedL, motorSpeedR);
+	//motorControl->changeMotorCommand(motorCommand, motorSpeedL, motorSpeedR);
+	motorControl->setLeftMotorSpeedDirection(motorSpeedL, FORWARD);
+	motorControl->setRightMotorSpeedDirection(motorSpeedR,FORWARD);
 
 	outputBraitenberg << angleL << "," << motorSpeedL << "," << angleR << "," << motorSpeedR << std::endl;
 }
