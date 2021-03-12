@@ -99,7 +99,7 @@ int main(int argc, char** argv)
 	*****************************************************************************/
 
 	std::ofstream outputStream;
-	outputStream.open("./data/braitenbergMotorCommandsDummy.csv", std::ofstream::out | std::ofstream::trunc);
+	outputStream.open("./data/braitenbergMotorCommandsGudermannian.csv", std::ofstream::out | std::ofstream::trunc);
 	//outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
 	motorControl.setMatrixVoiceLED(MATRIX_LED_R_1, 0, 125, 0);

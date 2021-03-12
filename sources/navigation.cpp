@@ -16,10 +16,10 @@ double navigation::activationFunction(double input) {
 //	//return 20 * 2 * atan(tanh(5 * input));	//Gudermannian								[-pi/2, pi/2]
 
 	/* Test functions */
-	return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid
+	//return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid
 	//return 10 * tanh(5 * input) + 30;			//Hyperbolic Tangent
-	//return 8 * atan(5 * input) + 30;			//Inverse Hyperbolic
-	//return 12 * atan(tanh(5 * input)) + 30;	//Gudermannian
+//	return 8 * atan(5 * input) + 30;			//Inverse Hyperbolic
+	return 12 * atan(tanh(5 * input)) + 30;	//Gudermannian
 }
 
 void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { //Braitenberg aggression vehicle
