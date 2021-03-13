@@ -1,0 +1,2290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object class="org.opensourcephysics.cabrillo.tracker.TrackerPanel">
+    <property name="semantic_version" type="string">5.1.5</property>
+    <property name="width" type="double">1920.0</property>
+    <property name="height" type="double">1080.0</property>
+    <property name="magnification" type="double">0.5</property>
+    <property name="center_x" type="int">887</property>
+    <property name="center_y" type="int">609</property>
+    <property name="videoclip" type="object">
+    <object class="org.opensourcephysics.media.core.VideoClip">
+        <property name="video" type="object">
+        <object class="org.opensourcephysics.media.xuggle.XuggleVideo">
+            <property name="path" type="string">C:/Users/Jacob/OneDrive/Billeder/Filmrulle/Hyperbolic.mp4</property>
+        </object>
+        </property>
+        <property name="video_framecount" type="int">514</property>
+        <property name="startframe" type="int">115</property>
+        <property name="stepsize" type="int">1</property>
+        <property name="stepcount" type="int">399</property>
+        <property name="starttime" type="double">0.0</property>
+        <property name="readout" type="string">frame</property>
+        <property name="playallsteps" type="boolean">true</property>
+    </object>
+    </property>
+    <property name="clipcontrol" type="object">
+    <object class="org.opensourcephysics.media.core.StepperClipControl">
+        <property name="rate" type="double">1.0</property>
+        <property name="delta_t" type="double">33.28514796203238</property>
+        <property name="frame" type="int">388</property>
+    </object>
+    </property>
+    <property name="coords" type="object">
+    <object class="org.opensourcephysics.media.core.ImageCoordSystem">
+        <property name="fixedorigin" type="boolean">true</property>
+        <property name="fixedangle" type="boolean">true</property>
+        <property name="fixedscale" type="boolean">true</property>
+        <property name="locked" type="boolean">false</property>
+        <property name="framedata" type="array" class="[Lorg.opensourcephysics.media.core.ImageCoordSystem$FrameData;">
+            <property name="[0]" type="object">
+            <object class="org.opensourcephysics.media.core.ImageCoordSystem$FrameData">
+                <property name="xorigin" type="double">0.0</property>
+                <property name="yorigin" type="double">0.0</property>
+                <property name="angle" type="double">-90.0</property>
+                <property name="xscale" type="double">1.0</property>
+                <property name="yscale" type="double">1.0</property>
+            </object>
+            </property>
+        </property>
+    </object>
+    </property>
+    <property name="length_unit" type="string">m</property>
+    <property name="mass_unit" type="string">kg</property>
+    <property name="units_visible" type="boolean">true</property>
+    <property name="tracks" type="collection" class="java.util.ArrayList">
+        <property name="item" type="object">
+        <object class="org.opensourcephysics.cabrillo.tracker.CoordAxes">
+            <property name="name" type="string">axes</property>
+            <property name="color" type="object">
+            <object class="java.awt.Color">
+                <property name="red" type="int">200</property>
+                <property name="green" type="int">0</property>
+                <property name="blue" type="int">200</property>
+                <property name="alpha" type="int">255</property>
+            </object>
+            </property>
+            <property name="footprint" type="string">Footprint.BoldSimpleAxes</property>
+            <property name="visible" type="boolean">true</property>
+            <property name="trail" type="boolean">false</property>
+        </object>
+        </property>
+        <property name="item" type="object">
+        <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion">
+            <property name="name" type="string">region A</property>
+            <property name="color" type="object">
+            <object class="java.awt.Color">
+                <property name="red" type="int">255</property>
+                <property name="green" type="int">0</property>
+                <property name="blue" type="int">255</property>
+                <property name="alpha" type="int">255</property>
+            </object>
+            </property>
+            <property name="footprint" type="string">Footprint.Circle</property>
+            <property name="visible" type="boolean">true</property>
+            <property name="trail" type="boolean">false</property>
+            <property name="fixed" type="boolean">false</property>
+            <property name="fixed_radius" type="boolean">true</property>
+            <property name="framedata" type="array" class="[Lorg.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData;">
+                <property name="[0]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">53.0</property>
+                    <property name="y" type="double">118.0</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[115]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">53.0</property>
+                    <property name="y" type="double">118.0</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[116]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">53.01134823823358</property>
+                    <property name="y" type="double">117.98476958989696</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[117]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">53.00809281153488</property>
+                    <property name="y" type="double">118.07999432286539</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[118]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">55.0730304179115</property>
+                    <property name="y" type="double">119.88612718223749</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[119]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">60.9088721024487</property>
+                    <property name="y" type="double">121.11734874326959</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[120]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">65.41873527302437</property>
+                    <property name="y" type="double">122.01607634269163</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[121]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">71.67574358985465</property>
+                    <property name="y" type="double">123.87868772638444</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[122]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">77.81234489667249</property>
+                    <property name="y" type="double">125.39709528535053</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[123]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">84.96943064316667</property>
+                    <property name="y" type="double">127.87401348382542</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[124]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">91.97960425347603</property>
+                    <property name="y" type="double">130.005988059536</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[125]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">99.0373819603227</property>
+                    <property name="y" type="double">132.87862941708545</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[126]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">105.6706167729784</property>
+                    <property name="y" type="double">135.30020354663867</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[127]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">112.22685525662428</property>
+                    <property name="y" type="double">137.99758801180838</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[128]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">118.69314190373518</property>
+                    <property name="y" type="double">140.83293312930726</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[129]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">124.97339609831602</property>
+                    <property name="y" type="double">143.64025956766923</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[130]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">130.85126855522492</property>
+                    <property name="y" type="double">146.0478116332324</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[131]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">136.37485590980518</property>
+                    <property name="y" type="double">148.77302150440966</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[132]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">142.16108239709695</property>
+                    <property name="y" type="double">151.96921245272785</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[133]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">148.5803962882831</property>
+                    <property name="y" type="double">155.2741403726335</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[134]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">155.0472799982869</property>
+                    <property name="y" type="double">158.68056259485968</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[135]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">161.27594183276847</property>
+                    <property name="y" type="double">162.05909124627635</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[136]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">167.21161949330485</property>
+                    <property name="y" type="double">165.42476914370866</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[137]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">173.09289129440614</property>
+                    <property name="y" type="double">168.71167114423542</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[138]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">178.75929996201083</property>
+                    <property name="y" type="double">171.95988608853008</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[139]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">184.08475404338944</property>
+                    <property name="y" type="double">174.98534738686203</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[140]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">189.94986238043225</property>
+                    <property name="y" type="double">178.07586508150973</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[141]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">195.73099497083484</property>
+                    <property name="y" type="double">180.9635581114403</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[142]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">201.75796958731144</property>
+                    <property name="y" type="double">184.02588824515334</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[143]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">206.96532859583598</property>
+                    <property name="y" type="double">186.2192158873675</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[144]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">212.4596697262907</property>
+                    <property name="y" type="double">188.8652398696147</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[145]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">218.0613817478379</property>
+                    <property name="y" type="double">191.1420481350185</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[146]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">223.9499727201437</property>
+                    <property name="y" type="double">193.8977137778519</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[147]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">229.40380668546118</property>
+                    <property name="y" type="double">196.10158900580683</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[148]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">235.15319283815137</property>
+                    <property name="y" type="double">198.75931389744903</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[149]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">240.73425589984532</property>
+                    <property name="y" type="double">201.00434077981367</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[150]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">246.55340024849505</property>
+                    <property name="y" type="double">203.2770237194909</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[151]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">252.0707878223521</property>
+                    <property name="y" type="double">205.86806766608032</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[152]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">257.9218621444179</property>
+                    <property name="y" type="double">208.09392776405167</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[153]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">263.57085929553284</property>
+                    <property name="y" type="double">210.5497154698361</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[154]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">268.98576522643464</property>
+                    <property name="y" type="double">213.08593078757679</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[155]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">274.8343127046643</property>
+                    <property name="y" type="double">215.91742748248163</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[156]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">280.89002652533486</property>
+                    <property name="y" type="double">218.8812290032908</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[157]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">286.93685465501346</property>
+                    <property name="y" type="double">221.75880756549503</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[158]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">293.0097181734026</property>
+                    <property name="y" type="double">224.84071836457872</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[159]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">298.7279405131285</property>
+                    <property name="y" type="double">227.94419643876427</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[160]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">304.6141417505125</property>
+                    <property name="y" type="double">230.95857836728612</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[161]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">310.048147718237</property>
+                    <property name="y" type="double">233.80706645983645</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[162]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">315.9065553025831</property>
+                    <property name="y" type="double">236.37579817072935</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[163]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">321.1285531490283</property>
+                    <property name="y" type="double">239.08821140406496</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[164]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">326.9426457863972</property>
+                    <property name="y" type="double">242.0526396029819</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[165]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">332.83859723912315</property>
+                    <property name="y" type="double">244.83958977592744</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[166]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">339.1248364409618</property>
+                    <property name="y" type="double">248.1615450015579</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[167]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">346.1092095368965</property>
+                    <property name="y" type="double">251.68342738027178</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[168]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">353.8729541337083</property>
+                    <property name="y" type="double">255.3162125767011</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[169]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">359.2710834377449</property>
+                    <property name="y" type="double">254.0485786344094</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[170]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">366.02278531595175</property>
+                    <property name="y" type="double">255.86376753978914</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[171]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">372.88904860745293</property>
+                    <property name="y" type="double">257.93071343007085</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[172]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">379.0781852429198</property>
+                    <property name="y" type="double">259.3975209705915</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[173]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">385.93479686701414</property>
+                    <property name="y" type="double">261.9914206733704</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[174]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">391.30278180779555</property>
+                    <property name="y" type="double">263.85625459245966</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[175]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">397.8790173367687</property>
+                    <property name="y" type="double">266.1905351457445</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[176]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">403.62290592728397</property>
+                    <property name="y" type="double">268.11596566417353</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[177]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">409.9044973349011</property>
+                    <property name="y" type="double">271.0687560112796</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[178]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">414.99683843173415</property>
+                    <property name="y" type="double">273.0784837153348</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[179]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">421.2823462825593</property>
+                    <property name="y" type="double">275.8967939659754</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[180]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">427.3024827358995</property>
+                    <property name="y" type="double">278.2964737295564</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[181]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">432.22052994007174</property>
+                    <property name="y" type="double">280.6403275284642</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[182]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">437.99988315346087</property>
+                    <property name="y" type="double">283.2837460119828</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[183]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">443.7440075393066</property>
+                    <property name="y" type="double">285.9121735369383</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[184]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">449.0361217779827</property>
+                    <property name="y" type="double">288.4182227337194</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[185]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">454.76671040869354</property>
+                    <property name="y" type="double">291.0231380280794</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[186]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">460.2406112369643</property>
+                    <property name="y" type="double">293.4957480676755</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[187]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">465.895942417074</property>
+                    <property name="y" type="double">295.50387344869347</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[188]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">471.9357051269608</property>
+                    <property name="y" type="double">298.8957907797241</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[189]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">478.558010250762</property>
+                    <property name="y" type="double">301.8491582696011</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[190]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">484.24134320429175</property>
+                    <property name="y" type="double">304.8282027361026</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[191]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">490.29826265877625</property>
+                    <property name="y" type="double">307.00220093344035</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[192]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">496.00626048176844</property>
+                    <property name="y" type="double">309.9968101795587</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[193]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">502.3209302090504</property>
+                    <property name="y" type="double">312.31812224875705</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[194]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">507.98588455151616</property>
+                    <property name="y" type="double">314.859968376244</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[195]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">513.9280728475665</property>
+                    <property name="y" type="double">317.9690664779081</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[196]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">519.8412170409233</property>
+                    <property name="y" type="double">320.2647639474808</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[197]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">526.0496254036666</property>
+                    <property name="y" type="double">323.0422515848842</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[198]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">532.0695163185546</property>
+                    <property name="y" type="double">325.41600454982637</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[199]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">538.0889600634052</property>
+                    <property name="y" type="double">327.8148932537239</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[200]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">544.5314722883736</property>
+                    <property name="y" type="double">330.2030774706762</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[201]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">551.0113322223502</property>
+                    <property name="y" type="double">332.8078404718238</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[202]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">556.9534544922255</property>
+                    <property name="y" type="double">335.33893404521285</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[203]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">563.7450286324399</property>
+                    <property name="y" type="double">337.9352472191731</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[204]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">570.1325115495371</property>
+                    <property name="y" type="double">340.60084772439023</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[205]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">576.1055113689622</property>
+                    <property name="y" type="double">343.1540362568341</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[206]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">582.1960207700434</property>
+                    <property name="y" type="double">345.3070441898935</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[207]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">588.7896828934586</property>
+                    <property name="y" type="double">348.0466954466444</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[208]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">595.519990861732</property>
+                    <property name="y" type="double">350.7120954940851</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[209]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">602.1019063959199</property>
+                    <property name="y" type="double">353.14827790374585</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[210]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">608.6868241999165</property>
+                    <property name="y" type="double">355.8123209924802</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[211]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">615.0660639049562</property>
+                    <property name="y" type="double">358.5140615274616</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[212]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">621.0192201164912</property>
+                    <property name="y" type="double">361.41394083357284</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[213]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">627.196510065494</property>
+                    <property name="y" type="double">364.5060262936093</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[214]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">633.1239490848758</property>
+                    <property name="y" type="double">367.7916361099956</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[215]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">639.0231194535161</property>
+                    <property name="y" type="double">370.15009861215486</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[216]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">645.0699355186723</property>
+                    <property name="y" type="double">372.8558938404665</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[217]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">651.0440197884025</property>
+                    <property name="y" type="double">375.4287774078522</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[218]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">657.7166871815101</property>
+                    <property name="y" type="double">377.86116296338804</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[219]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">664.3239448259936</property>
+                    <property name="y" type="double">380.656008108963</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[220]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">670.0309836509571</property>
+                    <property name="y" type="double">382.008122609641</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[221]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">676.9978555240431</property>
+                    <property name="y" type="double">383.9938928298573</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[222]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">683.1398376385396</property>
+                    <property name="y" type="double">386.0158532181146</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[223]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">689.1962619555381</property>
+                    <property name="y" type="double">388.3717904869619</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[224]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">694.9690386068987</property>
+                    <property name="y" type="double">391.1758850759602</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[225]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">700.9283968259239</property>
+                    <property name="y" type="double">394.02231404615844</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[226]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">706.7836155088098</property>
+                    <property name="y" type="double">396.3831009774317</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[227]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">712.8476822258925</property>
+                    <property name="y" type="double">399.0200268502349</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[228]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">718.970405488429</property>
+                    <property name="y" type="double">401.0548286318486</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[229]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">725.081082785499</property>
+                    <property name="y" type="double">402.98593492172307</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[230]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">731.6497874313463</property>
+                    <property name="y" type="double">404.89389349861904</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[231]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">738.3634993072237</property>
+                    <property name="y" type="double">406.9670199651471</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[232]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">744.6393310780859</property>
+                    <property name="y" type="double">408.85937034875155</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[233]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">751.3194139025318</property>
+                    <property name="y" type="double">411.0495373073818</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[234]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">757.8901236989625</property>
+                    <property name="y" type="double">412.94753723085853</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[235]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">763.9254568783905</property>
+                    <property name="y" type="double">414.9993975238193</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[236]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">770.1800359438098</property>
+                    <property name="y" type="double">417.72836999842275</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[237]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">775.8550602984716</property>
+                    <property name="y" type="double">420.5925465098808</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[238]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">781.9860824237525</property>
+                    <property name="y" type="double">423.9035694239981</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[239]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">787.9152075119786</property>
+                    <property name="y" type="double">427.0014979293733</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[240]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">794.0093268210217</property>
+                    <property name="y" type="double">429.84924711889244</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[241]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">799.8173473696636</property>
+                    <property name="y" type="double">432.5490598878324</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[242]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">805.9803418267213</property>
+                    <property name="y" type="double">435.1104189992178</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[243]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">812.2012691499226</property>
+                    <property name="y" type="double">437.031176329725</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[244]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">818.7028141687761</property>
+                    <property name="y" type="double">439.01506001725124</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[245]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">825.6962819648636</property>
+                    <property name="y" type="double">440.18663075830557</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[246]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">832.2675625533379</property>
+                    <property name="y" type="double">441.6981667925602</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[247]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">838.9042302547623</property>
+                    <property name="y" type="double">443.79440709279925</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[248]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">845.1783276913949</property>
+                    <property name="y" type="double">445.9155931389507</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[249]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">851.7468884711581</property>
+                    <property name="y" type="double">448.4418061851802</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[250]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">858.1170406040674</property>
+                    <property name="y" type="double">450.8003681228083</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[251]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">864.6949969821954</property>
+                    <property name="y" type="double">453.79146261935784</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[252]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">871.0216277749817</property>
+                    <property name="y" type="double">456.1118602106542</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[253]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">877.5596610632725</property>
+                    <property name="y" type="double">458.3417861662808</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[254]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">883.9385841820717</property>
+                    <property name="y" type="double">460.3267708196139</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[255]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">890.9388289057222</property>
+                    <property name="y" type="double">462.61811561924173</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[256]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">897.2868840626343</property>
+                    <property name="y" type="double">464.76446171998737</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[257]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">903.9687418596735</property>
+                    <property name="y" type="double">467.10129159122494</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[258]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">909.7296041604587</property>
+                    <property name="y" type="double">469.0918618007986</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[259]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">916.3489162726665</property>
+                    <property name="y" type="double">472.2062722683404</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[260]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">922.9799112710557</property>
+                    <property name="y" type="double">474.8949561344913</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[261]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">929.50190471742</property>
+                    <property name="y" type="double">477.1819445459997</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[262]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">936.2739444794006</property>
+                    <property name="y" type="double">479.6556215698524</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[263]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">942.5284061890836</property>
+                    <property name="y" type="double">481.9988960630876</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[264]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">949.299764454286</property>
+                    <property name="y" type="double">484.20695060738444</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[265]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">955.6414257796604</property>
+                    <property name="y" type="double">486.85427965645886</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[266]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">961.949551324306</property>
+                    <property name="y" type="double">489.242908235369</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[267]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">968.2048329091659</property>
+                    <property name="y" type="double">491.65174035508915</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[268]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">974.7698843523146</property>
+                    <property name="y" type="double">494.02911083863387</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[269]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">981.7017380614632</property>
+                    <property name="y" type="double">496.54437414618496</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[270]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">987.9374704013894</property>
+                    <property name="y" type="double">499.1131659146331</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[271]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">994.0790295374863</property>
+                    <property name="y" type="double">502.1383020229291</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[272]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1000.9356744587099</property>
+                    <property name="y" type="double">505.35951031971615</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[273]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1007.5771533974971</property>
+                    <property name="y" type="double">506.7022137228239</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[274]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1013.1192604828825</property>
+                    <property name="y" type="double">508.21720507803275</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[275]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1019.8897356099599</property>
+                    <property name="y" type="double">510.81689296562536</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[276]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1026.0257783954485</property>
+                    <property name="y" type="double">512.842244260099</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[277]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1032.793896546475</property>
+                    <property name="y" type="double">515.6487384896019</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[278]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1039.011463812205</property>
+                    <property name="y" type="double">517.6634398042856</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[279]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1045.110843525107</property>
+                    <property name="y" type="double">520.2107563659126</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[280]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1051.8587825739487</property>
+                    <property name="y" type="double">523.035415458752</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[281]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1058.6646557701024</property>
+                    <property name="y" type="double">525.8981014454098</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[282]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1065.2093991761205</property>
+                    <property name="y" type="double">527.9982048979809</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[283]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1071.9260416989277</property>
+                    <property name="y" type="double">530.9445135861213</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[284]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1078.8313779481193</property>
+                    <property name="y" type="double">533.8865718312989</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[285]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1084.9940179893154</property>
+                    <property name="y" type="double">536.0020387253227</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[286]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1092.0785536403007</property>
+                    <property name="y" type="double">538.0969686971443</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[287]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1098.8819035626818</property>
+                    <property name="y" type="double">540.9074023039012</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[288]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1105.6437855243787</property>
+                    <property name="y" type="double">543.2342053914557</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[289]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1112.3636989176925</property>
+                    <property name="y" type="double">545.1737368925167</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[290]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1119.0920712925447</property>
+                    <property name="y" type="double">546.959234132677</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[291]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1126.0640523843197</property>
+                    <property name="y" type="double">548.8395195195851</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[292]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1132.9269126027152</property>
+                    <property name="y" type="double">550.8900678822184</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[293]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1139.988805201811</property>
+                    <property name="y" type="double">552.984114958988</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[294]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1147.1075804271627</property>
+                    <property name="y" type="double">554.9775307977018</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[295]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1154.3579330362431</property>
+                    <property name="y" type="double">556.9656791601341</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[296]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1161.962625631272</property>
+                    <property name="y" type="double">559.7852736774403</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[297]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1168.8896469425445</property>
+                    <property name="y" type="double">562.1647985503774</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[298]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1176.061601958203</property>
+                    <property name="y" type="double">564.1211317875961</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[299]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1183.1137292740457</property>
+                    <property name="y" type="double">566.0739452318754</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[300]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1189.9922174505705</property>
+                    <property name="y" type="double">568.169126628159</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[301]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1197.1867326350723</property>
+                    <property name="y" type="double">569.9945870473588</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[302]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1204.106096463555</property>
+                    <property name="y" type="double">571.8334391178587</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[303]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1211.9315528510697</property>
+                    <property name="y" type="double">573.7288044890529</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[304]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1219.0547557983518</property>
+                    <property name="y" type="double">575.956844635505</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[305]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1226.0370140054386</property>
+                    <property name="y" type="double">578.041492715772</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[306]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1233.0258359241998</property>
+                    <property name="y" type="double">580.9931558525633</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[307]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1239.971951729025</property>
+                    <property name="y" type="double">583.3083408848006</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[308]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1247.9216488204986</property>
+                    <property name="y" type="double">585.6018541309253</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[309]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1254.9372012566032</property>
+                    <property name="y" type="double">587.4796368058089</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[310]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1262.2680506876359</property>
+                    <property name="y" type="double">589.1136738843817</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[311]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1269.129154336417</property>
+                    <property name="y" type="double">590.7923345154464</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[312]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1276.7913333930815</property>
+                    <property name="y" type="double">592.0077121631251</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[313]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1284.0931584998264</property>
+                    <property name="y" type="double">593.0673601385616</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[314]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1291.8966996047548</property>
+                    <property name="y" type="double">594.8754173013214</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[315]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1299.0015334572524</property>
+                    <property name="y" type="double">596.9970429218045</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[316]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1306.4832193245243</property>
+                    <property name="y" type="double">599.1123648277497</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[317]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1313.725030616621</property>
+                    <property name="y" type="double">601.1839551165659</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[318]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1321.0910711470083</property>
+                    <property name="y" type="double">603.0589446230526</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[319]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1328.1787565304453</property>
+                    <property name="y" type="double">605.3130025491569</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[320]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1335.9590143384835</property>
+                    <property name="y" type="double">607.8101029164442</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[321]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1342.8689056101246</property>
+                    <property name="y" type="double">609.1455879563985</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[322]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1350.2041357884275</property>
+                    <property name="y" type="double">610.7374057259294</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[323]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1357.594874254024</property>
+                    <property name="y" type="double">612.1980488495647</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[324]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1365.518608439316</property>
+                    <property name="y" type="double">614.0642053808837</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[325]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1372.7152586635625</property>
+                    <property name="y" type="double">615.1390226689755</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[326]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1379.9534549404748</property>
+                    <property name="y" type="double">617.328448432957</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[327]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1387.6292839435735</property>
+                    <property name="y" type="double">618.930159624439</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[328]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1395.4448334136384</property>
+                    <property name="y" type="double">620.6340659729286</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[329]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1402.7254216704962</property>
+                    <property name="y" type="double">622.3153679661507</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[330]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1410.198538565321</property>
+                    <property name="y" type="double">623.8468386530348</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[331]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1417.9482358592638</property>
+                    <property name="y" type="double">625.9353523909389</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[332]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1425.3988457847227</property>
+                    <property name="y" type="double">627.9383712478806</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[333]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1432.847025188855</property>
+                    <property name="y" type="double">630.2155252153818</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[334]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1440.3745217406617</property>
+                    <property name="y" type="double">631.9890740710944</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[335]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1446.1950464518231</property>
+                    <property name="y" type="double">633.0976424607142</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[336]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1453.8293177561723</property>
+                    <property name="y" type="double">635.0644683400897</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[337]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1460.9154852293264</property>
+                    <property name="y" type="double">635.9843025304493</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[338]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1468.899525704233</property>
+                    <property name="y" type="double">637.9141216746375</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[339]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1475.8943801108767</property>
+                    <property name="y" type="double">639.2799081405952</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[340]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1483.1388233982611</property>
+                    <property name="y" type="double">640.9797765420368</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[341]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1490.8036045803508</property>
+                    <property name="y" type="double">642.943661561476</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[342]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1498.2024645043653</property>
+                    <property name="y" type="double">644.96722377985</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[343]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1505.7662526922784</property>
+                    <property name="y" type="double">647.0567556461883</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[344]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1513.6339616722587</property>
+                    <property name="y" type="double">648.9447950870743</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[345]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1521.0612999164664</property>
+                    <property name="y" type="double">650.159959714911</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[346]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1528.8857110819013</property>
+                    <property name="y" type="double">651.1422035135481</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[347]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1536.0467627383503</property>
+                    <property name="y" type="double">652.3490712943844</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[348]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1543.9660415176402</property>
+                    <property name="y" type="double">653.9089420091512</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[349]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1551.2409265611527</property>
+                    <property name="y" type="double">654.971636115943</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[350]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1558.899479774615</property>
+                    <property name="y" type="double">656.4479706043682</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[351]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1566.795018805704</property>
+                    <property name="y" type="double">657.2304610385384</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[352]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1574.1133286982702</property>
+                    <property name="y" type="double">658.1957084610776</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[353]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1582.0988379026094</property>
+                    <property name="y" type="double">659.9647778219529</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[354]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1590.0085503873427</property>
+                    <property name="y" type="double">660.894896865029</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[355]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1597.4575526205094</property>
+                    <property name="y" type="double">661.0684981621544</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[356]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1605.3496771015646</property>
+                    <property name="y" type="double">661.620607473441</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[357]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1613.038776774698</property>
+                    <property name="y" type="double">661.8734003537379</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[358]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1621.0566240707233</property>
+                    <property name="y" type="double">661.8393653764838</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[359]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1628.2229154618099</property>
+                    <property name="y" type="double">661.8710987555694</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[360]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1636.0040698674682</property>
+                    <property name="y" type="double">662.0306485776966</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[361]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1643.9802679745974</property>
+                    <property name="y" type="double">664.0247545491145</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[362]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1651.7041121753473</property>
+                    <property name="y" type="double">665.1769603194673</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[363]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1659.4854565182613</property>
+                    <property name="y" type="double">666.1775220726876</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[364]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1667.1527774287063</property>
+                    <property name="y" type="double">668.1086503734659</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[365]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1675.1548454701606</property>
+                    <property name="y" type="double">670.051780577401</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[366]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1683.071915863657</property>
+                    <property name="y" type="double">672.0281319292476</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[367]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1691.0120042036635</property>
+                    <property name="y" type="double">674.7187935295365</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[368]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1698.8595409969623</property>
+                    <property name="y" type="double">677.9941429621003</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[369]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1706.847638885633</property>
+                    <property name="y" type="double">681.7735312747802</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[370]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1714.4025513455529</property>
+                    <property name="y" type="double">684.9080633690655</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[371]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1721.995674042083</property>
+                    <property name="y" type="double">687.0247729241601</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[372]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1729.1129634980805</property>
+                    <property name="y" type="double">688.3587130154207</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[373]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1736.838762356315</property>
+                    <property name="y" type="double">690.9208448775669</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[374]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1744.0997775091269</property>
+                    <property name="y" type="double">693.930354482</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[375]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1751.0889220561917</property>
+                    <property name="y" type="double">696.8400515580997</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[376]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1758.7327174298882</property>
+                    <property name="y" type="double">700.1347889666949</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[377]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1766.0285089702063</property>
+                    <property name="y" type="double">703.9525811529295</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[378]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1773.1557423060435</property>
+                    <property name="y" type="double">707.2102975905785</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[379]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1780.7235216085735</property>
+                    <property name="y" type="double">710.953752772551</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[380]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1788.0464327557754</property>
+                    <property name="y" type="double">715.2508766791815</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[381]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1794.9942687664754</property>
+                    <property name="y" type="double">719.0954290458559</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[382]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1802.674433705155</property>
+                    <property name="y" type="double">723.988234617461</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[383]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1809.7904760836798</property>
+                    <property name="y" type="double">728.265366035402</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[384]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1816.9097345895268</property>
+                    <property name="y" type="double">732.8239889704749</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[385]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1823.70707125869</property>
+                    <property name="y" type="double">737.0396848196285</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[386]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1830.872340906007</property>
+                    <property name="y" type="double">741.0907161048739</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[387]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1837.9707362381173</property>
+                    <property name="y" type="double">745.0733761880305</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+                <property name="[388]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.RGBRegion$FrameData">
+                    <property name="x" type="double">1845.8041359871581</property>
+                    <property name="y" type="double">750.0603083822382</property>
+                    <property name="r" type="int">10</property>
+                </object>
+                </property>
+            </property>
+            <property name="radii" type="array" class="[Ljava.lang.Integer;">
+                <property name="[0]" type="int">10</property>
+            </property>
+            <property name="rgb" type="array" class="[[D">
+                <property name="array" type="string">{null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{118.1867088607595,219.95886075949366,200.1867088607595,316.0},{117.92721518987342,221.06012658227849,200.96518987341773,316.0},{119.24050632911393,221.73417721518987,202.35443037974684,316.0},{121.37658227848101,228.7626582278481,207.28164556962025,316.0},{102.37658227848101,221.1012658227848,195.38291139240508,316.0},{108.47798742138365,223.54716981132074,196.72955974842768,318.0},{98.44126984126984,216.9111111111111,189.9047619047619,315.0},{97.3873015873016,217.2984126984127,190.03809523809525,315.0},{93.82747603833866,213.10862619808307,186.35782747603835,313.0},{90.03503184713375,209.7675159235669,182.828025477707,314.0},{89.91455696202532,206.87025316455697,180.13924050632912,316.0},{92.5079365079365,210.1904761904762,183.1015873015873,315.0},{93.38853503184713,209.12420382165604,182.3535031847134,314.0},{96.02866242038216,211.0095541401274,184.0891719745223,314.0},{95.56190476190476,209.1238095238095,182.42857142857142,315.0},{97.05993690851734,212.13249211356467,184.2807570977918,317.0},{95.1047619047619,211.43492063492064,183.62539682539682,315.0},{94.01277955271566,209.32268370607028,181.5079872204473,313.0},{87.87301587301587,203.77142857142857,175.93015873015872,315.0},{90.24038461538461,202.79166666666666,175.53205128205127,312.0},{84.29968454258675,200.10094637223975,172.1198738170347,317.0},{88.94303797468355,202.32911392405063,174.9367088607595,316.0},{87.70739549839229,204.66237942122186,176.00964630225081,311.0},{89.25,205.15822784810126,176.43037974683546,316.0},{88.95555555555555,206.98730158730157,176.53968253968253,315.0},{87.05379746835443,201.86708860759492,171.27215189873417,316.0},{89.46496815286625,206.27388535031847,174.19108280254778,314.0},{87.93987341772151,203.2879746835443,171.08227848101265,316.0},{93.6920634920635,210.3047619047619,178.59047619047618,315.0},{88.36825396825397,207.40952380952382,175.25714285714287,315.0},{91.02555910543131,208.05111821086263,177.2140575079872,313.0},{88.57728706624606,204.25236593059938,173.70031545741324,317.0},{90.55732484076434,208.4904458598726,177.78343949044586,314.0},{87.18210862619809,205.7891373801917,174.7859424920128,313.0},{89.48571428571428,205.86984126984126,175.67619047619047,315.0},{85.95569620253164,205.08860759493672,173.54746835443038,316.0},{87.1474358974359,205.76282051282053,174.13782051282053,312.0},{86.35331230283911,205.78233438485805,174.61829652996846,317.0},{88.76433121019109,206.3312101910828,175.90764331210192,314.0},{89.48089171974522,206.90764331210192,176.47452229299364,314.0},{85.01582278481013,202.70886075949366,172.68354430379748,316.0},{84.83962264150944,202.28616352201257,172.67295597484278,318.0},{86.01886792452831,203.64465408805032,173.16352201257862,318.0},{86.99683544303798,203.7594936708861,173.86708860759492,316.0},{87.18354430379746,203.373417721519,172.8227848101266,316.0},{87.38291139240506,204.02215189873417,173.7879746835443,316.0},{90.35126582278481,208.2594936708861,176.60759493670886,316.0},{90.4873417721519,206.7246835443038,175.8259493670886,316.0},{92.95859872611464,208.54458598726114,178.0796178343949,314.0},{88.15723270440252,203.33647798742138,173.14779874213838,318.0},{87.5828025477707,205.20382165605096,174.44904458598725,314.0},{81.16772151898734,198.6772151898734,167.45253164556962,316.0},{79.97476340694006,196.76340694006308,165.2334384858044,317.0},{75.28571428571429,190.92698412698414,159.97142857142856,315.0},{100.81587301587301,210.8,185.0952380952381,315.0},{87.94620253164557,202.37974683544303,173.4367088607595,316.0},{86.78095238095239,201.64126984126983,172.0793650793651,315.0},{89.34810126582279,205.1993670886076,175.623417721519,316.0},{84.02229299363057,199.28980891719746,167.47133757961782,314.0},{93.79113924050633,208.4746835443038,177.0379746835443,316.0},{85.13650793650794,201.33650793650793,169.2095238095238,315.0},{89.5377358490566,207.94654088050314,175.42767295597486,318.0},{82.21725239616613,200.92012779552715,167.73482428115017,313.0},{93.6624203821656,211.3248407643312,178.61146496815286,314.0},{81.45253164556962,199.70569620253164,167.30379746835442,316.0},{85.30379746835443,202.90189873417722,172.65822784810126,316.0},{89.7452229299363,207.86942675159236,176.34713375796179,314.0},{83.46645367412141,201.7667731629393,170.0447284345048,313.0},{85.62341772151899,202.47151898734177,171.14240506329114,316.0},{87.4113924050633,204.79113924050634,173.41772151898735,316.0},{84.90445859872611,204.5796178343949,172.27388535031847,314.0},{84.92698412698412,204.44126984126984,172.63809523809525,315.0},{88.41157556270096,206.59807073954983,175.12861736334406,311.0},{77.67096774193548,198.44838709677418,165.56451612903226,310.0},{77.19745222929936,198.90127388535032,166.30573248407643,314.0},{81.78846153846153,202.43269230769232,170.36858974358975,312.0},{83.08544303797468,203.2246835443038,171.59810126582278,316.0},{77.14556962025317,199.30379746835442,166.36075949367088,316.0},{75.5886075949367,199.20569620253164,166.59177215189874,316.0},{78.21656050955414,201.93630573248407,169.05414012738854,314.0},{74.84761904761905,199.24444444444444,166.03492063492064,315.0},{80.06645569620254,204.2405063291139,171.49367088607596,316.0},{75.07911392405063,197.13291139240508,164.58860759493672,316.0},{74.87025316455696,198.94620253164558,166.1772151898734,316.0},{77.08306709265176,201.20127795527156,168.61341853035142,313.0},{72.39116719242902,197.55520504731862,164.97476340694007,317.0},{72.90032154340837,197.34083601286173,165.2926045016077,311.0},{74.62101910828025,198.56687898089172,166.53503184713375,314.0},{70.90220820189275,193.21451104100947,162.05993690851736,317.0},{72.82594936708861,196.9367088607595,165.13291139240508,316.0},{72.87539936102236,196.08945686900958,164.6102236421725,313.0},{74.62264150943396,197.86477987421384,166.68553459119497,318.0},{68.60126582278481,191.93354430379748,160.66139240506328,316.0},{69.10793650793651,193.43492063492064,162.8761904761905,315.0},{71.68810289389067,193.98392282958199,163.90032154340835,311.0},{73.04402515723271,195.21698113207546,163.76415094339623,318.0},{69.95569620253164,194.9493670886076,162.5253164556962,316.0},{71.7781350482315,195.61414790996784,163.56270096463024,311.0},{70.09206349206349,193.384126984127,161.63809523809525,315.0},{71.31832797427653,194.85530546623795,162.7138263665595,311.0},{73.85804416403785,196.58675078864354,165.20504731861197,317.0},{73.15873015873017,196.12698412698413,164.94285714285715,315.0},{71.37539432176656,194.09463722397476,163.22712933753942,317.0},{69.53184713375796,193.14968152866243,162.02229299363057,314.0},{69.12698412698413,192.54603174603176,160.7174603174603,315.0},{79.19169329073482,199.67092651757187,169.36102236421726,313.0},{67.79430379746836,189.7594936708861,158.90189873417722,316.0},{72.99683544303798,195.4905063291139,164.73101265822785,316.0},{71.06031746031746,195.52698412698413,164.01269841269843,315.0},{68.58466453674122,193.71246006389777,161.30670926517573,313.0},{68.44126984126984,193.83492063492062,161.65396825396826,315.0},{67.76898734177215,195.21835443037975,162.86708860759492,316.0},{68.8626198083067,193.92332268370606,162.3929712460064,313.0},{68.3079365079365,194.65079365079364,163.43809523809523,315.0},{68.34493670886076,193.876582278481,162.6360759493671,316.0},{66.96835443037975,192.43354430379748,161.72784810126583,316.0},{64.72063492063492,188.91746031746032,158.72698412698412,315.0},{69.75078864353313,195.17350157728706,164.14826498422713,317.0},{62.87579617834395,187.80573248407643,155.54777070063693,314.0},{65.41009463722398,190.4794952681388,158.03154574132492,317.0},{68.07643312101911,193.06687898089172,160.52229299363057,314.0},{65.25,188.14240506329114,156.126582278481,316.0},{66.4113924050633,191.93037974683546,158.76898734177215,316.0},{62.287539936102235,187.8370607028754,155.35782747603835,313.0},{63.34285714285714,189.2984126984127,156.5142857142857,315.0},{65.45253164556962,187.2405063291139,157.17088607594937,316.0},{66.67301587301587,192.43174603174603,160.93333333333334,315.0},{65.26923076923077,190.56410256410257,159.44871794871796,312.0},{65.67515923566879,189.8375796178344,159.5063694267516,314.0},{64.6126984126984,188.55873015873016,157.8190476190476,315.0},{64.87025316455696,188.8132911392405,159.06645569620252,316.0},{66.38607594936708,188.76582278481013,159.47784810126583,316.0},{65.93650793650794,187.3111111111111,158.32063492063492,315.0},{63.397476340694006,187.86119873817034,156.602523659306,317.0},{60.85173501577287,183.62776025236593,152.93375394321765,317.0},{65.30868167202573,187.6816720257235,157.56591639871382,311.0},{59.26498422712934,183.31545741324922,152.06309148264984,317.0},{64.32594936708861,187.7405063291139,157.1993670886076,316.0},{61.86624203821656,185.21019108280254,154.80891719745222,314.0},{64.5673076923077,189.35256410256412,158.7147435897436,312.0},{59.107594936708864,183.34177215189874,152.7373417721519,316.0},{65.2753164556962,189.71835443037975,159.0506329113924,316.0},{59.484177215189874,185.50632911392404,153.70886075949366,316.0},{69.06687898089172,194.97770700636943,163.0859872611465,314.0},{54.313291139240505,182.27215189873417,148.51898734177215,316.0},{59.703821656050955,187.44904458598725,153.90127388535032,314.0},{60.27070063694268,188.02547770700636,154.56369426751593,314.0},{59.00645161290323,185.54516129032257,152.4258064516129,310.0},{63.40894568690096,190.01277955271564,156.93929712460064,313.0},{60.84076433121019,188.84713375796179,155.52229299363057,314.0},{60.96835443037975,189.123417721519,155.75316455696202,316.0},{62.4171974522293,190.92675159235668,157.72929936305732,314.0},{63.471518987341774,189.66139240506328,157.4367088607595,316.0},{61.78662420382165,189.44585987261146,156.7611464968153,314.0},{60.56190476190476,187.9079365079365,155.65714285714284,315.0},{65.07073954983923,193.09646302250803,160.87781350482314,311.0},{60.2626582278481,187.46518987341773,154.41139240506328,316.0},{57.57413249211356,183.3186119873817,150.87066246056781,317.0},{68.30914826498423,194.02208201892745,162.63406940063092,317.0},{73.59935897435898,202.54807692307693,169.97115384615384,312.0},{62.70886075949367,188.54746835443038,157.00632911392404,316.0},{69.22327044025157,195.24528301886792,163.72641509433961,318.0},{61.8063492063492,188.6888888888889,157.53015873015872,315.0},{70.43312101910828,199.02866242038218,167.75477707006368,314.0},{63.7753164556962,193.3259493670886,161.6139240506329,316.0},{62.83860759493671,190.54113924050634,159.72151898734177,316.0},{63.114285714285714,190.1873015873016,159.56825396825397,315.0},{67.37777777777778,196.04444444444445,164.87301587301587,315.0},{63.410828025477706,191.35987261146497,160.31528662420382,314.0},{62.888535031847134,190.93312101910828,160.3248407643312,314.0},{69.45741324921136,198.41324921135646,167.86750788643533,317.0},{63.46518987341772,191.13924050632912,159.5253164556962,316.0},{62.0828025477707,190.60509554140128,158.60191082802547,314.0},{65.55345911949685,193.5062893081761,161.9811320754717,318.0},{65.53184713375796,192.5955414012739,161.77070063694268,314.0},{67.48242811501598,195.14696485623003,164.3003194888179,313.0},{66.03821656050955,193.32165605095543,163.24522292993632,314.0},{65.81388012618297,196.3186119873817,164.98107255520506,317.0},{63.68354430379747,193.50316455696202,162.70569620253164,316.0},{63.56012658227848,194.2594936708861,163.31962025316454,316.0},{62.152866242038215,193.20063694267515,161.90764331210192,314.0},{57.44794952681388,186.88643533123027,155.8801261829653,317.0},{62.8984126984127,193.2888888888889,162.11428571428573,315.0},{62.08832807570978,190.6309148264984,159.7602523659306,317.0},{61.436708860759495,191.626582278481,160.71518987341773,316.0},{61.575949367088604,190.0506329113924,160.51898734177215,316.0},{60.70886075949367,190.34810126582278,160.1993670886076,316.0},{64.4267515923567,192.90764331210192,161.53184713375796,314.0},{60.451104100946374,190.13249211356467,158.39432176656152,317.0},{61.04746835443038,190.2246835443038,158.4240506329114,316.0},{62.19303797468354,190.64240506329114,158.74683544303798,316.0},{57.142405063291136,184.84493670886076,153.63924050632912,316.0},{61.098101265822784,188.93037974683546,158.18354430379748,316.0},{57.98422712933754,184.4006309148265,154.11041009463722,317.0},{63.054140127388536,188.69108280254778,158.37261146496814,314.0},{60.26282051282051,186.93910256410257,156.12820512820514,312.0},{65.70793650793651,193.78412698412697,162.82539682539684,315.0},{63.397476340694006,190.7160883280757,160.3123028391167,317.0},{63.24203821656051,189.80891719745222,159.5700636942675,314.0},{60.554140127388536,187.18789808917197,156.7611464968153,314.0},{61.308176100628934,189.0503144654088,158.27358490566039,318.0},{56.17088607594937,183.7879746835443,153.28164556962025,316.0},{58.25320512820513,185.73076923076923,155.30769230769232,312.0},{58.29113924050633,185.62025316455697,155.0632911392405,316.0},{55.789808917197455,181.94904458598725,151.6815286624204,314.0},{55.628571428571426,178.66984126984127,149.15555555555557,315.0},{63.924050632911396,188.49367088607596,157.9272151898734,316.0},{63.314465408805034,186.41194968553458,156.00314465408806,318.0},{62.60443037974684,187.5506329113924,156.9905063291139,316.0},{57.91693290734824,182.1597444089457,152.1405750798722,313.0},{65.8974358974359,191.91666666666666,161.35576923076923,312.0},{56.82222222222222,182.7174603174603,151.76190476190476,315.0},{61.094637223974765,188.41955835962145,156.9179810725552,317.0},{59.3186119873817,186.2839116719243,154.608832807571,317.0},{63.501597444089455,188.92012779552715,156.34504792332268,313.0},{63.445859872611464,187.51592356687897,156.0796178343949,314.0},{60.37223974763407,184.3627760252366,152.99053627760253,317.0},{59.347133757961785,185.31210191082803,153.14331210191082,314.0},{56.48253968253968,180.95555555555555,149.31428571428572,315.0},{59.61514195583596,185.23028391167193,153.08832807570977,317.0},{71.4826498422713,197.0820189274448,164.41009463722398,317.0},{59.28391167192429,182.14195583596214,150.5520504731861,317.0},{66.62974683544304,190.55379746835442,159.12025316455697,316.0},{57.639240506329116,182.5126582278481,151.94620253164558,316.0},{63.901898734177216,188.3006329113924,157.3639240506329,316.0},{60.7246835443038,184.43354430379748,153.89240506329114,316.0},{59.45859872611465,184.30573248407643,152.55732484076432,314.0},{58.14556962025316,181.50632911392404,150.72151898734177,316.0},{58.74603174603175,182.27619047619046,151.2,315.0},{58.924050632911396,181.6740506329114,150.93354430379748,316.0},{64.2018927444795,186.6813880126183,156.12618296529968,317.0},{61.321766561514195,184.73501577287067,153.99053627760253,317.0},{62.971698113207545,185.59119496855345,154.90251572327045,318.0},{60.381703470031546,181.4353312302839,151.18611987381703,317.0},{64.28025477707007,184.94585987261146,155.10191082802547,314.0},{58.387301587301586,180.67619047619047,150.45714285714286,315.0},{59.88817891373802,182.19808306709265,151.89137380191693,313.0},{62.29968454258675,184.4794952681388,154.391167192429,317.0},{56.19558359621451,175.80757097791798,146.41009463722398,317.0},{60.796178343949045,183.2579617834395,153.64331210191082,314.0},{66.13694267515923,188.69745222929936,158.70063694267515,314.0},{61.35143769968051,184.3258785942492,153.93929712460064,313.0},{65.7948717948718,188.25,157.95833333333334,312.0},{64.31012658227849,186.84177215189874,156.6740506329114,316.0},{69.1230283911672,192.85173501577287,162.48895899053628,317.0},{62.523809523809526,187.72380952380954,158.15555555555557,315.0},{54.0126582278481,176.79746835443038,146.30696202531647,316.0},{59.83860759493671,183.0759493670886,152.53481012658227,316.0},{56.41139240506329,179.6487341772152,147.8512658227848,316.0},{51.69453376205788,176.6881028938907,144.2411575562701,311.0},{49.10377358490566,172.8930817610063,140.38364779874215,318.0},{50.473186119873816,173.596214511041,141.9652996845426,317.0},{47.82911392405063,171.49367088607596,139.3006329113924,316.0},{47.36708860759494,170.62025316455697,138.84810126582278,316.0},{45.894904458598724,168.9299363057325,137.52229299363057,314.0},{49.28481012658228,171.55696202531647,139.20569620253164,316.0},{54.843450479233226,178.33226837060704,144.6070287539936,313.0},{59.4746835443038,183.50632911392404,149.73101265822785,316.0},{52.26984126984127,174.9936507936508,141.43174603174603,315.0},{52.26100628930818,176.02201257861634,142.26415094339623,318.0},{55.445859872611464,180.11464968152868,146.85668789808918,314.0},{48.201892744479494,172.70347003154575,138.78233438485805,317.0},{45.733333333333334,174.0920634920635,137.10476190476192,315.0},{49.09493670886076,174.50632911392404,139.2405063291139,316.0},{47.46056782334385,174.37539432176655,138.801261829653,317.0},{42.563291139240505,169.71518987341773,133.78164556962025,316.0},{47.88291139240506,174.86075949367088,138.9873417721519,316.0},{39.65396825396825,164.71428571428572,129.81587301587302,315.0},{44.49050632911393,172.69620253164558,136.74683544303798,316.0},{45.59493670886076,172.43037974683546,137.57911392405063,316.0},{47.32807570977918,174.62460567823345,138.84542586750788,317.0},{46.56962025316456,171.7405063291139,137.3259493670886,316.0},{46.5188679245283,172.86163522012578,136.98427672955975,318.0},{38.629746835443036,163.98417721518987,126.56012658227849,316.0},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null}</property>
+            </property>
+        </object>
+        </property>
+    </property>
+    <property name="selectedtrack" type="string">region A</property>
+    <property name="dividers" type="array" class="[D">
+        <property name="array" type="string">{0.70090515545061,0.5,1.0,0.349862258953168}</property>
+    </property>
+    <property name="views" type="array" class="[[Lorg.opensourcephysics.cabrillo.tracker.TView;">
+        <property name="[0]" type="array" class="[Lorg.opensourcephysics.cabrillo.tracker.TView;">
+            <property name="[1]" type="object">
+            <object class="org.opensourcephysics.cabrillo.tracker.TableTView">
+                <property name="selected_track" type="string">region A</property>
+                <property name="track_columns" type="array" class="[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[Ljava.lang.String;">
+                        <property name="[0]" type="string">region A</property>
+                        <property name="[1]" type="string">t</property>
+                        <property name="[2]" type="string">x</property>
+                        <property name="[3]" type="string">y</property>
+                        <property name="[4]" type="string">luma</property>
+                    </property>
+                </property>
+                <property name="column_formats" type="array" class="[[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[[Ljava.lang.String;">
+                        <property name="[0]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">B</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[1]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">R</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[2]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">pixels</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[3]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">t</property>
+                            <property name="[2]" type="string">0.000</property>
+                        </property>
+                        <property name="[4]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">G</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[5]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">step</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[6]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">frame</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[7]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">luma</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                    </property>
+                </property>
+            </object>
+            </property>
+        </property>
+        <property name="[1]" type="array" class="[Lorg.opensourcephysics.cabrillo.tracker.TView;">
+            <property name="[1]" type="object">
+            <object class="org.opensourcephysics.cabrillo.tracker.TableTView">
+                <property name="selected_track" type="string">region A</property>
+                <property name="track_columns" type="array" class="[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[Ljava.lang.String;">
+                        <property name="[0]" type="string">region A</property>
+                        <property name="[1]" type="string">t</property>
+                        <property name="[2]" type="string">x</property>
+                        <property name="[3]" type="string">y</property>
+                        <property name="[4]" type="string">luma</property>
+                    </property>
+                </property>
+                <property name="column_formats" type="array" class="[[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[[Ljava.lang.String;">
+                        <property name="[0]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">B</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[1]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">R</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[2]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">pixels</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[3]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">t</property>
+                            <property name="[2]" type="string">0.000</property>
+                        </property>
+                        <property name="[4]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">G</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[5]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">step</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[6]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">frame</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[7]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">luma</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                    </property>
+                </property>
+            </object>
+            </property>
+        </property>
+        <property name="[2]" type="array" class="[Lorg.opensourcephysics.cabrillo.tracker.TView;">
+            <property name="[1]" type="object">
+            <object class="org.opensourcephysics.cabrillo.tracker.TableTView">
+                <property name="selected_track" type="string">region A</property>
+                <property name="track_columns" type="array" class="[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[Ljava.lang.String;">
+                        <property name="[0]" type="string">region A</property>
+                        <property name="[1]" type="string">t</property>
+                        <property name="[2]" type="string">x</property>
+                        <property name="[3]" type="string">y</property>
+                        <property name="[4]" type="string">luma</property>
+                    </property>
+                </property>
+                <property name="column_formats" type="array" class="[[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[[Ljava.lang.String;">
+                        <property name="[0]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">B</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[1]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">R</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[2]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">pixels</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[3]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">t</property>
+                            <property name="[2]" type="string">0.000</property>
+                        </property>
+                        <property name="[4]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">G</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[5]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">step</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[6]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">frame</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[7]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">luma</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                    </property>
+                </property>
+            </object>
+            </property>
+        </property>
+        <property name="[3]" type="array" class="[Lorg.opensourcephysics.cabrillo.tracker.TView;">
+            <property name="[1]" type="object">
+            <object class="org.opensourcephysics.cabrillo.tracker.TableTView">
+                <property name="selected_track" type="string">region A</property>
+                <property name="track_columns" type="array" class="[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[Ljava.lang.String;">
+                        <property name="[0]" type="string">region A</property>
+                        <property name="[1]" type="string">t</property>
+                        <property name="[2]" type="string">x</property>
+                        <property name="[3]" type="string">y</property>
+                        <property name="[4]" type="string">luma</property>
+                    </property>
+                </property>
+                <property name="column_formats" type="array" class="[[[Ljava.lang.String;">
+                    <property name="[0]" type="array" class="[[Ljava.lang.String;">
+                        <property name="[0]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">B</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[1]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">R</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[2]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">pixels</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[3]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">t</property>
+                            <property name="[2]" type="string">0.000</property>
+                        </property>
+                        <property name="[4]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">G</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                        <property name="[5]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">step</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[6]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">frame</property>
+                            <property name="[2]" type="string">0</property>
+                        </property>
+                        <property name="[7]" type="array" class="[Ljava.lang.String;">
+                            <property name="[0]" type="string">region A</property>
+                            <property name="[1]" type="string">luma</property>
+                            <property name="[2]" type="string">0.0</property>
+                        </property>
+                    </property>
+                </property>
+            </object>
+            </property>
+        </property>
+    </property>
+    <property name="selected_views" type="array" class="[Ljava.lang.String;">
+        <property name="[0]" type="string">Plot View</property>
+        <property name="[1]" type="string">Table View</property>
+        <property name="[2]" type="string">World View</property>
+        <property name="[3]" type="string">Page View</property>
+    </property>
+    <property name="toolbar" type="object">
+    <object class="org.opensourcephysics.cabrillo.tracker.TToolBar">
+        <property name="trace" type="boolean">false</property>
+        <property name="position" type="boolean">true</property>
+        <property name="velocity" type="boolean">false</property>
+        <property name="acceleration" type="boolean">false</property>
+        <property name="labels" type="boolean">true</property>
+        <property name="multiply_by_mass" type="boolean">false</property>
+        <property name="trail_length" type="int">15</property>
+        <property name="stretch" type="int">1</property>
+        <property name="stretch_acceleration" type="int">1</property>
+    </object>
+    </property>
+    <property name="track_control_x" type="int">12</property>
+    <property name="track_control_y" type="int">117</property>
+</object>

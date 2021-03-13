@@ -6,20 +6,11 @@ navigation::navigation(MotorControl* motorControl_)
 }
 
 double navigation::activationFunction(double input) {
-//	return 20 / (1 + exp(-10*input)) + 20;		//Sigmoid v4 or Logistic                       [20,40]
-////	return 20 / (1 + exp(-10*input)) + 15;		//Sigmoid v3 or Logistic                       [0,1]
-////	return 30 / (1 + exp(-10*input)) + 10;		//Sigmoid v2 or Logistic                       [0,1]
-//	//return 50 / (1 + exp(-3*input));		//Sigmoid or Logistic                       [0,1]
-//	//return 30 * tanh(3 * input);			//Hyperbolic tangent (tanh)                 [-1,1]
-//	//return 30 * atan(5 * input);			//Inverse Hyperbolic Tangent (arctanh)		[-1,1]
-//
-//	//return 20 * 2 * atan(tanh(5 * input));	//Gudermannian								[-pi/2, pi/2]
-
 	/* Test functions */
-	return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid
-//	return 10 * tanh(5 * input) + 30;			//Hyperbolic Tangent
-//	return 8 * atan(5 * input) + 30;			//Inverse Hyperbolic
-////	return 12 * atan(tanh(5 * input)) + 30;	//Gudermannian
+	return 20 / (1 + exp(-1 * input)) + 20;	//Sigmoid 
+	//return 20 / (1 + exp(-5 * input)) + 20;	//Sigmoid 
+	//return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid 
+	//return 20 / (1 + exp(-15 * input)) + 20;	//Sigmoid 
 }
 
 void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { //Braitenberg aggression vehicle
