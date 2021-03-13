@@ -7,10 +7,13 @@ navigation::navigation(MotorControl* motorControl_)
 
 double navigation::activationFunction(double input) {
 	/* Test functions */
-	return 20 / (1 + exp(-1 * input)) + 20;	//Sigmoid 
-	//return 20 / (1 + exp(-5 * input)) + 20;	//Sigmoid 
-	//return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid 
-	//return 20 / (1 + exp(-15 * input)) + 20;	//Sigmoid 
+//	return 20 / (1 + exp(-1 * input)) + 20;	//Sigmoid
+	//return 20 / (1 + exp(-5 * input)) + 20;	//Sigmoid
+	//return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid
+	//return 20 / (1 + exp(-15 * input)) + 20;	//Sigmoid
+//    return 20 / (1 + exp(-20 * input)) + 20;	//Sigmoid
+    //return 20 / (1 + exp(-25 * input)) + 20;	//Sigmoid
+    return 20 / (1 + exp(-30 * input)) + 20;	//Sigmoid
 }
 
 void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { //Braitenberg aggression vehicle
