@@ -7,13 +7,8 @@ navigation::navigation(MotorControl* motorControl_)
 
 double navigation::activationFunction(double input) {
 	/* Test functions */
-//	return 20 / (1 + exp(-1 * input)) + 20;	//Sigmoid
-	//return 20 / (1 + exp(-5 * input)) + 20;	//Sigmoid
-	//return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid
-	//return 20 / (1 + exp(-15 * input)) + 20;	//Sigmoid
-//    return 20 / (1 + exp(-20 * input)) + 20;	//Sigmoid
-    //return 20 / (1 + exp(-25 * input)) + 20;	//Sigmoid
-    return 20 / (1 + exp(-30 * input)) + 20;	//Sigmoid
+	return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid
+
 }
 
 void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { //Braitenberg aggression vehicle
@@ -26,15 +21,6 @@ void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { /
 	motorSpeedL = activationFunction(angleL) + VELOCITY_OFFSET;
 	motorSpeedR = activationFunction(angleR) + VELOCITY_OFFSET;
 
-	//if (angle <= 190 && angle >= 170) //Sound source is front  <---- Test dette, om det er nødvendigt
-	//	motorCommand = FORWARD;
-	//else if (motorSpeedL > motorSpeedR) //Sound source is right
-	//	motorCommand = RIGHTTURN;
-	//else if (motorSpeedL < motorSpeedR) //Sound source is left
-	//	motorCommand = LEFTTURN;
-	//else
-	//	motorCommand = STOP;
-
 	std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
 	//motorControl->changeMotorCommand(motorCommand, motorSpeedL, motorSpeedR);
@@ -45,12 +31,6 @@ void navigation::braitenberg(double angle, std::ofstream& outputBraitenberg) { /
 }
 
 void navigation::navigationICO(double angle, double w_A) {
-	//	if (angle < 180) { //Object is on RIGHT side
-	//		motor_control->setMatrixVoiceLED(MATRIX_LED_R_1, 0, MAX_BRIGHTNESS, 0);
-	//	}
-	//	else { // angle >= 180 //object is on LEFT side
-	//		motor_control->setMatrixVoiceLED(MATRIX_LED_L_9, 0, MAX_BRIGHTNESS, 0);
-	//	}
 
 		// Update sensor signals
 	angleL = (((360 - angle) - 180) / 180); // Normalize

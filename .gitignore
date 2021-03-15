@@ -40,3 +40,9 @@
 /.vs/bachelor_sound_nav/v16/Browse.VC.db-shm
 /.vs/bachelor_sound_nav/v16/Browse.VC.db
 /.vs/bachelor_sound_nav/v16/.suo
+
+#Tracker files
+*.trk
+
+#MatLab
+*.mlx
