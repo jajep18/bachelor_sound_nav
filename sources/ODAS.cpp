@@ -169,7 +169,7 @@ ODAS::~ODAS() {}
 
 void ODAS::updateODAS() {
 
-	if((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
+	while((messageSize = recv(connection_id, message, nBytes, 0)) > 0) {
 
 			message[messageSize] = 0x00;
 
@@ -243,6 +243,10 @@ void ODAS::updateSoundInformation() {
 			largestElementIndex = i;
 		}
 	}
+
+	//Lock angle and sound mutex
+	std::lock_guard<std::mutex> guard(angle_energy_mutex);
+
 	if (largestElement != -1)
 	{
 		angle = (largestElementIndex * 360 / ENERGY_COUNT);

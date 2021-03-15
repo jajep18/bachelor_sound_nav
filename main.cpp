@@ -33,6 +33,7 @@
 #include "includes/navigation.h"
 #include "includes/ODAS.h"
 #include "includes/navigation.h"
+#include "includes/camera.h"
 
 #include <ctime>
 #include <fstream>
@@ -40,6 +41,7 @@
 #include <unistd.h>
 #include <raspicam/raspicam.h>
 #include "json-c/json.h"
+
 
 //OpenCV
 #include <opencv2/core.hpp>
@@ -74,7 +76,7 @@ int main(int argc, char** argv)
 	*****************************************************************************/
 	MotorControl motorControl(&bus, &everloop, &everloop_image, &gpio);
 	ODAS soundLocalization(&bus, &everloop, &everloop_image);
-	navigation navigationObj(&motorControl);
+	navigation navigation(&motorControl);
 
 	//Vision vision;
 
@@ -97,12 +99,12 @@ int main(int argc, char** argv)
 	************************   Output stream    **********************************
 	*****************************************************************************/
 
-	//std::ofstream outputStream;
+	std::ofstream outputStream;
 	//outputStream.open("./data/braitenbergMotorCommandsDummy.csv", std::ofstream::out | std::ofstream::trunc);
 	//outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
-	std::thread thread_odas(&ODAS::updateODAS,	// the pointer-to-member
-		&odas);				// the object, could also be a pointer
+	std::thread threadOdas(&ODAS::updateODAS,	// the pointer-to-member
+		&soundLocalization);				// the object, could also be a pointer
 							// the argument
 
 	Vision vision;
@@ -114,33 +116,34 @@ int main(int argc, char** argv)
 		//motor_control.setMatrixVoiceLED(MATRIX_LED_L_9, MAX_BRIGHTNESS, 0, 0);
 
 
-		if (odas.getSoundEnergy() > ENERGY_THRESHOLD) {
-			navigation.braitenberg(odas.getSoundAngle(), output_stream);
+		if (soundLocalization.getEnergy() > ENERGY_THRESHOLD) {
+			navigation.braitenberg(soundLocalization.getSoundAngle(), outputStream);
 		}
 		else {
-			motor_control.setMotorDirection(STOP); //STOPS ALL MOTORS
+			motorControl.changeMotorCommand(STOP); //STOPS ALL MOTORS
 		}
 
-		vision.updateCamera();
-		k = cv::waitKey(100);
-		if (k == 27) //27 = 'ESC'
-			break;
-
+//		vision.updateCamera();
+//		k = cv::waitKey(100);
+//		if (k == 27) //27 = 'ESC'
+//			break;
+    }
 
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
-	motor_control.setMotorDirection(STOP);		//STOP ALL MOTORS
-	motor_control.resetMatrixVoiceLEDs();		//RESET ALL LEDS
+	motorControl.changeMotorCommand(STOP);		//STOP ALL MOTORS
+	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 	vision.releaseCamera();						//Release camera resources
 
 	//Test flag
 	std::cout << "End of main -------" << std::endl;
 
-	thread_odas.join();
+	threadOdas.join();
 	std::cout << "thread 1 joined" << std::endl;
-	motor_control.resetMatrixVoiceLEDs();		//RESET ALL LEDS
+	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 
 	//outputStream.close();
+	vision.releaseCamera();
 	std::cout << "End of main -------" << std::endl;
 
 	return 0;

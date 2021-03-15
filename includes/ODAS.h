@@ -6,7 +6,7 @@
  * Author:			Erik Lindby & Jacob Fløe Jeppesen
  *					Derivative of MATRIX Labs ODAS
  *					University of Southern Denmark
- * 
+ *
  * Creation date:   22-02-2021
  */
 #include "json-c/json.h"
@@ -21,6 +21,8 @@
 #include <sys/socket.h>
 #include <array>
 #include <iostream>
+#include <thread>
+#include <mutex>
 
 #include "defines.h"
 
@@ -57,6 +59,9 @@ private:
 	void decrease_pots();
 	void json_parse(json_object* jobj);
 	void json_parse_array(json_object* jobj, char* key);
+
+
+	std::mutex angle_energy_mutex;
 public:
 
 	ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_);
