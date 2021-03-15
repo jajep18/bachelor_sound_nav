@@ -123,10 +123,10 @@ int main(int argc, char** argv)
 			motorControl.changeMotorCommand(STOP); //STOPS ALL MOTORS
 		}
 
-//		vision.updateCamera();
-//		k = cv::waitKey(100);
-//		if (k == 27) //27 = 'ESC'
-//			break;
+		vision.updateCamera();
+		k = cv::waitKey(10);
+		if (k == 27) //27 = 'ESC'
+			break;
     }
 
 /*********************************   END OF CONTROLLER LOOP   *********************************/

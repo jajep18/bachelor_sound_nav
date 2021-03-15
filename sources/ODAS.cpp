@@ -262,7 +262,9 @@ void ODAS::updateSoundInformation() {
 
 
 int ODAS::getAngle() {
+
 	int tempAngle;
+
 	while (true) {
 		// try to lock mutex to modify 'angle'
 		if (angleEnergyMutex.try_lock()) {
@@ -270,11 +272,15 @@ int ODAS::getAngle() {
 			angleEnergyMutex.unlock();
 			break;
 		}
+    }
 	return tempAngle;
+
 }
 
-int ODAS::getEnergy() {
+int ODAS::getEnergy(){
+
     int tempEnergy;
+
 	while (true) {
 		// try to lock mutex to modify 'energy'
 		if (angleEnergyMutex.try_lock()) {
@@ -283,8 +289,10 @@ int ODAS::getEnergy() {
 			break;
 		}
 	}
-	return temp_energy;
+	return tempEnergy;
+
 }
+
 
 
 
