@@ -245,7 +245,7 @@ void ODAS::updateSoundInformation() {
 	}
 
 	//Lock angle and sound mutex
-	std::lock_guard<std::mutex> guard(angle_energy_mutex);
+	std::lock_guard<std::mutex> guard(angleEnergyMutex);
 
 	if (largestElement != -1)
 	{
@@ -262,11 +262,28 @@ void ODAS::updateSoundInformation() {
 
 
 int ODAS::getAngle() {
-	return angle;
+	int tempAngle;
+	while (true) {
+		// try to lock mutex to modify 'angle'
+		if (angleEnergyMutex.try_lock()) {
+			tempAngle = angle;
+			angleEnergyMutex.unlock();
+			break;
+		}
+	return tempAngle;
 }
 
 int ODAS::getEnergy() {
-	return energy;
+    int tempEnergy;
+	while (true) {
+		// try to lock mutex to modify 'energy'
+		if (angleEnergyMutex.try_lock()) {
+			tempEnergy = energy;
+			angleEnergyMutex.unlock();
+			break;
+		}
+	}
+	return temp_energy;
 }
 
 

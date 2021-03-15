@@ -61,7 +61,7 @@ private:
 	void json_parse_array(json_object* jobj, char* key);
 
 
-	std::mutex angle_energy_mutex;
+	std::mutex angleEnergyMutex;
 public:
 
 	ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_);
