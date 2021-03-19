@@ -116,21 +116,21 @@ int main(int argc, char** argv)
 	std::thread threadLIDAR(&LIDAR::LIDARScan,
 		&lidar);
 
-	
+
 
 
 	Vision vision;
 
 	char k;
 
-	
+
 
 	//while(true){
 	for (int i = 0; i < 1000; i++) {
 
 		std::cout << "Nearest distance to obstacle: " << lidar.readScan() << std::endl;
 
-		std::usleep(1000000);
+		usleep(1000000);
 
 	//	//odas.updateODAS();
 	//	//motor_control.setMatrixVoiceLED(MATRIX_LED_L_9, MAX_BRIGHTNESS, 0, 0);

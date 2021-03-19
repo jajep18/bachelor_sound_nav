@@ -92,7 +92,7 @@ void LIDAR::LIDARScan()
                     nodes[pos].dist_mm_q2 / 4.0f,
                     nodes[pos].quality);
             }
-            writeScan(); //Copies nodes to dataNodes for safe access. 
+            writeScan(); //Copies nodes to dataNodes for safe access.
 
         }
 
@@ -167,7 +167,7 @@ _u32 LIDAR::readScan()
     size_t count = _countof(tempNodes);
     for (int i = 0; i < (int)count; i++)
     {
-        if (compDist > tempNodes[i]) {
+        if (compDist > tempNodes[i].dist_mm_q2) {
             compDist = tempNodes->dist_mm_q2;
         }
     }
