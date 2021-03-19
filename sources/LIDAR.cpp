@@ -152,7 +152,7 @@ void LIDAR::writeScan()
     dataNodes = nodes;
 }
 
-_u32 LIDAR::readScan()
+rplidar_response_measurement_node_hq_t LIDAR::readScan()
 {
     rplidar_response_measurement_node_hq_t tempNodes[8192];
     while (true) {
@@ -164,12 +164,15 @@ _u32 LIDAR::readScan()
         }
     }
     _u32 compDist = 9999;
+    int nodeIndex;
     size_t count = _countof(tempNodes);
+
     for (int i = 0; i < (int)count; i++)
     {
         if (compDist > tempNodes[i]) {
             compDist = tempNodes->dist_mm_q2;
+            nodeIndex = i;
         }
     }
-    return compDist;
+    return tempNodes[nodeIndex];
 }

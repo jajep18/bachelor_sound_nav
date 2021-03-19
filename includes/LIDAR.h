@@ -72,7 +72,7 @@ public:
 	~LIDAR();
 
 	void LIDARScan();
-	_u32 readScan();
+	rplidar_response_measurement_node_hq_t readScan();
 
 
 };
