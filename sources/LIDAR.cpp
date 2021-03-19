@@ -84,14 +84,14 @@ void LIDAR::LIDARScan()
 
             drv->ascendScanData(nodes, count);
 
-            for (int pos = 0; pos < (int)count; ++pos) {
-
-                printf("%s theta: %03.2f Dist: %08.2f Q: %d \n",
-                    (nodes[pos].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT) ? "S " : "  ",
-                    (nodes[pos].angle_z_q14 * 90.f / (1 << 14)),
-                    nodes[pos].dist_mm_q2 / 4.0f,
-                    nodes[pos].quality);
-            }
+//           for (int pos = 0; pos < (int)count; ++pos) {
+//
+//                printf("%s theta: %03.2f Dist: %08.2f Q: %d \n",
+//                    (nodes[pos].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT) ? "S " : "  ",
+//                    (nodes[pos].angle_z_q14 * 90.f / (1 << 14)),
+//                    nodes[pos].dist_mm_q2 / 4.0f,
+//                    nodes[pos].quality);
+//            }
             writeScan(); //Copies nodes to dataNodes for safe access.
 
         }
@@ -165,13 +165,18 @@ rplidar_response_measurement_node_hq_t LIDAR::readScan()
         }
     }
     _u32 compDist = 9999;
-    int nodeIndex;
+    int nodeIndex = 0;
     size_t count = _countof(tempNodes);
 
     for (int i = 0; i < (int)count; i++)
     {
-        if (compDist > tempNodes[i].dist_mm_q2) {
-            compDist = tempNodes->dist_mm_q2;
+//                printf("%s theta: %03.2f Dist: %08.2f Q: %d \n",
+//                    (tempNodes[i].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT) ? "S " : "  ",
+//                    (tempNodes[i].angle_z_q14 * 90.f / (1 << 14)),
+//                    tempNodes[i].dist_mm_q2 / 4.0f,
+//                    tempNodes[i].quality);
+        if (compDist > tempNodes[i].dist_mm_q2 && (tempNodes[i].quality != 0)) {
+            compDist = tempNodes[i].dist_mm_q2;
             nodeIndex = i;
         }
     }

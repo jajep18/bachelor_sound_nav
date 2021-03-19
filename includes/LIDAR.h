@@ -42,7 +42,7 @@ class LIDAR
 private:
 	//LIDAR variables
 	RPlidarDriver* lidar;
-	const char* opt_com_path = "/dev/ttyUSB0";
+	const char* opt_com_path = "/dev/ttyUSB1";
 	_u32         baudrateArray[2] = { 115200, 256000 };
 	_u32         opt_com_baudrate = 0;
 	u_result     op_result;
@@ -62,7 +62,7 @@ private:
 
 	bool checkRPLIDARHealth(RPlidarDriver* drv);
 
-	void ctrlc(int);
+
 
 	void writeScan();
 
@@ -74,6 +74,8 @@ public:
 
 	void LIDARScan();
 	rplidar_response_measurement_node_hq_t readScan();
+
+    void ctrlc(int);
 
 
 };

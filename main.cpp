@@ -76,9 +76,9 @@ int main(int argc, char** argv)
 	************************   INITIALISE CLASSES  ************************
 	*****************************************************************************/
 	MotorControl motorControl(&bus, &everloop, &everloop_image, &gpio);
-	ODAS soundLocalization(&bus, &everloop, &everloop_image);
+	//ODAS soundLocalization(&bus, &everloop, &everloop_image);
 	navigation navigation(&motorControl);
-	LIDAR lidar;
+
 
 	//Vision vision;
 
@@ -101,7 +101,7 @@ int main(int argc, char** argv)
 	************************  OUTOUT STREAM	    **********************************
 	*****************************************************************************/
 
-	std::ofstream outputStream;
+	//std::ofstream outputStream;
 	//outputStream.open("./data/braitenbergMotorCommandsDummy.csv", std::ofstream::out | std::ofstream::trunc);
 	//outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
@@ -109,17 +109,18 @@ int main(int argc, char** argv)
 	************************   CREATE THREADS	 *********************************
 	*****************************************************************************/
 
-	std::thread threadOdas(&ODAS::updateODAS,	// the pointer-to-member
-		&soundLocalization);				// the object, could also be a pointer
+	//std::thread threadOdas(&ODAS::updateODAS,	// the pointer-to-member
+		//&soundLocalization);				// the object, could also be a pointer
 							// the argument
 
+    LIDAR lidar;
 	std::thread threadLIDAR(&LIDAR::LIDARScan,
 		&lidar);
 
 
 
 
-	Vision vision;
+	//Vision vision;
 
 	char k;
 
@@ -130,7 +131,7 @@ int main(int argc, char** argv)
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
 		std::cout << "Nearest distance to obstacle: " << closestNode.dist_mm_q2 /4.0f<< " Angle: "<< closestNode.angle_z_q14 * 90.f / (1 << 14) << std::endl;
 
-		usleep(1000000);
+		usleep(100000);
 
 	//	//odas.updateODAS();
 	//	//motor_control.setMatrixVoiceLED(MATRIX_LED_L_9, MAX_BRIGHTNESS, 0, 0);
@@ -153,20 +154,22 @@ int main(int argc, char** argv)
 
 	motorControl.changeMotorCommand(STOP);		//STOP ALL MOTORS
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
-	vision.releaseCamera();						//Release camera resources
+	//vision.releaseCamera();						//Release camera resources
 
 	//Test flag
 	std::cout << "End of main -------" << std::endl;
 
-	threadOdas.join();
-	std::cout << "Odas thread joined" << std::endl;
-	threadLIDAR.join();
-	std::cout << "LIDAR thread joined" << std::endl;
+	//threadOdas.join();
+	//std::cout << "Odas thread joined" << std::endl;
+	lidar.ctrlc();
+	threadLIDAR.~thread();
+
+	std::cout << "LIDAR thread terminated!" << std::endl;
 
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 
 	//outputStream.close();
-	vision.releaseCamera();
+	//vision.releaseCamera();
 	std::cout << "End of main -------" << std::endl;
 
 	return 0;
