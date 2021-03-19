@@ -34,7 +34,7 @@
 
 #pragma once
 
-#include "hal/abs_rxtx.h"
+#include "../../hal/abs_rxtx.h"
 
 namespace rp{ namespace arch{ namespace net{
 
@@ -52,7 +52,7 @@ public:
     virtual bool open();
     virtual void close();
     virtual void flush( _u32 flags);
-    
+
     virtual int waitfordata(size_t data_count,_u32 timeout = -1, size_t * returned_size = NULL);
 
     virtual int senddata(const unsigned char * data, size_t size);

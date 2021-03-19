@@ -8,26 +8,26 @@
  *
  */
 /*
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, 
+ * 1. Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
  *
- * 2. Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
@@ -137,7 +137,7 @@ u_result RPlidarDriverImplCommon::clearNetSerialRxCache()
     if (!isConnected()) return RESULT_OPERATION_FAIL;
 
     _chanDev->flush();
-  
+
     return RESULT_OK;
 }
 
@@ -152,12 +152,12 @@ u_result RPlidarDriverImplCommon::_waitResponseHeader(rplidar_ans_header_t * hea
     while ((waitTime=getms() - startTs) <= timeout) {
         size_t remainSize = sizeof(rplidar_ans_header_t) - recvPos;
         size_t recvSize;
-        
+
         bool ans = _chanDev->waitfordata(remainSize, timeout - waitTime, &recvSize);
         if(!ans) return RESULT_OPERATION_TIMEOUT;
-        
+
         if(recvSize > remainSize) recvSize = remainSize;
-        
+
         recvSize = _chanDev->recvdata(recvBuffer, recvSize);
 
         for (size_t pos = 0; pos < recvSize; ++pos) {
@@ -167,7 +167,7 @@ u_result RPlidarDriverImplCommon::_waitResponseHeader(rplidar_ans_header_t * hea
                 if (currentByte != RPLIDAR_ANS_SYNC_BYTE1) {
                    continue;
                 }
-                
+
                 break;
             case 1:
                 if (currentByte != RPLIDAR_ANS_SYNC_BYTE2) {
@@ -192,9 +192,9 @@ u_result RPlidarDriverImplCommon::_waitResponseHeader(rplidar_ans_header_t * hea
 u_result RPlidarDriverImplCommon::getHealth(rplidar_response_device_health_t & healthinfo, _u32 timeout)
 {
     u_result  ans;
-    
+
     if (!isConnected()) return RESULT_OPERATION_FAIL;
-    
+
     _disableDataGrabbing();
 
     {
@@ -232,7 +232,7 @@ u_result RPlidarDriverImplCommon::getHealth(rplidar_response_device_health_t & h
 u_result RPlidarDriverImplCommon::getDeviceInfo(rplidar_response_device_info_t & info, _u32 timeout)
 {
     u_result  ans;
-    
+
     if (!isConnected()) return RESULT_OPERATION_FAIL;
 
     _disableDataGrabbing();
@@ -317,7 +317,7 @@ u_result RPlidarDriverImplCommon::_waitNode(rplidar_response_measurement_node_t 
         if(!ans) return RESULT_OPERATION_FAIL;
 
         if (recvSize > remainSize) recvSize = remainSize;
-        
+
         recvSize = _chanDev->recvdata(recvBuffer, recvSize);
 
         for (size_t pos = 0; pos < recvSize; ++pos) {
@@ -373,7 +373,7 @@ u_result RPlidarDriverImplCommon::_waitScanData(rplidar_response_measurement_nod
         if (IS_FAIL(ans = _waitNode(&node, timeout - waitTime))) {
             return ans;
         }
-        
+
         nodebuffer[recvNodeCount++] = node;
 
         if (recvNodeCount == count) return RESULT_OK;
@@ -402,9 +402,9 @@ u_result RPlidarDriverImplCommon::_waitCapsuledNode(rplidar_response_capsule_mea
             return RESULT_OPERATION_TIMEOUT;
         }
         if (recvSize > remainSize) recvSize = remainSize;
-        
+
         recvSize = _chanDev->recvdata(recvBuffer, recvSize);
-        
+
         for (size_t pos = 0; pos < recvSize; ++pos) {
             _u8 currentByte = recvBuffer[pos];
 
@@ -447,7 +447,7 @@ u_result RPlidarDriverImplCommon::_waitCapsuledNode(rplidar_response_capsule_mea
                 if (recvChecksum == checksum)
                 {
                     // only consider vaild if the checksum matches...
-                    if (node.start_angle_sync_q6 & RPLIDAR_RESP_MEASUREMENT_EXP_SYNCBIT) 
+                    if (node.start_angle_sync_q6 & RPLIDAR_RESP_MEASUREMENT_EXP_SYNCBIT)
                     {
                         // this is the first capsule frame in logic, discard the previous cached data...
                         _is_previous_capsuledataRdy = false;
@@ -469,13 +469,13 @@ u_result RPlidarDriverImplCommon::_waitUltraCapsuledNode(rplidar_response_ultra_
     if (!_isConnected) {
         return RESULT_OPERATION_FAIL;
     }
-    
+
     int  recvPos = 0;
     _u32 startTs = getms();
     _u8  recvBuffer[sizeof(rplidar_response_ultra_capsule_measurement_nodes_t)];
     _u8 *nodeBuffer = (_u8*)&node;
     _u32 waitTime;
-    
+
     while ((waitTime=getms() - startTs) <= timeout) {
         size_t remainSize = sizeof(rplidar_response_ultra_capsule_measurement_nodes_t) - recvPos;
         size_t recvSize;
@@ -486,9 +486,9 @@ u_result RPlidarDriverImplCommon::_waitUltraCapsuledNode(rplidar_response_ultra_
             return RESULT_OPERATION_TIMEOUT;
         }
         if (recvSize > remainSize) recvSize = remainSize;
-        
+
         recvSize = _chanDev->recvdata(recvBuffer, recvSize);
-        
+
         for (size_t pos = 0; pos < recvSize; ++pos) {
             _u8 currentByte = recvBuffer[pos];
             switch (recvPos) {
@@ -502,7 +502,7 @@ u_result RPlidarDriverImplCommon::_waitUltraCapsuledNode(rplidar_response_ultra_
                         _is_previous_capsuledataRdy = false;
                         continue;
                     }
-                }    
+                }
             break;
             case 1: // expect the sync bit 2
             {
@@ -523,17 +523,17 @@ u_result RPlidarDriverImplCommon::_waitUltraCapsuledNode(rplidar_response_ultra_
                 // calc the checksum ...
                 _u8 checksum = 0;
                 _u8 recvChecksum = ((node.s_checksum_1 & 0xF) | (node.s_checksum_2 << 4));
-                
+
                 for (size_t cpos = offsetof(rplidar_response_ultra_capsule_measurement_nodes_t, start_angle_sync_q6);
                 cpos < sizeof(rplidar_response_ultra_capsule_measurement_nodes_t); ++cpos)
                 {
                     checksum ^= nodeBuffer[cpos];
                 }
-                
+
                 if (recvChecksum == checksum)
                 {
                     // only consider vaild if the checksum matches...
-                    if (node.start_angle_sync_q6 & RPLIDAR_RESP_MEASUREMENT_EXP_SYNCBIT) 
+                    if (node.start_angle_sync_q6 & RPLIDAR_RESP_MEASUREMENT_EXP_SYNCBIT)
                     {
                         // this is the first capsule frame in logic, discard the previous cached data...
                         _is_previous_capsuledataRdy = false;
@@ -569,13 +569,13 @@ u_result RPlidarDriverImplCommon::_cacheScanData()
                 return RESULT_OPERATION_FAIL;
             }
         }
-        
+
         for (size_t pos = 0; pos < count; ++pos)
         {
             if (local_buf[pos].sync_quality & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)
             {
-                // only publish the data when it contains a full 360 degree scan 
-                
+                // only publish the data when it contains a full 360 degree scan
+
                 if ((local_scan[0].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)) {
                     _lock.lock();
                     memcpy(_cached_scan_node_hq_buf, local_scan, scan_count*sizeof(rplidar_response_measurement_node_hq_t));
@@ -707,7 +707,7 @@ u_result RPlidarDriverImplCommon::_cacheCapsuledScanData()
     memset(local_scan, 0, sizeof(local_scan));
 
     _waitCapsuledNode(capsule_node); // // always discard the first data since it may be incomplete
-    
+
     while(_isScanning)
     {
         if (IS_FAIL(ans=_waitCapsuledNode(capsule_node))) {
@@ -719,7 +719,7 @@ u_result RPlidarDriverImplCommon::_cacheCapsuledScanData()
                 continue;
             }
         }
-        switch (_cached_express_flag) 
+        switch (_cached_express_flag)
         {
         case 0:
             _capsuleToNormal(capsule_node, local_buf, count);
@@ -729,13 +729,13 @@ u_result RPlidarDriverImplCommon::_cacheCapsuledScanData()
             break;
         }
         //
-        
+
         for (size_t pos = 0; pos < count; ++pos)
         {
             if (local_buf[pos].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)
             {
-                // only publish the data when it contains a full 360 degree scan 
-                
+                // only publish the data when it contains a full 360 degree scan
+
                 if ((local_scan[0].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)) {
                     _lock.lock();
                     memcpy(_cached_scan_node_hq_buf, local_scan, scan_count*sizeof(rplidar_response_measurement_node_hq_t));
@@ -773,7 +773,7 @@ u_result RPlidarDriverImplCommon::_cacheUltraCapsuledScanData()
     memset(local_scan, 0, sizeof(local_scan));
 
     _waitUltraCapsuledNode(ultra_capsule_node);
-    
+
     while(_isScanning)
     {
         if (IS_FAIL(ans=_waitUltraCapsuledNode(ultra_capsule_node))) {
@@ -785,15 +785,15 @@ u_result RPlidarDriverImplCommon::_cacheUltraCapsuledScanData()
                 continue;
             }
         }
-        
+
         _ultraCapsuleToNormal(ultra_capsule_node, local_buf, count);
-        
+
         for (size_t pos = 0; pos < count; ++pos)
         {
             if (local_buf[pos].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)
             {
-                // only publish the data when it contains a full 360 degree scan 
-                
+                // only publish the data when it contains a full 360 degree scan
+
                 if ((local_scan[0].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)) {
                     _lock.lock();
                     memcpy(_cached_scan_node_hq_buf, local_scan, scan_count*sizeof(rplidar_response_measurement_node_hq_t));
@@ -814,7 +814,7 @@ u_result RPlidarDriverImplCommon::_cacheUltraCapsuledScanData()
             }
         }
     }
-    
+
     _isScanning = false;
 
     return RESULT_OK;
@@ -909,7 +909,7 @@ void     RPlidarDriverImplCommon::_dense_capsuleToNormal(const rplidar_response_
             if (angle_q6 < 0) angle_q6 += (360 << 6);
             if (angle_q6 >= (360 << 6)) angle_q6 -= (360 << 6);
 
-            
+
 
             rplidar_response_measurement_node_hq_t node;
 
@@ -919,7 +919,7 @@ void     RPlidarDriverImplCommon::_dense_capsuleToNormal(const rplidar_response_
             node.dist_mm_q2 = dist_q2;
 
             nodebuffer[nodeCount++] = node;
-            
+
 
         }
     }
@@ -955,7 +955,7 @@ u_result RPlidarDriverImplCommon::_cacheHqScanData()
         {
             if (local_buf[pos].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)
             {
-				// only publish the data when it contains a full 360 degree scan 
+				// only publish the data when it contains a full 360 degree scan
                 if ((local_scan[0].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT)) {
                     _lock.lock();
                     memcpy(_cached_scan_node_hq_buf, local_scan, scan_count * sizeof(rplidar_response_measurement_node_hq_t));
@@ -1004,7 +1004,7 @@ static void _crc32_init(_u32 poly)
     _u16 i;
     _u16 j;
     _u32 c;
-    
+
     poly = _bitrev(poly, 32);
     for (i = 0; i<256; i++){
         c = i;
@@ -1046,7 +1046,7 @@ static u_result _crc32(_u8 *ptr, _u32 len) {
 		_crc32_init(0x4C11DB7);
 		tmp = 1;
 	}
-	
+
 	return _crc32cal(0xFFFFFFFF, ptr,len);
 }
 
@@ -1061,20 +1061,20 @@ u_result RPlidarDriverImplCommon::_waitHqNode(rplidar_response_hq_capsule_measur
     _u8  recvBuffer[sizeof(rplidar_response_hq_capsule_measurement_nodes_t)];
     _u8 *nodeBuffer = (_u8*)&node;
     _u32 waitTime;
-    
+
     while ((waitTime=getms() - startTs) <= timeout) {
         size_t remainSize = sizeof(rplidar_response_hq_capsule_measurement_nodes_t) - recvPos;
         size_t recvSize;
-        
+
         bool ans = _chanDev->waitfordata(remainSize, timeout-waitTime, &recvSize);
         if(!ans)
         {
             return RESULT_OPERATION_TIMEOUT;
         }
         if (recvSize > remainSize) recvSize = remainSize;
-        
+
         recvSize = _chanDev->recvdata(recvBuffer, recvSize);
-    
+
         for (size_t pos = 0; pos < recvSize; ++pos) {
             _u8 currentByte = recvBuffer[pos];
             switch (recvPos) {
@@ -1091,13 +1091,13 @@ u_result RPlidarDriverImplCommon::_waitHqNode(rplidar_response_hq_capsule_measur
                     }
                 }
            break;
-           case sizeof(rplidar_response_hq_capsule_measurement_nodes_t) - 1 - 4: 
+           case sizeof(rplidar_response_hq_capsule_measurement_nodes_t) - 1 - 4:
             {
 
             }
            break;
-           case sizeof(rplidar_response_hq_capsule_measurement_nodes_t) - 1: 
-            {				
+           case sizeof(rplidar_response_hq_capsule_measurement_nodes_t) - 1:
+            {
 
             }
            break;
@@ -1122,14 +1122,14 @@ u_result RPlidarDriverImplCommon::_waitHqNode(rplidar_response_hq_capsule_measur
     return RESULT_OPERATION_TIMEOUT;
 }
 
-void RPlidarDriverImplCommon::_HqToNormal(const rplidar_response_hq_capsule_measurement_nodes_t & node_hq, rplidar_response_measurement_node_hq_t *nodebuffer, size_t &nodeCount) 
+void RPlidarDriverImplCommon::_HqToNormal(const rplidar_response_hq_capsule_measurement_nodes_t & node_hq, rplidar_response_measurement_node_hq_t *nodebuffer, size_t &nodeCount)
 {
     nodeCount = 0;
     if (_is_previous_HqdataRdy) {
         for (size_t pos = 0; pos < _countof(_cached_previous_Hqdata.node_hq); ++pos)
         {
             nodebuffer[nodeCount++] = node_hq.node_hq[pos];
-        }	
+        }
     }
     _cached_previous_Hqdata = node_hq;
     _is_previous_HqdataRdy = true;
@@ -1233,7 +1233,7 @@ void RPlidarDriverImplCommon::_ultraCapsuleToNormal(const rplidar_response_ultra
                 scalelvl1 = scalelvl2;
             }
 
-           
+
             dist_q2[0] = (dist_major << 2);
             if ((dist_predict1 == 0xFFFFFE00) || (dist_predict1 == 0x1FF)) {
                 dist_q2[1] = 0;
@@ -1249,7 +1249,7 @@ void RPlidarDriverImplCommon::_ultraCapsuleToNormal(const rplidar_response_ultra
                 dist_predict2 = (dist_predict2 << scalelvl2);
                 dist_q2[2] = (dist_predict2 + dist_base2) << 2;
             }
-           
+
 
             for (int cpos = 0; cpos < 3; ++cpos)
             {
@@ -1612,7 +1612,7 @@ u_result RPlidarDriverImplCommon::startScan(bool force, bool useTypicalScan, _u3
             }
         }
     }
-    
+
     // 'useTypicalScan' is false, just use normal scan mode
     if(ifSupportLidarConf)
     {
@@ -1674,7 +1674,7 @@ u_result RPlidarDriverImplCommon::startScanExpress(bool force, _u16 scanMode, _u
         return startScan(force, false, 0, outUsedScanMode);
     }
 
-    
+
     bool ifSupportLidarConf = false;
     ans = checkSupportConfigCommands(ifSupportLidarConf);
     if (IS_FAIL(ans)) return RESULT_INVALID_DATA;
@@ -1689,7 +1689,7 @@ u_result RPlidarDriverImplCommon::startScanExpress(bool force, _u16 scanMode, _u
             {
                 return RESULT_INVALID_DATA;
             }
-            
+
             ans = getMaxDistance(outUsedScanMode->max_distance, outUsedScanMode->id);
             if (IS_FAIL(ans))
             {
@@ -1707,7 +1707,7 @@ u_result RPlidarDriverImplCommon::startScanExpress(bool force, _u16 scanMode, _u
             {
                 return RESULT_INVALID_DATA;
             }
-           
+
 
         }
         else
@@ -1726,7 +1726,7 @@ u_result RPlidarDriverImplCommon::startScanExpress(bool force, _u16 scanMode, _u
     //get scan answer type to specify how to wait data
     _u8 scanAnsType;
     if (ifSupportLidarConf)
-    {      
+    {
         getScanModeAnsType(scanAnsType, scanMode);
     }
     else
@@ -1797,7 +1797,7 @@ u_result RPlidarDriverImplCommon::startScanExpress(bool force, _u16 scanMode, _u
         if (_cachethread.getHandle() == 0) {
             return RESULT_OPERATION_FAIL;
         }
-        
+
     }
     return RESULT_OK;
 }
@@ -1884,7 +1884,7 @@ u_result RPlidarDriverImplCommon::getScanDataWithInterval(rplidar_response_measu
         rp::hal::AutoLocker l(_lock);
         if(_cached_scan_node_hq_count_for_interval_retrieve == 0)
         {
-            return RESULT_OPERATION_TIMEOUT; 
+            return RESULT_OPERATION_TIMEOUT;
         }
         //copy all the nodes(_cached_scan_node_count_for_interval_retrieve nodes) in _cached_scan_node_buf_for_interval_retrieve
         size_to_copy = _cached_scan_node_hq_count_for_interval_retrieve;
@@ -2073,13 +2073,13 @@ u_result RPlidarDriverImplCommon::_sendCommand(_u8 cmd, const void * payload, si
 }
 
 u_result RPlidarDriverImplCommon::getSampleDuration_uS(rplidar_response_sample_rate_t & rateInfo, _u32 timeout)
-{  
+{
     DEPRECATED_WARN("getSampleDuration_uS", "RplidarScanMode::us_per_sample");
 
     if (!isConnected()) return RESULT_OPERATION_FAIL;
-    
+
     _disableDataGrabbing();
-    
+
     rplidar_response_device_info_t devinfo;
     // 1. fetch the device version first...
     u_result ans = getDeviceInfo(devinfo, timeout);
@@ -2129,9 +2129,9 @@ u_result RPlidarDriverImplCommon::checkMotorCtrlSupport(bool & support, _u32 tim
 {
     u_result  ans;
     support = false;
-    
+
     if (!isConnected()) return RESULT_OPERATION_FAIL;
-    
+
     _disableDataGrabbing();
 
     {
@@ -2148,7 +2148,7 @@ u_result RPlidarDriverImplCommon::checkMotorCtrlSupport(bool & support, _u32 tim
         if (IS_FAIL(ans = _waitResponseHeader(&response_header, timeout))) {
             return ans;
         }
-        
+
         // verify whether we got a correct header
         if (response_header.type != RPLIDAR_ANS_TYPE_ACC_BOARD_FLAG) {
             return RESULT_INVALID_DATA;
@@ -2247,7 +2247,7 @@ void RPlidarDriverImplCommon::_disableDataGrabbing()
 
 // Serial Driver Impl
 
-RPlidarDriverSerial::RPlidarDriverSerial() 
+RPlidarDriverSerial::RPlidarDriverSerial()
 {
     _chanDev = new SerialChannelDevice();
 }
@@ -2256,7 +2256,7 @@ RPlidarDriverSerial::~RPlidarDriverSerial()
 {
     // force disconnection
     disconnect();
-    
+
     _chanDev->close();
     _chanDev->ReleaseRxTx();
 }
@@ -2291,7 +2291,7 @@ u_result RPlidarDriverSerial::connect(const char * port_path, _u32 baudrate, _u3
     return RESULT_OK;
 }
 
-RPlidarDriverTCP::RPlidarDriverTCP() 
+RPlidarDriverTCP::RPlidarDriverTCP()
 {
     _chanDev = new TCPChannelDevice();
 }

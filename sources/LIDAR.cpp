@@ -131,7 +131,7 @@ bool LIDAR::checkRPLIDARHealth(RPlidarDriver* drv)
     }
 }
 
-static inline void LIDAR::delay(_word_size_t ms) {
+static inline void delay(_word_size_t ms) {
     while (ms >= 1000) {
         usleep(1000 * 1000);
         ms -= 1000;

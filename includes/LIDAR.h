@@ -16,7 +16,7 @@
   *  http://www.slamtec.com
   *
   */
-#include <rplidar.h> //RPLIDAR standard sdk, all-in-one header
+#include "../sdk/include/rplidar.h" //RPLIDAR standard sdk, all-in-one header
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,13 +54,12 @@ private:
 
 
 	//Health information
-	u_result     op_result;
 	rplidar_response_device_health_t healthinfo;
 
 
 
 	bool checkRPLIDARHealth(RPlidarDriver* drv);
-	static inline void delay(_word_size_t ms);
+
 	void ctrlc(int);
 
 
