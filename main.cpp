@@ -128,7 +128,7 @@ int main(int argc, char** argv)
 	//while(true){
 	for (int i = 0; i < 1000; i++) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
-		std::cout << "Nearest distance to obstacle: " << closestNode.dist_mm_q2 << " Angle: "<< closestNode.angle_z_q14 << std::endl;
+		std::cout << "Nearest distance to obstacle: " << closestNode.dist_mm_q2 /4.0f<< " Angle: "<< closestNode.angle_z_q14 * 90.f / (1 << 14) << std::endl;
 
 		usleep(1000000);
 

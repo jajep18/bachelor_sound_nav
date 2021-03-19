@@ -24,6 +24,7 @@
 #include <signal.h>
 #include <thread>
 #include <mutex>
+#include <cstring>
 
 #include "defines.h"
 
@@ -64,7 +65,7 @@ private:
 	void ctrlc(int);
 
 	void writeScan();
-	
+
 
 
 public:

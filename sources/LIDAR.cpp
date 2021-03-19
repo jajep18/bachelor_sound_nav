@@ -149,7 +149,8 @@ void LIDAR::ctrlc(int) {
 void LIDAR::writeScan()
 {
     std::lock_guard<std::mutex> guard(LIDARMutex);
-    dataNodes = nodes;
+    memcpy(dataNodes,nodes,sizeof(dataNodes));
+
 }
 
 rplidar_response_measurement_node_hq_t LIDAR::readScan()
@@ -158,7 +159,7 @@ rplidar_response_measurement_node_hq_t LIDAR::readScan()
     while (true) {
 
         if (LIDARMutex.try_lock()) {
-            tempNodes = dataNodes;
+            memcpy(tempNodes,dataNodes,sizeof(tempNodes));
             LIDARMutex.unlock();
             break;
         }
