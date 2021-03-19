@@ -6,19 +6,69 @@
  *					University of Southern Denmark
  * Creation date:   18-03-2021
  */
-#include <rplidar.h>
+ /*
+  *  RPLIDAR
+  *  Ultra Simple Data Grabber Demo App
+  *
+  *  Copyright (c) 2009 - 2014 RoboPeak Team
+  *  http://www.robopeak.com
+  *  Copyright (c) 2014 - 2019 Shanghai Slamtec Co., Ltd.
+  *  http://www.slamtec.com
+  *
+  */
+#include <rplidar.h> //RPLIDAR standard sdk, all-in-one header
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+
 #include "defines.h"
 
+#ifndef _countof
+#define _countof(_Array) (int)(sizeof(_Array) / sizeof(_Array[0]))
+#endif
+
+
+
+using namespace rp::standalone::rplidar;
 class LIDAR
 {
 
+
 private:
+	//LIDAR variables
 	RPlidarDriver* lidar;
+	const char* opt_com_path = "/dev/ttyUSB0";
+	_u32         baudrateArray[2] = { 115200, 256000 };
+	_u32         opt_com_baudrate = 0;
+	u_result     op_result;
+	bool useArgcBaudrate = false;
+	bool ctrl_c_pressed;
+	RPlidarDriver* drv;
+	rplidar_response_device_info_t devinfo;
+	bool connectSuccess = false;
+	rplidar_response_measurement_node_hq_t nodes[8192];
+
+
+
+
+	//Health information
+	u_result     op_result;
+	rplidar_response_device_health_t healthinfo;
+
+
+
+	bool checkRPLIDARHealth(RPlidarDriver* drv);
+	static inline void delay(_word_size_t ms);
+	void ctrlc(int);
+
 
 public:
 	LIDAR();
 	~LIDAR();
 
-};
+	void LIDARScan();
 
+
+};

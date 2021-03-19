@@ -34,6 +34,7 @@
 #include "includes/ODAS.h"
 #include "includes/navigation.h"
 #include "includes/camera.h"
+#include "includes/LIDAR.h"
 
 #include <ctime>
 #include <fstream>
@@ -77,6 +78,7 @@ int main(int argc, char** argv)
 	MotorControl motorControl(&bus, &everloop, &everloop_image, &gpio);
 	ODAS soundLocalization(&bus, &everloop, &everloop_image);
 	navigation navigation(&motorControl);
+	LIDAR lidar;
 
 	//Vision vision;
 
@@ -110,24 +112,29 @@ int main(int argc, char** argv)
 	Vision vision;
 
 	char k;
+
+	lidar.LIDARScan();
+
 	//while(true){
-	for (int i = 0; i < 1000; i++) {
-		//odas.updateODAS();
-		//motor_control.setMatrixVoiceLED(MATRIX_LED_L_9, MAX_BRIGHTNESS, 0, 0);
+	//for (int i = 0; i < 1000; i++) {
 
 
-		if (soundLocalization.getEnergy() > ENERGY_THRESHOLD) {
-			navigation.braitenberg(soundLocalization.getSoundAngle(), outputStream);
-		}
-		else {
-			motorControl.changeMotorCommand(STOP); //STOPS ALL MOTORS
-		}
+	//	//odas.updateODAS();
+	//	//motor_control.setMatrixVoiceLED(MATRIX_LED_L_9, MAX_BRIGHTNESS, 0, 0);
 
-		vision.updateCamera();
-		k = cv::waitKey(10);
-		if (k == 27) //27 = 'ESC'
-			break;
-    }
+
+	//	if (soundLocalization.getEnergy() > ENERGY_THRESHOLD) {
+	//		navigation.braitenberg(soundLocalization.getSoundAngle(), outputStream);
+	//	}
+	//	else {
+	//		motorControl.changeMotorCommand(STOP); //STOPS ALL MOTORS
+	//	}
+
+	//	vision.updateCamera();
+	//	k = cv::waitKey(10);
+	//	if (k == 27) //27 = 'ESC'
+	//		break;
+    //}
 
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 

@@ -2,34 +2,144 @@
 
 LIDAR::LIDAR()
 {
-	lidar = RPlidarDriver::CreateDriver();
+    printf("Ultra simple LIDAR data grabber for RPLIDAR.\n"
+        "Version: " RPLIDAR_SDK_VERSION "\n");
 
-	u_result res = lidar->connect("/dev/ttyUSB0", 115200);
+    drv = RPlidarDriver::CreateDriver(DRIVER_TYPE_SERIALPORT);
+    if (!drv) {
+        fprintf(stderr, "Insufficent memory, exit\n");
+        exit(-2);
+    }
 
-	if (IS_OK(res))
-	{
-		std::cout << "Lidar connected!\n";
-		lidar->startMotor();
-		std::cout << "Lidar motor started!\n";
+    size_t baudRateArraySize = (sizeof(baudrateArray)) / (sizeof(baudrateArray[0]));
+    for (size_t i = 0; i < baudRateArraySize; ++i){
+        if (!drv)
+            drv = RPlidarDriver::CreateDriver(DRIVER_TYPE_SERIALPORT);
 
-		for (size_t i = 0; i < 10; i++)
-		{
-			std::cout << "Waiting... \n";
-		}
-		
-	}
-	else
-	{
-		fprintf(stderr, "Failed to connect to LIDAR %08x\r\n", res);
-	}
+        if (IS_OK(drv->connect(opt_com_path, baudrateArray[i]))){
 
-	lidar->stopMotor();
-	std::cout << "Lidar motor stopped!\n";
-	lidar->disconnect();
-	std::cout << "Lidar disconnected!\n";
+            op_result = drv->getDeviceInfo(devinfo);
+
+            if (IS_OK(op_result)){
+                connectSuccess = true;
+                break;
+            }
+            else{
+                delete drv;
+                drv = NULL;
+            }
+        }
+    }
+
+    if (!connectSuccess) {
+
+        fprintf(stderr, "Error, cannot bind to the specified serial port %s.\n"
+            , opt_com_path);
+        RPlidarDriver::DisposeDriver(drv);
+        drv = NULL;
+        exit(-2);
+    }
+
+    // print out the device serial number, firmware and hardware version number..
+    printf("RPLIDAR S/N: ");
+    for (int pos = 0; pos < 16; ++pos) {
+        printf("%02X", devinfo.serialnum[pos]);
+    }
+
+    printf("\n"
+        "Firmware Ver: %d.%02d\n"
+        "Hardware Rev: %d\n"
+        , devinfo.firmware_version >> 8
+        , devinfo.firmware_version & 0xFF
+        , (int)devinfo.hardware_version);
+
+    // check health...
+    if (!checkRPLIDARHealth(drv)) {
+        RPlidarDriver::DisposeDriver(drv);
+        drv = NULL;
+        exit(-2);
+    }
+
 }
 
 LIDAR::~LIDAR()
 {
-	RPlidarDriver::DisposeDriver(lidar);
+
+}
+
+void LIDAR::LIDARScan()
+{
+    drv->startMotor();
+    // start scan...
+    drv->startScan(0, 1);
+
+    // fetech result and print it out...
+    while (1) {
+
+        size_t count = _countof(nodes);
+
+        op_result = drv->grabScanDataHq(nodes, count);
+
+        if (IS_OK(op_result)) {
+
+            drv->ascendScanData(nodes, count);
+
+            for (int pos = 0; pos < (int)count; ++pos) {
+
+                printf("%s theta: %03.2f Dist: %08.2f Q: %d \n",
+                    (nodes[pos].flag & RPLIDAR_RESP_MEASUREMENT_SYNCBIT) ? "S " : "  ",
+                    (nodes[pos].angle_z_q14 * 90.f / (1 << 14)),
+                    nodes[pos].dist_mm_q2 / 4.0f,
+                    nodes[pos].quality);
+            }
+        }
+
+        if (ctrl_c_pressed) {
+            break;
+        }
+
+    } //End of while
+
+    //Stop motor and delete driver
+    drv->stop();
+    drv->stopMotor();
+
+    RPlidarDriver::DisposeDriver(drv);
+    drv = NULL;
+}
+
+
+bool LIDAR::checkRPLIDARHealth(RPlidarDriver* drv)
+{
+    op_result = drv->getHealth(healthinfo);
+    if (IS_OK(op_result)) { // the macro IS_OK is the preperred way to judge whether the operation is succeed.
+        printf("RPLidar health status : %d\n", healthinfo.status);
+        if (healthinfo.status == RPLIDAR_STATUS_ERROR) {
+            fprintf(stderr, "Error, rplidar internal error detected. Please reboot the device to retry.\n");
+            // enable the following code if you want rplidar to be reboot by software
+            // drv->reset();
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+    else {
+        fprintf(stderr, "Error, cannot retrieve the lidar health code: %x\n", op_result);
+        return false;
+    }
+}
+
+static inline void LIDAR::delay(_word_size_t ms) {
+    while (ms >= 1000) {
+        usleep(1000 * 1000);
+        ms -= 1000;
+    };
+    if (ms != 0)
+        usleep(ms * 1000);
+}
+
+void LIDAR::ctrlc(int) {
+    ctrl_c_pressed = true;
 }
