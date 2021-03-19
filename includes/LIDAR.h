@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+#include <thread>
+#include <mutex>
 
 #include "defines.h"
 
@@ -48,19 +50,21 @@ private:
 	RPlidarDriver* drv;
 	rplidar_response_device_info_t devinfo;
 	bool connectSuccess = false;
-	rplidar_response_measurement_node_hq_t nodes[8192];
-
-
-
+	rplidar_response_measurement_node_hq_t nodes[8192];		 //Struct contains angle, distance, quality and a flag
+	rplidar_response_measurement_node_hq_t dataNodes[8192];
 
 	//Health information
 	rplidar_response_device_health_t healthinfo;
 
-
+	//MUTEX
+	std::mutex LIDARMutex;
 
 	bool checkRPLIDARHealth(RPlidarDriver* drv);
 
 	void ctrlc(int);
+
+	void writeScan();
+	
 
 
 public:
@@ -68,6 +72,7 @@ public:
 	~LIDAR();
 
 	void LIDARScan();
+	_u32 readScan();
 
 
 };

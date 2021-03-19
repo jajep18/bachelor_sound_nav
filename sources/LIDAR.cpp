@@ -92,6 +92,8 @@ void LIDAR::LIDARScan()
                     nodes[pos].dist_mm_q2 / 4.0f,
                     nodes[pos].quality);
             }
+            writeScan(); //Copies nodes to dataNodes for safe access. 
+
         }
 
         if (ctrl_c_pressed) {
@@ -142,4 +144,32 @@ static inline void delay(_word_size_t ms) {
 
 void LIDAR::ctrlc(int) {
     ctrl_c_pressed = true;
+}
+
+void LIDAR::writeScan()
+{
+    std::lock_guard<std::mutex> guard(LIDARMutex);
+    dataNodes = nodes;
+}
+
+_u32 LIDAR::readScan()
+{
+    rplidar_response_measurement_node_hq_t tempNodes[8192];
+    while (true) {
+
+        if (LIDARMutex.try_lock()) {
+            tempNodes = dataNodes;
+            LIDARMutex.unlock();
+            break;
+        }
+    }
+    _u32 compDist = 9999;
+    size_t count = _countof(tempNodes);
+    for (int i = 0; i < (int)count; i++)
+    {
+        if (compDist > tempNodes[i]) {
+            compDist = tempNodes->dist_mm_q2;
+        }
+    }
+    return compDist;
 }

@@ -98,26 +98,39 @@ int main(int argc, char** argv)
 	*****************************************************************************/
 
 	/*****************************************************************************
-	************************   Output stream    **********************************
+	************************  OUTOUT STREAM	    **********************************
 	*****************************************************************************/
 
 	std::ofstream outputStream;
 	//outputStream.open("./data/braitenbergMotorCommandsDummy.csv", std::ofstream::out | std::ofstream::trunc);
 	//outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
+	/*****************************************************************************
+	************************   CREATE THREADS	 *********************************
+	*****************************************************************************/
+
 	std::thread threadOdas(&ODAS::updateODAS,	// the pointer-to-member
 		&soundLocalization);				// the object, could also be a pointer
 							// the argument
+
+	std::thread threadLIDAR(&LIDAR::LIDARScan,
+		&lidar);
+
+	
+
 
 	Vision vision;
 
 	char k;
 
-	lidar.LIDARScan();
+	
 
 	//while(true){
-	//for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 1000; i++) {
 
+		std::cout << "Nearest distance to obstacle: " << lidar.readScan() << std::endl;
+
+		std::usleep(1000000);
 
 	//	//odas.updateODAS();
 	//	//motor_control.setMatrixVoiceLED(MATRIX_LED_L_9, MAX_BRIGHTNESS, 0, 0);
@@ -134,7 +147,7 @@ int main(int argc, char** argv)
 	//	k = cv::waitKey(10);
 	//	if (k == 27) //27 = 'ESC'
 	//		break;
-    //}
+    }
 
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
@@ -146,7 +159,10 @@ int main(int argc, char** argv)
 	std::cout << "End of main -------" << std::endl;
 
 	threadOdas.join();
-	std::cout << "thread 1 joined" << std::endl;
+	std::cout << "Odas thread joined" << std::endl;
+	threadLIDAR.join();
+	std::cout << "LIDAR thread joined" << std::endl;
+
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 
 	//outputStream.close();

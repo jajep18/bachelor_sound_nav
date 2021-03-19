@@ -244,7 +244,7 @@ void ODAS::updateSoundInformation() {
 		}
 	}
 
-	//Lock angle and sound mutex
+	//Lock angle and sound mutex until end of scope
 	std::lock_guard<std::mutex> guard(angleEnergyMutex);
 
 	if (largestElement != -1)
