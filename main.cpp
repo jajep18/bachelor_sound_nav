@@ -161,7 +161,7 @@ int main(int argc, char** argv)
 
 	//threadOdas.join();
 	//std::cout << "Odas thread joined" << std::endl;
-	lidar.ctrlc();
+	lidar.ctrlc(1);
 	threadLIDAR.~thread();
 
 	std::cout << "LIDAR thread terminated!" << std::endl;
