@@ -32,7 +32,7 @@
  *
  */
 
-#pragma once
+//#pragma once Out-commemted to remove a warning during compilaton.
 
 #include <vector>
 #include "../src/hal/types.h"
