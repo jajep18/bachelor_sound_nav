@@ -106,25 +106,18 @@ int main(int argc, char** argv)
 
 
 
-//Obstacle avoidance / ICO Learning
+	//Obstacle avoidance / ICO Learning
 	double distToObstCurrent = 1000;		// Distance to closest obstacle on the track
 	double angleToObst = 0;
 	double distToObstPrev;				// Previous Distance to closest obstacle on the track
 
 	double distToObstPrevPrev = 35.0;	// Previous Previus Distance to closest obstacle on the track
 
-	double wReflexVar = 1.0;		// Standard weight that needs to be multiplied with distance to current Obstacle
-	double wReflexConst = 1.0;		//
-
-	double reflexLearningRate = 10;	// Learning rate for reflex µ
-	double vLearning = 0.0; 		// Velocity to add to the initial velocity
-	int reflexCounter = 0;
 
 
 
 
 
-	//while(true){
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
 		std::cout << "Angle: "<< lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 /4.0f << std::endl;
@@ -136,37 +129,21 @@ int main(int argc, char** argv)
 		distToObstCurrent	= closestNode.dist_mm_q2 / 4.0f;
 		angleToObst			= lidar.getCorrectedAngle(closestNode);
 
-        if (distToObstCurrent < REFLEX_THRESHOLD){
-            //LEFT OR RIGHT REFLEX DODGING
-            if (angleToObst <= 180){ //RIGHT SIDE OBSTACLE
-                double angleNorm = (angleToObst - 90) / 90;
-                motorControl.setRightMotorSpeedDirection(navigation.activationFunction(angleNorm));
-                motorControl.setLeftMotorSpeedDirection(navigation.activationFunction(-angleNorm));
+        if (distToObstCurrent < REFLEX_THRESHOLD){ //Reflex avoidance
 
-            }
-            else { // angleToObst > 180 //LEFT SIDE OBSTACLE
-                double angleNorm = (90 - (angleToObst - 180)) / 90;
-                motorControl.setRightMotorSpeedDirection(navigation.activationFunction(-angleNorm));
-                motorControl.setLeftMotorSpeedDirection(navigation.activationFunction(angleNorm));
-            }
-            //Update weight used for vLearning
-            wReflexVar = wReflexVar + reflexLearningRate * (distToObstCurrent / REFLEX_THRESHOLD) * (distToObstPrev - distToObstPrevPrev) / REFLEX_THRESHOLD;
-            reflexCounter += 1;
+			navigation.obstacleReflex(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev);
+
         }
         else if (soundLocalization.getEnergy() > ENERGY_THRESHOLD) {
-            if (distToObstCurrent < AVOIDANCE_THRESHOLD){
-                vLearning = (distToObstCurrent / REFLEX_THRESHOLD) * wReflexVar + (distToObstPrev / REFLEX_THRESHOLD) * wReflexConst;
-                if (angleToObst <= 180){  //RIGHT SIDE OBSTACLE
-                    navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, vLearning);
-                }else { // angleToObst > 180 //LEFT SIDE OBSTACLE
-                    navigation.braitenberg(soundLocalization.getAngle(), outputStream, vLearning, 0);
-                }
+            if (distToObstCurrent < AVOIDANCE_THRESHOLD){ //Obstacle avoidance - obstacle inside avoidance threshold
+
+				navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev);
+
             }
-            else{
+            else{	//Braitenberg
                 navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
             }
-        }
-        else {
+        else { // If no sound
             motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
         }
 
@@ -179,7 +156,7 @@ int main(int argc, char** argv)
         if(vision.inputKey == 27){ //27 = 'ESC'
             std::cout << "Vision thread joining...";
             threadVision.join();
-            std::cout << "done"  << std::endl;
+            std::cout << " Done"  << std::endl;
             break;
         }
     }
@@ -190,11 +167,8 @@ int main(int argc, char** argv)
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 	outputStream.close();
 
-	//Test flag
-	std::cout << "End of main -------" << std::endl;
 
-
-	lidar.ctrlc(0); //Takes an int
+	lidar.ctrlc();
 	threadLIDAR.join();
 
 	std::cout << "LIDAR thread joined" << std::endl;
@@ -207,6 +181,8 @@ int main(int argc, char** argv)
 
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 
+		//Test flag
+	std::cout << "End of main -------" << std::endl;
 
 	return 0;
 }

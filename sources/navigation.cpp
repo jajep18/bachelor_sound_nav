@@ -11,6 +11,37 @@ double navigation::activationFunction(double input) {
 
 }
 
+void navigation::obstacleReflex(double angleToObstacle, double curDis, double prevDis, double prevPrevDis)
+{
+    //LEFT OR RIGHT REFLEX DODGING
+ if (angleToObstacle <= 180){ //RIGHT SIDE OBSTACLE
+     double angleNorm = (angleToObstacle - 90) / 90;
+     motorControl.setRightMotorSpeedDirection(activationFunction(angleNorm));
+     motorControl.setLeftMotorSpeedDirection(activationFunction(-angleNorm));
+
+ }
+ else { // angleToObst > 180 //LEFT SIDE OBSTACLE
+     double angleNorm = (90 - (angleToObstacle - 180)) / 90;
+     motorControl.setRightMotorSpeedDirection(activationFunction(-angleNorm));
+     motorControl.setLeftMotorSpeedDirection(activationFunction(angleNorm));
+ }
+ //Update weight used for vLearning
+ wReflexVar = wReflexVar + reflexLearningRate * (curDis / REFLEX_THRESHOLD) * (prevDis - prevPrevDis) / REFLEX_THRESHOLD;
+ reflexCounter += 1;
+}
+
+void navigation::obstacleAvoidance(double angleToObstacle, double curDis, double prevDis)
+{
+    vLearning = (curDis / REFLEX_THRESHOLD) * wReflexVar + (prevDis / REFLEX_THRESHOLD) * wReflexConst;
+
+    if (angleToObst <= 180){  //RIGHT SIDE OBSTACLE
+        navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, vLearning);
+    }
+    else { // angleToObst > 180 //LEFT SIDE OBSTACLE
+        navigation.braitenberg(soundLocalization.getAngle(), outputStream, vLearning, 0);
+    }
+}
+
 void  navigation::braitenberg(double angle, std::ofstream& outputStream, double avoidanceLeft, double avoidanceRight)  { //Braitenberg aggression vehicle
 
 	// Update sensor signals

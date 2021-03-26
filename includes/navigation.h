@@ -23,6 +23,14 @@ private:
 
 	MotorControl* motorControl;
 
+	//Obstacle avoidance / ICO Learning
+
+	double wReflexVar = 1.0;		// Standard weight that needs to be multiplied with distance to current Obstacle
+	double wReflexConst = 1.0;		//
+	double reflexLearningRate = 10;	// Learning rate for reflex µ
+	double vLearning = 0.0; 		// Velocity to add to the initial velocity
+	int reflexCounter = 0;
+
 
 
 public:
@@ -36,6 +44,10 @@ public:
 	void manualInputSteering(Vision * vision_);
 
 	double activationFunction(double input);
+
+	void obstacleReflex(double angleToObstacle, double curDis, double prevDis, double prevPrevDis);
+
+	void obstacleAvoidance(double angleToObstacle, double curDis, double prevDis);
 
 
 };

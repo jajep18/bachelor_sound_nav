@@ -76,7 +76,7 @@ public:
 
 	rplidar_response_measurement_node_hq_t readScan();
 
-    void ctrlc(int);
+    void ctrlc();
 
     double getCorrectedAngle(rplidar_response_measurement_node_hq_t closestNode);
 
