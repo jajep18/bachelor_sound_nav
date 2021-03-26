@@ -37,10 +37,10 @@ public:
 
 	void initGPIOPins();														//Initializes General Purpose IO Pins
 
-	void setLeftMotorSpeedDirection(int speed, int dir);						//Controls speed and direction of left motor
-	void setRightMotorSpeedDirection(int speed, int dir);						//Controls speed and direction of left motor
-	void changeMotorCommand(int command, int speedL = 0, int speedR = 0);		//Changes motor speed and direction from commands: STOP, FORWARD, REVERSE, LEFTTURN, RIGHTTURN
-	void steerToAngle(int angle, int speedL, int speedR);
+	void setLeftMotorSpeedDirection(double speed, int dir = 1);						//Controls speed and direction of left motor
+	void setRightMotorSpeedDirection(double speed, int dir = 1);						//Controls speed and direction of left motor
+	void changeMotorCommand(int command, double speedL = 0, double speedR = 0);		//Changes motor speed and direction from commands: STOP, FORWARD, REVERSE, LEFTTURN, RIGHTTURN
+
 
 	void startupShowLEDRainbow();							//Shows rainbow of colors to test LEDs
 	void setMatrixVoiceLED(int ledn, int r, int g, int b);	//Changes LED 'n' to color from RGB value

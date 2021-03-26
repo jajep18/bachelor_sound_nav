@@ -202,6 +202,7 @@ void ODAS::updateODAS() {
 
 			updateSoundInformation(); //Updates sound angle and energy
 		}
+		std::cout <<"---------------------------------------------------------" << std::endl;
 
 }
 
@@ -255,7 +256,7 @@ void ODAS::updateSoundInformation() {
 
 	if (angle != prevAngle) {
         if(energy > ENERGY_THRESHOLD)
-            std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
+            //std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
 		prevAngle = angle;
 	}
 }

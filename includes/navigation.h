@@ -8,6 +8,8 @@
  * Creation date:   06-03-2021
  */
 #include "motorControl.h"
+#include "camera.h"
+
 #include <math.h>
 #include <fstream>
 
@@ -16,20 +18,25 @@ class navigation
 private:
 
 	double angleL = 0, angleR = 0;
-	int motorSpeedL = 0, motorSpeedR = 0, motorCommand = 1;
+	double motorSpeedL = 0, motorSpeedR = 0;
+	int motorCommand = 1;
 
 	MotorControl* motorControl;
 
-	double activationFunction(double input);
 
 
 public:
 
     navigation(MotorControl* motorControl_);
 
-	void braitenberg(double angle, std::ofstream & outputBraitenberg);				//Braitenberg aggression vehicle
+	void braitenberg(double angle, std::ofstream& outputStream, double avoidanceLeft = 0, double avoidanceRight = 0) ;				//Braitenberg aggression vehicle
 
 	void navigationICO(double angle, double w_A);	//ICO learning - work in progress
+
+	void manualInputSteering(Vision * vision_);
+
+	double activationFunction(double input);
+
 
 };
 
