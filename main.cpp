@@ -114,7 +114,7 @@ int main(int argc, char** argv)
 							// the argument
 
     LIDAR lidar;
-	std::thread threadLIDAR(&LIDAR::LIDARScan,
+	std::thread threadLIDAR(&LIDAR::LIDARScan, //LIDAR REQUIRES ~1 second to be ready for readings
 		&lidar);
 
 
@@ -162,7 +162,7 @@ int main(int argc, char** argv)
 	//threadOdas.join();
 	//std::cout << "Odas thread joined" << std::endl;
 	lidar.ctrlc(1);
-	threadLIDAR.~thread();
+	//threadLIDAR.~thread();
 
 	std::cout << "LIDAR thread terminated!" << std::endl;
 
