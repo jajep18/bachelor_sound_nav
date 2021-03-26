@@ -16,6 +16,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <raspicam/raspicam.h>
+#include <atomic>
 
 class Vision
 {
@@ -35,10 +36,13 @@ private:
 	std::vector<cv::KeyPoint> keypts_red, keypts_black;
 	std::vector<cv::Point2f> keyptXY_red, keyptXY_black;				// Vector storing [x,y] co-ordinates of detected blobs
 
+
 public:
 	Vision();
 	~Vision();
 	void setupSimpleBlobDetector();
 	void updateCamera();
 	void releaseCamera();
+
+	std::atomic<char> inputKey;
 };

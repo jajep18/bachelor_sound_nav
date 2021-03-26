@@ -34,10 +34,10 @@
 #define	STOP				0
 #define FORWARD				1
 #define REVERSE			   -1
-#define LEFTTURN			2
-#define RIGHTTURN			3
-#define	FORWARDSPEED		25
-#define	REVERSESPEED		20
+#define LEFT_TURN			2
+#define RIGHT_TURN			3
+#define	FORWARD_SPEED		25
+#define	REVERSE_SPEED		-20
 #define VELOCITY_OFFSET		0
 
 //Sound localization
@@ -47,4 +47,8 @@
 #define DECREMENT 1			// DECREMENT : controls delay in the dimming
 #define MIN_THRESHOLD 10	// MAX_BRIGHTNESS: Filters out low energy
 #define MAX_BRIGHTNESS 30	// MAX_BRIGHTNESS: 0 - 255
-#define ENERGY_THRESHOLD 50	
+#define ENERGY_THRESHOLD 50
+
+//Obstacle avoidance
+#define REFLEX_THRESHOLD 200
+#define AVOIDANCE_THRESHOLD 400

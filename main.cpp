@@ -72,27 +72,26 @@ int main(int argc, char** argv)
 	everloop.Setup(&bus);											// Set everloop to use MatrixIOBus bus
 	matrix_hal::GPIOControl gpio;									// Create GPIOControl object - General Purpose Input Output
 	gpio.Setup(&bus);
+
 	/*****************************************************************************
 	************************   INITIALISE CLASSES  ************************
 	*****************************************************************************/
 	MotorControl motorControl(&bus, &everloop, &everloop_image, &gpio);
-	//ODAS soundLocalization(&bus, &everloop, &everloop_image);
-	navigation navigation(&motorControl);
 
+    navigation navigation(&motorControl);
 
-	//Vision vision;
+	ODAS soundLocalization(&bus, &everloop, &everloop_image);
+	std::thread threadODAS(&ODAS::updateODAS, &soundLocalization);
 
-	// Wait 3 seconds for camera image to stabilise
-	//cout << "Waiting for camera to stabilise...";
-	//usleep(3000000);
-	//cout << "done." << endl;
+	Vision vision;
+	std::thread threadVision(&Vision::updateCamera, &vision);
+
+    LIDAR lidar;
+	std::thread threadLIDAR(&LIDAR::LIDARScan, &lidar);
 
 	/*****************************************************************************
 	************************   ICO LEARNING   ************************************
 	*****************************************************************************/
-//	double angle_current = 270.0;
-//	double angle_prev;
-
 	/*****************************************************************************
 	************************   CONTROLLER LOOP   *********************************
 	*****************************************************************************/
@@ -101,76 +100,113 @@ int main(int argc, char** argv)
 	************************  OUTOUT STREAM	    **********************************
 	*****************************************************************************/
 
-	//std::ofstream outputStream;
-	//outputStream.open("./data/braitenbergMotorCommandsDummy.csv", std::ofstream::out | std::ofstream::trunc);
-	//outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
-
-	/*****************************************************************************
-	************************   CREATE THREADS	 *********************************
-	*****************************************************************************/
-
-	//std::thread threadOdas(&ODAS::updateODAS,	// the pointer-to-member
-		//&soundLocalization);				// the object, could also be a pointer
-							// the argument
-
-    LIDAR lidar;
-	std::thread threadLIDAR(&LIDAR::LIDARScan,
-		&lidar);
+	std::ofstream outputStream;
+	outputStream.open("./data/dummy.csv", std::ofstream::out | std::ofstream::trunc);
+	outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
 
 
+//Obstacle avoidance / ICO Learning
+	double distToObstCurrent = 1000;		// Distance to closest obstacle on the track
+	double angleToObst = 0;
+	double distToObstPrev;				// Previous Distance to closest obstacle on the track
 
-	//Vision vision;
+	double distToObstPrevPrev = 35.0;	// Previous Previus Distance to closest obstacle on the track
 
-	//char k;
+	double wReflexVar = 1.0;		// Standard weight that needs to be multiplied with distance to current Obstacle
+	double wReflexConst = 1.0;		//
+
+	double reflexLearningRate = 10;	// Learning rate for reflex µ
+	double vLearning = 0.0; 		// Velocity to add to the initial velocity
+	int reflexCounter = 0;
+
+
 
 
 
 	//while(true){
-	for (int i = 0; i < 1000; i++) {
+	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
 		std::cout << "Angle: "<< lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 /4.0f << std::endl;
 
-		usleep(100000);
+		//usleep(100000);
 
-	//	//odas.updateODAS();
-	//	//motor_control.setMatrixVoiceLED(MATRIX_LED_L_9, MAX_BRIGHTNESS, 0, 0);
+        distToObstPrevPrev	= distToObstPrev;
+		distToObstPrev		= distToObstCurrent;
+		distToObstCurrent	= closestNode.dist_mm_q2 / 4.0f;
+		angleToObst			= lidar.getCorrectedAngle(closestNode);
 
+        if (distToObstCurrent < REFLEX_THRESHOLD){
+            //LEFT OR RIGHT REFLEX DODGING
+            if (angleToObst <= 180){ //RIGHT SIDE OBSTACLE
+                double angleNorm = (angleToObst - 90) / 90;
+                motorControl.setRightMotorSpeedDirection(navigation.activationFunction(angleNorm));
+                motorControl.setLeftMotorSpeedDirection(navigation.activationFunction(-angleNorm));
 
-	//	if (soundLocalization.getEnergy() > ENERGY_THRESHOLD) {
-	//		navigation.braitenberg(soundLocalization.getSoundAngle(), outputStream);
-	//	}
-	//	else {
-	//		motorControl.changeMotorCommand(STOP); //STOPS ALL MOTORS
-	//	}
+            }
+            else { // angleToObst > 180 //LEFT SIDE OBSTACLE
+                double angleNorm = (90 - (angleToObst - 180)) / 90;
+                motorControl.setRightMotorSpeedDirection(navigation.activationFunction(-angleNorm));
+                motorControl.setLeftMotorSpeedDirection(navigation.activationFunction(angleNorm));
+            }
+            //Update weight used for vLearning
+            wReflexVar = wReflexVar + reflexLearningRate * (distToObstCurrent / REFLEX_THRESHOLD) * (distToObstPrev - distToObstPrevPrev) / REFLEX_THRESHOLD;
+            reflexCounter += 1;
+        }
+        else if (soundLocalization.getEnergy() > ENERGY_THRESHOLD) {
+            if (distToObstCurrent < AVOIDANCE_THRESHOLD){
+                vLearning = (distToObstCurrent / REFLEX_THRESHOLD) * wReflexVar + (distToObstPrev / REFLEX_THRESHOLD) * wReflexConst;
+                if (angleToObst <= 180){  //RIGHT SIDE OBSTACLE
+                    navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, vLearning);
+                }else { // angleToObst > 180 //LEFT SIDE OBSTACLE
+                    navigation.braitenberg(soundLocalization.getAngle(), outputStream, vLearning, 0);
+                }
+            }
+            else{
+                navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
+            }
+        }
+        else {
+            motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
+        }
 
-	//	vision.updateCamera();
-	//	k = cv::waitKey(10);
-	//	if (k == 27) //27 = 'ESC'
-	//		break;
+        usleep(100000);
+
+        //Check Vision thread waitkey - exit or manual steering
+        if(vision.inputKey == 112){ //112 = 'p'
+            navigation.manualInputSteering(&vision);
+        }
+        if(vision.inputKey == 27){ //27 = 'ESC'
+            std::cout << "Vision thread joining...";
+            threadVision.join();
+            std::cout << "done"  << std::endl;
+            break;
+        }
     }
 
 /*********************************   END OF CONTROLLER LOOP   *********************************/
 
 	motorControl.changeMotorCommand(STOP);		//STOP ALL MOTORS
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
-	//vision.releaseCamera();						//Release camera resources
+	outputStream.close();
 
 	//Test flag
 	std::cout << "End of main -------" << std::endl;
 
-	//threadOdas.join();
-	//std::cout << "Odas thread joined" << std::endl;
-	lidar.ctrlc(1);
-	threadLIDAR.~thread();
 
-	std::cout << "LIDAR thread terminated!" << std::endl;
+	lidar.ctrlc(0); //Takes an int
+	threadLIDAR.join();
+
+	std::cout << "LIDAR thread joined" << std::endl;
+
+
+	threadODAS.join();
+	std::cout << "ODAS thread joined" << std::endl;
+
+
 
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 
-	//outputStream.close();
-	//vision.releaseCamera();
-	std::cout << "End of main -------" << std::endl;
 
 	return 0;
 }

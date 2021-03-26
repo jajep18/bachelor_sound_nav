@@ -19,23 +19,23 @@ Vision::Vision() {
 	camera.setVerticalFlip(true);
 	camera.setHorizontalFlip(true);
 
-	// Display current camera parameters
-	std::cout << "Format: " << camera.getFormat() << std::endl;
-	std::cout << "Width: " << camera.getWidth() << std::endl;
-	std::cout << "Height: " << camera.getHeight() << std::endl;
-	std::cout << "Brightness: " << camera.getBrightness() << std::endl;
-	std::cout << "Rotation: " << camera.getRotation() << std::endl;
-	std::cout << "ISO: " << camera.getISO() << std::endl;
-	std::cout << "Sharrpness: " << camera.getSharpness() << std::endl;
-	std::cout << "Contrast: " << camera.getContrast() << std::endl;
-	std::cout << "Saturation: " << camera.getSaturation() << std::endl;
-	std::cout << "ShutterSpeed: " << camera.getShutterSpeed() << std::endl;
-	std::cout << "Exopsure: " << camera.getExposure() << std::endl;
-	std::cout << "AWB: " << camera.getAWB() << std::endl;
-	std::cout << "Image effect: " << camera.getImageEffect() << std::endl;
-	std::cout << "Metering: " << camera.getMetering() << std::endl;
-	std::cout << "Format:" << camera.getFormat() << std::endl;
-	std::cout << "Body: " << "Ready" << std::endl;
+//	// Display current camera parameters
+//	std::cout << "Format: " << camera.getFormat() << std::endl;
+//	std::cout << "Width: " << camera.getWidth() << std::endl;
+//	std::cout << "Height: " << camera.getHeight() << std::endl;
+//	std::cout << "Brightness: " << camera.getBrightness() << std::endl;
+//	std::cout << "Rotation: " << camera.getRotation() << std::endl;
+//	std::cout << "ISO: " << camera.getISO() << std::endl;
+//	std::cout << "Sharrpness: " << camera.getSharpness() << std::endl;
+//	std::cout << "Contrast: " << camera.getContrast() << std::endl;
+//	std::cout << "Saturation: " << camera.getSaturation() << std::endl;
+//	std::cout << "ShutterSpeed: " << camera.getShutterSpeed() << std::endl;
+//	std::cout << "Exopsure: " << camera.getExposure() << std::endl;
+//	std::cout << "AWB: " << camera.getAWB() << std::endl;
+//	std::cout << "Image effect: " << camera.getImageEffect() << std::endl;
+//	std::cout << "Metering: " << camera.getMetering() << std::endl;
+//	std::cout << "Format:" << camera.getFormat() << std::endl;
+//	std::cout << "Body: " << "Ready" << std::endl;
 
 	// Open camera
 	if (!camera.open())
@@ -47,7 +47,7 @@ Vision::Vision() {
 	// Wait 3 seconds for camera image to stabilise
 	std::cout << "Waiting for camera to stabilise...";
 	usleep(3000000);
-	std::cout << "done." << std::endl;
+	std::cout << " Done." << std::endl;
 
 
 	setupSimpleBlobDetector();
@@ -141,29 +141,34 @@ void Vision::setupSimpleBlobDetector()
 }
 
 void Vision::updateCamera() {
-	// Grab image into internal buffer
-	camera.grab();
 
-	// Copy latest camera buffer into our defined buffer
-	camera.retrieve(img_buf);
+    while(true){
 
-	// Copy image buffer data into OpenCV Mat image
-	imageMat = cv::Mat(camera.getHeight(), camera.getWidth(), CV_8UC3, img_buf);
+        // Grab image into internal buffer
+        camera.grab();
 
-	// Exit if there is no image data in OpenCV image Mat
-	if (!imageMat.data)
-	{
-		std::cout << "No data in Mat imageMat." << std::endl;
+        // Copy latest camera buffer into our defined buffer
+        camera.retrieve(img_buf);
 
-		// Release Raspberry Pi camera resources
-		camera.release();
+        // Copy image buffer data into OpenCV Mat image
+        imageMat = cv::Mat(camera.getHeight(), camera.getWidth(), CV_8UC3, img_buf);
 
-		return;
+        // Exit if there is no image data in OpenCV image Mat
+        if (!imageMat.data)
+        {
+            std::cout << "No data in Mat imageMat." << std::endl;
+
+            break;
+        }
+
+        // Display Image
+        cv::imshow("Image", imageMat);
+        //cv::waitKey(30);
+        inputKey = cv::waitKey(100);
+        if(inputKey == 27) //27 = 'ESC'
+            break;
 	}
-
-	// Display Image
-	cv::imshow("Image", imageMat);
-	//cv::waitKey(30);
+	releaseCamera();             // Release Raspberry Pi camera resources
 }
 
 void Vision::releaseCamera()

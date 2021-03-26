@@ -61,9 +61,9 @@ void MotorControl::initGPIOPins()
 // Set speed and direction of LEFT motor
 // Directiom -> 1 = forward, 0 = reverse
 // Speed -> 0-100% in steps of 1%
-void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ int speed, int dir)
+void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ double speed, int dir)
 {
-	if (speed <= 0) // Reverse
+	if (speed <= 0 ) // Reverse
 	{
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN1, 0); // Rotate left motor clockwise
 		gpio->SetGPIOValue(TB6612_LEFT_MOTOR_BIN2, 1);
@@ -86,7 +86,7 @@ void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/
 // Set speed and direction of RIGHT motor
 // Directiom -> 1 = forward, 0 = reverse
 // Speed -> 0-100% in steps of 1%
-void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ int speed, int dir)
+void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ double speed, int dir)
 {
 	if (speed <= 0 ) // Reverse
 	{
@@ -108,7 +108,7 @@ void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*
 	gpio->SetPWM(1000, abs(speed), TB6612_RIGHT_MOTOR_PWMA);
 }
 
-void MotorControl::changeMotorCommand(int commandInput, int speedL, int speedR)
+void MotorControl::changeMotorCommand(int commandInput, double speedL, double speedR)
 {
 	switch (commandInput)
 	{
@@ -123,16 +123,16 @@ void MotorControl::changeMotorCommand(int commandInput, int speedL, int speedR)
 		break;
 
 	case REVERSE:
-		setLeftMotorSpeedDirection(REVERSESPEED, REVERSE);
-		setRightMotorSpeedDirection(REVERSESPEED, REVERSE);
+		setLeftMotorSpeedDirection(REVERSE_SPEED, REVERSE);
+		setRightMotorSpeedDirection(REVERSE_SPEED, REVERSE);
 		break;
 
-	case LEFTTURN:
+	case LEFT_TURN:
 		setLeftMotorSpeedDirection(speedL, REVERSE);
 		setRightMotorSpeedDirection(speedR, FORWARD);
 		break;
 
-	case RIGHTTURN:
+	case RIGHT_TURN:
 		setLeftMotorSpeedDirection(speedL, FORWARD);
 		setRightMotorSpeedDirection(speedR, REVERSE);
 		break;
@@ -142,52 +142,6 @@ void MotorControl::changeMotorCommand(int commandInput, int speedL, int speedR)
 		break;
 	}
 
-}
-
-void MotorControl::steerToAngle(int angle, int speedL, int speedR){
-    switch (action) {
-
-        case FORWARD :
-            std::cout << "Go straight! " << std::endl;
-            //motorR = 25, motorL = 25; //Changed from 0 on both
-
-
-            if (angle > 190 && angle < 360)
-                action = LEFTTURN;
-
-            else if (angle < 190 && angle > 0)
-                action = RIGHTTURN;
-
-            break;
-
-        case LEFTTURN :
-            std::cout << "Go left! \n";
-            //motorR = 25, motorL = 20;
-
-
-            if(angle == 190)
-                action = FORWARD;
-            else if (angle < 190 && angle > 0)
-                action = RIGHTTURN;
-
-            break;
-
-        case RIGHTTURN :
-            std::cout << "Go right! \n";
-            //motorR = 20, motorL = 25;
-
-
-            if(angle == 190)
-                action = FORWARD;
-            else if (angle > 190 && angle < 360)
-                action = LEFTTURN;
-            break;
-
-        default :
-            std::cout << "Default case, something went wrong. \n";
-            break;
-    }
-	changeMotorCommand(action, motorL, motorR);
 }
 
 
