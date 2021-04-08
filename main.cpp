@@ -114,9 +114,15 @@ int main(int argc, char** argv)
 	double distToObstPrevPrev = 35.0;	// Previous Previus Distance to closest obstacle on the track
 
 
+	//LIDAR stabilization to prevent wrong readings since first readings are 0
+	rplidar_response_measurement_node_hq_t closest_node = lidar.readScan();
+	std::cout << " Angle: " << lidar.getCorrectedAngle(closest_node) << " Nearest dist: " << closest_node.dist_mm_q2 / 4.0f << " (Lidar stabilizing)" << std::endl;
+	while (closest_node.dist_mm_q2 == 0) {
+		closest_node = lidar.readScan();
+		std::cout << " Angle: " << lidar.getCorrectedAngle(closest_node) << " Nearest dist: " << closest_node.dist_mm_q2 / 4.0f << " (Lidar stabilizing)" << std::endl;
+	}
 
-
-
+	/*********************************   CONTROLLER LOOP   *********************************/
 
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
