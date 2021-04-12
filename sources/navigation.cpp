@@ -42,6 +42,24 @@ void navigation::obstacleAvoidance(double angleToObstacle, double curDis, double
     }
 }
 
+void navigation::updateState(double distToObstCurrent, int soundEnergy, states &CURRENT_STATE)
+{
+    if (distToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
+        CURRENT_STATE = REFLEX;
+    }
+    else if (soundEnergy > ENERGY_THRESHOLD) {
+        if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
+            CURRENT_STATE = AVOID;
+        }
+        else {	//Braitenberg
+            CURRENT_STATE = NAVIGATE;
+        }
+    }
+    else { // If no sound
+        CURRENT_STATE = WAIT;
+    }
+}
+
 void  navigation::braitenberg(double angle, std::ofstream& outputStream, double avoidanceLeft, double avoidanceRight)  { //Braitenberg aggression vehicle
 
 	// Update sensor signals

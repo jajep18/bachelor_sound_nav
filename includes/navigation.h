@@ -9,9 +9,12 @@
  */
 #include "motorControl.h"
 #include "camera.h"
+#include "defines.h"
 
 #include <math.h>
 #include <fstream>
+
+enum states { WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4 };
 
 class navigation
 {
@@ -31,7 +34,7 @@ private:
 	double vLearning = 0.0; 		// Velocity to add to the initial velocity
 	int reflexCounter = 0;
 
-
+	
 
 public:
 
@@ -48,6 +51,11 @@ public:
 	void obstacleReflex(double angleToObstacle, double curDis, double prevDis, double prevPrevDis);
 
 	void obstacleAvoidance(double angleToObstacle, double curDis, double prevDis);
+
+	void updateState(double distToObstCurrent, int soundEnergy, states& CURRENT_STATE);
+
+	
+
 
 
 };

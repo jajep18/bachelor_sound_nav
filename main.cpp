@@ -124,9 +124,11 @@ int main(int argc, char** argv)
 
 	/*********************************   CONTROLLER LOOP   *********************************/
 
+	states CURRENT_STATE = WAIT;
+
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
-		std::cout << "Angle: "<< lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 /4.0f << std::endl;
+		
 
 		//usleep(100000);
 
@@ -135,23 +137,40 @@ int main(int argc, char** argv)
 		distToObstCurrent	= closestNode.dist_mm_q2 / 4.0f;
 		angleToObst			= lidar.getCorrectedAngle(closestNode);
 
-        if (distToObstCurrent < REFLEX_THRESHOLD){ //Reflex avoidance
-
+		switch (CURRENT_STATE)
+		{
+		case WAIT:
+			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
+			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
+			break;
+		case NAVIGATE:
+			navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
+			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, 0);
+			break;
+		case AVOID:
+			std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
+			navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev);
+			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
+			break;
+		case REFLEX:
+			std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
 			navigation.obstacleReflex(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev);
-
-        }
-        else if (soundLocalization.getEnergy() > ENERGY_THRESHOLD) {
-            if (distToObstCurrent < AVOIDANCE_THRESHOLD){ //Obstacle avoidance - obstacle inside avoidance threshold
-
-				navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev);
-
-            }
-            else{	//Braitenberg
-                navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
-            }
-        else { // If no sound
-            motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
-        }
+			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, 0, 0);
+			break;
+		case TARGET_FOUND:
+			//Stop & check for correct target
+			std::cout << "Target found !?\n";
+			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
+			//navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE)
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
+			break;
+		default:
+			break;
+		}
 
         usleep(100000);
 
@@ -187,7 +206,7 @@ int main(int argc, char** argv)
 
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 
-		//Test flag
+	
 	std::cout << "End of main -------" << std::endl;
 
 	return 0;
