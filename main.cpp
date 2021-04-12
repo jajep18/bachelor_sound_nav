@@ -100,9 +100,10 @@ int main(int argc, char** argv)
 	************************  OUTOUT STREAM	    **********************************
 	*****************************************************************************/
 
-	std::ofstream outputStream;
+	std::ofstream outputStream, outputStreamICO;
 	outputStream.open("./data/dummy.csv", std::ofstream::out | std::ofstream::trunc);
-	outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
+    outputStreamICO.open("./data/dummyICO.csv", std::ofstream::out | std::ofstream::trunc);
+	//outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
 
 
@@ -128,7 +129,7 @@ int main(int argc, char** argv)
 
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
-		
+
 
 		//usleep(100000);
 
@@ -151,7 +152,7 @@ int main(int argc, char** argv)
 			break;
 		case AVOID:
 			std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
-			navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev);
+			navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev, outputStream);
 			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
 			break;
@@ -176,7 +177,7 @@ int main(int argc, char** argv)
 
         //Check Vision thread waitkey - exit or manual steering
         if(vision.inputKey == 112){ //112 = 'p'
-            navigation.manualInputSteering(&vision);
+            navigation.manualInputSteering(&vision, outputStreamICO);
         }
         if(vision.inputKey == 27){ //27 = 'ESC'
             std::cout << "Vision thread joining...";
@@ -206,7 +207,7 @@ int main(int argc, char** argv)
 
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS
 
-	
+
 	std::cout << "End of main -------" << std::endl;
 
 	return 0;

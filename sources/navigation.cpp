@@ -16,33 +16,33 @@ void navigation::obstacleReflex(double angleToObstacle, double curDis, double pr
     //LEFT OR RIGHT REFLEX DODGING
  if (angleToObstacle <= 180){ //RIGHT SIDE OBSTACLE
      double angleNorm = (angleToObstacle - 90) / 90;
-     motorControl.setRightMotorSpeedDirection(activationFunction(angleNorm));
-     motorControl.setLeftMotorSpeedDirection(activationFunction(-angleNorm));
+     motorControl->setRightMotorSpeedDirection(activationFunction(angleNorm));
+     motorControl->setLeftMotorSpeedDirection(activationFunction(-angleNorm));
 
  }
  else { // angleToObst > 180 //LEFT SIDE OBSTACLE
      double angleNorm = (90 - (angleToObstacle - 180)) / 90;
-     motorControl.setRightMotorSpeedDirection(activationFunction(-angleNorm));
-     motorControl.setLeftMotorSpeedDirection(activationFunction(angleNorm));
+     motorControl->setRightMotorSpeedDirection(activationFunction(-angleNorm));
+     motorControl->setLeftMotorSpeedDirection(activationFunction(angleNorm));
  }
  //Update weight used for vLearning
  wReflexVar = wReflexVar + reflexLearningRate * (curDis / REFLEX_THRESHOLD) * (prevDis - prevPrevDis) / REFLEX_THRESHOLD;
  reflexCounter += 1;
 }
 
-void navigation::obstacleAvoidance(double angleToObstacle, double curDis, double prevDis)
+void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, double curDis, double prevDis, std::ofstream& outputStream)
 {
     vLearning = (curDis / REFLEX_THRESHOLD) * wReflexVar + (prevDis / REFLEX_THRESHOLD) * wReflexConst;
 
-    if (angleToObst <= 180){  //RIGHT SIDE OBSTACLE
-        navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, vLearning);
+    if (angleToObstacle <= 180){  //RIGHT SIDE OBSTACLE
+        braitenberg(soundAngle, outputStream, 0, vLearning);
     }
     else { // angleToObst > 180 //LEFT SIDE OBSTACLE
-        navigation.braitenberg(soundLocalization.getAngle(), outputStream, vLearning, 0);
+        braitenberg(soundAngle, outputStream, vLearning, 0);
     }
 }
 
-void navigation::updateState(double distToObstCurrent, int soundEnergy, states &CURRENT_STATE)
+void navigation::updateState(double distToObstCurrent, double soundEnergy, states &CURRENT_STATE)
 {
     if (distToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
         CURRENT_STATE = REFLEX;
@@ -90,10 +90,12 @@ void navigation::navigationICO(double angle, double w_A) {
 	std::cout << "Left speed: " << (activationFunction(angleL) + VELOCITY_OFFSET) << " - Right speed: " << (activationFunction(angleR) + VELOCITY_OFFSET) << std::endl;
 }
 
+
+
 //This is used for debugging and test purposes
-void navigation::manualInputSteering(Vision * vision_){
+void navigation::manualInputSteering(Vision * vision_, std::ofstream& outputStream){
     std::cout << "Manual steering enabled - Control with WASD - Type 'r' to resume" << std::endl;
-    bool runBool = true;
+    bool runBool = true, printToFile = true;
     while(runBool){
         switch(vision_->inputKey){
             case 'w':
@@ -107,6 +109,13 @@ void navigation::manualInputSteering(Vision * vision_){
                 break;
             case 'd':
                 motorControl->changeMotorCommand(RIGHT_TURN, 25, 18);
+                break;
+            case 'i': //Shows and prints ICO values
+                if(printToFile){
+                    std::cout << "\n wReflexVar " << wReflexVar << " vLearning " << vLearning << " reflexCounter " << reflexCounter << std::endl;
+                    outputStream << wReflexVar <<  ','<< vLearning << ',' << reflexCounter <<'\n';
+                    printToFile = false;
+                }
                 break;
             case 27: //27 = 'ESC'
             case 'r':

@@ -34,7 +34,7 @@ private:
 	double vLearning = 0.0; 		// Velocity to add to the initial velocity
 	int reflexCounter = 0;
 
-	
+
 
 public:
 
@@ -44,17 +44,17 @@ public:
 
 	void navigationICO(double angle, double w_A);	//ICO learning - work in progress
 
-	void manualInputSteering(Vision * vision_);
+	void manualInputSteering(Vision * vision_, std::ofstream& outputStream);
 
 	double activationFunction(double input);
 
 	void obstacleReflex(double angleToObstacle, double curDis, double prevDis, double prevPrevDis);
 
-	void obstacleAvoidance(double angleToObstacle, double curDis, double prevDis);
+	void obstacleAvoidance(double angleToObstacle, double soundAngle, double curDis, double prevDis, std::ofstream& outputStream);
 
-	void updateState(double distToObstCurrent, int soundEnergy, states& CURRENT_STATE);
+	void updateState(double distToObstCurrent, double soundEnergy, states& CURRENT_STATE);
 
-	
+
 
 
 
