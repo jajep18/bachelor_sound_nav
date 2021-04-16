@@ -137,37 +137,37 @@ int main(int argc, char** argv)
 		distToObstPrev		= distToObstCurrent;
 		distToObstCurrent	= closestNode.dist_mm_q2 / 4.0f;
 		angleToObst			= lidar.getCorrectedAngle(closestNode);
-
+        navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 		switch (CURRENT_STATE)
 		{
-		case WAIT:
+		case WAIT: //Cyan
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
-			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
+//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
-		case NAVIGATE:
+		case NAVIGATE: //Blue
 			navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
-			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, 0);
+//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
 			break;
-		case AVOID:
+		case AVOID: // Yellow
 			std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
 			navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev, outputStream);
-			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
+//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
 			break;
-		case REFLEX:
+		case REFLEX: //Red
 			std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
 			navigation.obstacleReflex(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev);
-			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, 0, 0);
+//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, 0, 0);
 			break;
 		case TARGET_FOUND:
 			//Stop & check for correct target
 			std::cout << "Target found !?\n";
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
 			//navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE)
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
 		default:
 			break;
@@ -177,6 +177,7 @@ int main(int argc, char** argv)
 
         //Check Vision thread waitkey - exit or manual steering
         if(vision.inputKey == 112){ //112 = 'p'
+            motorControl.setMatrixVoiceLED(MATRIX_LED_L_9,MAX_BRIGHTNESS,0,MAX_BRIGHTNESS); //Purple
             navigation.manualInputSteering(&vision, outputStreamICO);
         }
         if(vision.inputKey == 27){ //27 = 'ESC'
