@@ -53,18 +53,22 @@ private:
 	float nmsThreshold = 0.4;  // Non-maximum suppression threshold
 	int inpWidth = 416;  // Width of network's input image
 	int inpHeight = 416; // Height of network's input image
+
+
 	vector<string> classes;
 
 	string str, outputFile;
 	VideoCapture cap;
 	VideoWriter video;
 	Mat frame, blob;
-	ifstream ifile(str);
-	static const string kWinName = "Deep learning object detection in OpenCV";
+
+	Net net;
+
+	string kWinName = "Object detection";
 
 
 	void setUpYOLO();
-	void YOLOProcess();
+
 
 	// Remove the bounding boxes with low confidence using non-maxima suppression
 	void postprocess(Mat& frame, const vector<Mat>& out);
@@ -80,6 +84,7 @@ public:
 	void setupSimpleBlobDetector();
 	void updateCamera();
 	void releaseCamera();
+    void YOLOProcess();
 
 	// Get the names of the output layers
 	vector<String> getOutputsNames(const Net& net);

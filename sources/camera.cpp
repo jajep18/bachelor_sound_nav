@@ -50,6 +50,7 @@ Vision::Vision() {
 	std::cout << " Done." << std::endl;
 
 
+
 	setupSimpleBlobDetector();
 	setUpYOLO();
 
@@ -192,27 +193,31 @@ void Vision::setUpYOLO()
 	String modelWeights = "yolov3.weights";
 
 	// Load the network
-	Net net = readNetFromDarknet(modelConfiguration, modelWeights);
+	net = readNetFromDarknet(modelConfiguration, modelWeights);
 
 	cout << "Using CPU device" << endl;
 	net.setPreferableBackend(DNN_TARGET_CPU);
 
-	outputFileYOLO = "yolo_out_cpp.avi";
+//	outputFile = "yolo_out_cpp.avi";
+//
+//	// Open the image file
+//	str = parser.get<String>("image");
+//	ifstream ifile(str);
+//	if (!ifile) throw("error in 'ifile(str)\n");
+//	cap.open(str);
+//	str.replace(str.end() - 4, str.end(), "_yolo_out_cpp.jpg");
+//	outputFile = str;
 
-	// Open the image file
-	str = parser.get<String>("image");
-	if (!ifile) throw("error in 'ifile(str)\n");
-	cap.open(str);
-	str.replace(str.end() - 4, str.end(), "_yolo_out_cpp.jpg");
-	outputFile = str;
 
-	std::cout << "YOLO ready!\";
+	std::cout << "YOLO ready!\n";
 
 }
 
 void Vision::YOLOProcess()
 {
-	namedWindow(kWinName, WINDOW_NORMAL);
+    std::cout << "Y.O.L.O RUNNIG...\n";
+
+	//namedWindow(kWinName, WINDOW_NORMAL);
 
 	while (waitKey(1) < 0)
 	{
@@ -220,12 +225,13 @@ void Vision::YOLOProcess()
 		frame = imageMat.clone();
 
 		// Stop the program if reached end of video
-		if (frame.empty()) {
-			cout << "Done processing !!!" << endl;
-			cout << "Output file is stored as " << outputFile << endl;
-			waitKey(3000);
-			break;
-		}
+//		if (frame.empty()) {
+//			cout << "Done processing !!!" << endl;
+//			cout << "Output file is stored as " << outputFile << endl;
+//			waitKey(3000);
+//			break;
+//		}
+
 		// Create a 4D blob from a frame.
 		blobFromImage(frame, blob, 1 / 255.0, cv::Size(inpWidth, inpHeight), Scalar(0, 0, 0), true, false);
 
@@ -240,19 +246,18 @@ void Vision::YOLOProcess()
 		postprocess(frame, outs);
 
 		// Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)
-		vector<double> layersTimes;
-		double freq = getTickFrequency() / 1000;
-		double t = net.getPerfProfile(layersTimes) / freq;
-		string label = format("Inference time for a frame : %.2f ms", t);
-		putText(frame, label, Point(0, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
+		//vector<double> layersTimes;
+		//double freq = getTickFrequency() / 1000;
+		//double t = net.getPerfProfile(layersTimes) / freq;
+		//string label = format("Inference time for a frame : %.2f ms", t);
+		//putText(frame, label, Point(0, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
 
 		// Write the frame with the detection boxes
 		Mat detectedFrame;
 		frame.convertTo(detectedFrame, CV_8U);
-		//if (parser.has("image")) imwrite(outputFile, detectedFrame);
-		//else video.write(detectedFrame);
 
-		imshow(kWinName, frame);
+
+		imshow("YOLO", frame);
 
 	}
 
