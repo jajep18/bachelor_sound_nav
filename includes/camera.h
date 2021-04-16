@@ -7,6 +7,7 @@
  * Creation date:   21-02-2021
  */
 
+#include <opencv2/dnn.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -17,6 +18,15 @@
 #include <unistd.h>
 #include <raspicam/raspicam.h>
 #include <atomic>
+#include <fstream>
+#include <sstream>
+
+
+
+
+using namespace cv;
+using namespace dnn;
+using namespace std;
 
 class Vision
 {
@@ -37,12 +47,42 @@ private:
 	std::vector<cv::Point2f> keyptXY_red, keyptXY_black;				// Vector storing [x,y] co-ordinates of detected blobs
 
 
+	/**********************YOLO************************************/
+
+	float confThreshold = 0.5; // Confidence threshold
+	float nmsThreshold = 0.4;  // Non-maximum suppression threshold
+	int inpWidth = 416;  // Width of network's input image
+	int inpHeight = 416; // Height of network's input image
+	vector<string> classes;
+
+	string str, outputFile;
+	VideoCapture cap;
+	VideoWriter video;
+	Mat frame, blob;
+	ifstream ifile(str);
+	static const string kWinName = "Deep learning object detection in OpenCV";
+
+
+	void setUpYOLO();
+	void YOLOProcess();
+
+	// Remove the bounding boxes with low confidence using non-maxima suppression
+	void postprocess(Mat& frame, const vector<Mat>& out);
+
+	// Draw the predicted bounding box
+	void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame);
+
+
+
 public:
 	Vision();
 	~Vision();
 	void setupSimpleBlobDetector();
 	void updateCamera();
 	void releaseCamera();
+
+	// Get the names of the output layers
+	vector<String> getOutputsNames(const Net& net);
 
 	std::atomic<char> inputKey;
 };
