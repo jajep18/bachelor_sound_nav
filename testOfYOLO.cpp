@@ -41,7 +41,7 @@ else if (parser.has("video"))
     str.replace(str.end() - 4, str.end(), "_yolo_out_cpp.avi");
     outputFile = str;
 }
-// Open the webcaom
+// Open the webcao
 else cap.open(parser.get<int>("device"));
 
 catch (...) {
