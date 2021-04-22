@@ -20,7 +20,7 @@
 #include <atomic>
 #include <fstream>
 #include <sstream>
-
+#include <mutex>
 
 
 
@@ -46,6 +46,7 @@ private:
 	std::vector<cv::KeyPoint> keypts_red, keypts_black;
 	std::vector<cv::Point2f> keyptXY_red, keyptXY_black;				// Vector storing [x,y] co-ordinates of detected blobs
 
+	std::mutex imageMatMutex;
 
 	/**********************YOLO************************************/
 
@@ -57,6 +58,10 @@ private:
 
 	vector<string> classes;
 
+	string label = "";
+	double t = 0;
+	double freq = 0;
+
 	string str, outputFile;
 	VideoCapture cap;
 	VideoWriter video;
@@ -67,6 +72,7 @@ private:
 	string kWinName = "Object detection";
 
 
+
 	void setUpYOLO();
 
 
@@ -75,6 +81,8 @@ private:
 
 	// Draw the predicted bounding box
 	void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame);
+
+	void getImageMat();
 
 
 
