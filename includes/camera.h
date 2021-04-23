@@ -66,6 +66,7 @@ private:
 	VideoCapture cap;
 	VideoWriter video;
 	Mat frame, blob;
+	Mat processedFrame;
 
 	Net net;
 

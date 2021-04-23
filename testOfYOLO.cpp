@@ -2,24 +2,21 @@
 #include <thread>
 
 int main(int argc, char** argv) {
-
-
 	Vision vision;
 	std::thread threadVision(&Vision::updateCamera, &vision);
+	std::thread threadObjDetect(&Vision::YOLOProcess, &vision);
 
 	while (true) {
-
-
-		vision.YOLOProcess();
         if(vision.inputKey == 27){ //27 = 'ESC'
             std::cout << "Vision thread joining...";
             threadVision.join();
             std::cout << " Done"  << std::endl;
+            std::cout << "Object Detection thread joining...";
+            threadObjDetect.join();
+            std::cout << " Done"  << std::endl;
             break;
         }
-
 	}
-
 	return 0;
 }
 

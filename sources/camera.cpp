@@ -12,8 +12,8 @@ Vision::Vision() {
 	// Set camera image format to BGR as used by  OpenCV
 	camera.setFormat(raspicam::RASPICAM_FORMAT_BGR);
 	// Set image resolution
-	camera.setWidth(320); //640
-	camera.setHeight(240); //480
+	camera.setWidth(640); //640
+	camera.setHeight(480); //480
 	// Flip camera image vertically and horizontally
 	// because camera is mounted upside down
 	camera.setVerticalFlip(true);
@@ -31,9 +31,6 @@ Vision::Vision() {
 	usleep(3000000);
 	std::cout << " Done." << std::endl;
 
-
-
-	//setupSimpleBlobDetector();
 	setUpYOLO();
 
 	/*****************************************************************************
@@ -46,6 +43,9 @@ Vision::Vision() {
 
 	// Initialise OpenCV image Mat
 	imageMat = cv::Mat(camera.getHeight(), camera.getWidth(), CV_8UC3, img_buf);
+	processedFrame = cv::Mat(camera.getHeight(), camera.getWidth(), CV_8UC3, img_buf);
+
+
 
 	// Create window to display original image
 	cv::namedWindow("Image", cv::WINDOW_NORMAL);
@@ -87,6 +87,7 @@ void Vision::updateCamera() {
                 }
 
                 // Display Image
+                imshow(kWinName, processedFrame);
                 cv::imshow("Image", imageMat);
                 imageMatMutex.unlock();
                 break;
@@ -150,43 +151,48 @@ void Vision::setUpYOLO()
 
 void Vision::YOLOProcess()
 {
-    std::cout << "Y.O.L.O RUNNING...\n";
+    while(true){
+        std::cout << "Y.O.L.O RUNNING...\n";
 
-    getImageMat();
-    if(frame.empty()){
-        cout << "No frame from UpdateCamera!\n";
-        return;
-    }
-    // Create a 4D blob from a frame.
-    blobFromImage(frame, blob, 1 / 255.0, cv::Size(inpWidth, inpHeight), Scalar(0, 0, 0), true, false);
+        getImageMat();
+        if(frame.empty()){
+            cout << "No frame from UpdateCamera!\n";
+            return;
+        }
+        // Create a 4D blob from a frame.
+        blobFromImage(frame, blob, 1 / 255.0, cv::Size(inpWidth, inpHeight), Scalar(0, 0, 0), true, false);
 
-    //Sets the input to the network
-    net.setInput(blob);
+        //Sets the input to the network
+        net.setInput(blob);
 
-    // Runs the forward pass to get output of the output layers
-    vector<Mat> outs;
-    net.forward(outs, getOutputsNames(net));
+        // Runs the forward pass to get output of the output layers
+        vector<Mat> outs;
+        net.forward(outs, getOutputsNames(net));
 
-    // Remove the bounding boxes with low confidence
-    postprocess(frame, outs);
+        // Remove the bounding boxes with low confidence
+        postprocess(frame, outs);
 
-    //Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)
-    vector<double> layersTimes;
-    freq = getTickFrequency() / 1000;
-    t = net.getPerfProfile(layersTimes) / freq;
-    //std::cout << t << endl;
-    label = format("Inference time for a frame : %.2f ms", t);
-    std::cout << label << endl;
-    putText(frame, label, Point(0, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
+        //Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)
+        vector<double> layersTimes;
+        freq = getTickFrequency() / 1000;
+        t = net.getPerfProfile(layersTimes) / freq;
 
-    // Write the frame with the detection boxes
-    Mat detectedFrame;
-    frame.convertTo(detectedFrame, CV_8U);
+        label = format("Inference time for a frame : %.2f ms", t);
+        std::cout << label << endl;
+        putText(frame, label, Point(0, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
 
+        // Write the frame with the detection boxes
+        Mat detectedFrame;
+        frame.convertTo(detectedFrame, CV_8U);
 
-    imshow(kWinName, frame);
-    waitKey(1);
-    frame.release();
+        //frame.copyTo(processedFrame);
+        processedFrame = frame.clone();
+        //waitKey(1);
+        frame.release();
+
+        if(inputKey == 27) //27 = 'ESC'
+            break;
+	}
 }
 
 // Remove the bounding boxes with low confidence using non-maxima suppression
@@ -250,6 +256,7 @@ void Vision::drawPred(int classId, float conf, int left, int top, int right, int
 	{
 		CV_Assert(classId < (int)classes.size());
 		label = classes[classId] + ":" + label;
+		cout << label << endl;
 	}
 
 	//Display the label at the top of the bounding box
