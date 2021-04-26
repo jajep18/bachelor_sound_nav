@@ -68,7 +68,7 @@ void  navigation::braitenberg(double angle, std::ofstream& outputStream, double 
 
 	//Calculate motorspeed using activation function
 	motorSpeedL = activationFunction(angleL) + avoidanceLeft;
-	motorSpeedR = activationFunction(angleR) + avoidanceRight;
+	motorSpeedR = activationFunction(angleR) + avoidanceRight + 5;
 
 	std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
@@ -116,6 +116,9 @@ void navigation::manualInputSteering(Vision * vision_, std::ofstream& outputStre
                     outputStream << wReflexVar <<  ','<< vLearning << ',' << reflexCounter <<'\n';
                     printToFile = false;
                 }
+                motorControl->setMatrixVoiceLED(MATRIX_LED_R_9,MAX_BRIGHTNESS,0,MAX_BRIGHTNESS); //Purple
+                usleep(1000000);
+                motorControl->setMatrixVoiceLED(MATRIX_LED_R_9,0,0,0); //none
                 break;
             case 27: //27 = 'ESC'
             case 'r':
