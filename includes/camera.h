@@ -7,13 +7,6 @@
  * Creation date:   21-02-2021
  */
 
-/*
-* Yolo Object DISCLAIMER:
-* This code is written at BigVision LLC. It is based on the OpenCV project. It is subject to the license terms in the LICENSE file found in this distribution and at http://opencv.org/license.html
-* The code used in this project is inspired by https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
-* Code source: https://github.com/spmallick/learnopencv/blob/master/ObjectDetection-YOLO/object_detection_yolo.cpp
-*/
-
 #include <opencv2/dnn.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
@@ -53,8 +46,10 @@ private:
 	std::vector<cv::KeyPoint> keypts_red, keypts_black;
 	std::vector<cv::Point2f> keyptXY_red, keyptXY_black;				// Vector storing [x,y] co-ordinates of detected blobs
 
+	std::mutex imageMatMutex;
 
 	/**********************YOLO************************************/
+
 	float confThreshold = 0.5; // Confidence threshold
 	float nmsThreshold = 0.4;  // Non-maximum suppression threshold
 	int inpWidth = 416;  // Width of network's input image
@@ -62,6 +57,10 @@ private:
 
 
 	vector<string> classes;
+
+	string label = "";
+	double t = 0;
+	double freq = 0;
 
 	string str, outputFile;
 	VideoCapture cap;

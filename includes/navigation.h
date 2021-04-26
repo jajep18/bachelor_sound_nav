@@ -30,7 +30,7 @@ private:
 
 	double wReflexVar = 1.0;		// Standard weight that needs to be multiplied with distance to current Obstacle
 	double wReflexConst = 1.0;		//
-	double reflexLearningRate = 10;	// Learning rate for reflex µ
+	double reflexLearningRate = 2;	// Learning rate for reflex µ
 	double vLearning = 0.0; 		// Velocity to add to the initial velocity
 	int reflexCounter = 0;
 

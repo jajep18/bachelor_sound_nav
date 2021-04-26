@@ -28,7 +28,7 @@
 #define MATRIX_LED_L_6          14
 #define MATRIX_LED_L_7          15
 #define MATRIX_LED_L_8          16
-#define MATRIX_LED_L_9          17
+#define MATRIX_LED_L_9          40
 
 // Motor commands
 #define	STOP				0
@@ -47,8 +47,8 @@
 #define DECREMENT 1			// DECREMENT : controls delay in the dimming
 #define MIN_THRESHOLD 10	// MAX_BRIGHTNESS: Filters out low energy
 #define MAX_BRIGHTNESS 30	// MAX_BRIGHTNESS: 0 - 255
-#define ENERGY_THRESHOLD 50
+#define ENERGY_THRESHOLD 50 // 50
 
 //Obstacle avoidance
-#define REFLEX_THRESHOLD 200
-#define AVOIDANCE_THRESHOLD 400
+#define REFLEX_THRESHOLD 250
+#define AVOIDANCE_THRESHOLD 500

@@ -77,7 +77,7 @@ void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/
 	// Set motor speed via PWM signal (min. = -100, max. = 100)
 	if (speed > 100)
 		speed = 100;
-	if (speed < -100)
+	else if (speed < -100)
 		speed = -100;
 
 	gpio->SetPWM(1000, abs(speed), TB6612_LEFT_MOTOR_PWMB);

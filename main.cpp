@@ -126,7 +126,7 @@ int main(int argc, char** argv)
 	/*********************************   CONTROLLER LOOP   *********************************/
 
 	states CURRENT_STATE = WAIT;
-
+    motorControl.setMatrixVoiceLED(9,MAX_BRIGHTNESS,0,0);
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
 
@@ -151,13 +151,14 @@ int main(int argc, char** argv)
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
 			break;
 		case AVOID: // Yellow
-			std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
-			navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev, outputStream);
+			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
+			//navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev, outputStream);
+			navigation.obstacleAvoidance(angleToObst, soundLocalization.getAngle(), distToObstCurrent, distToObstPrev, outputStream);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
 			break;
 		case REFLEX: //Red
-			std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
+			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
 			navigation.obstacleReflex(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, 0, 0);
@@ -172,6 +173,7 @@ int main(int argc, char** argv)
 		default:
 			break;
 		}
+        std::cout <<"Sound energy " <<soundLocalization.getEnergy() <<"\nWAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4. Current state:  "<< CURRENT_STATE << std::endl;
 
         usleep(100000);
 

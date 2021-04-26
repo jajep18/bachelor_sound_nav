@@ -23,6 +23,8 @@ sdk/src/arch/linux/net_socket.cpp \
 -lopencv_highgui \
 -lopencv_imgcodecs \
 -lopencv_imgproc \
+-lopencv_dnn \
+-lopencv_videoio \
 -lmatrix_creator_hal \
 -lgflags
 

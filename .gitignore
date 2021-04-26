@@ -45,4 +45,4 @@
 *.trk
 
 #MatLab
-*.mlx
+*.mlxyolov3.weights
