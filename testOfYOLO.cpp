@@ -27,8 +27,7 @@ int main(int argc, char** argv) {
 
 
 
-//// This code is written at BigVision LLC. It is based on the OpenCV project. It is subject to the license terms in the LICENSE file found in this distribution and at http://opencv.org/license.html
-////Source: https://github.com/spmallick/learnopencv/blob/master/ObjectDetection-YOLO/object_detection_yolo.cpp
+
 //// Usage example:  ./object_detection_yolo.out --video=run.mp4
 ////                 ./object_detection_yolo.out --image=bird.jpg
 //#include <fstream>

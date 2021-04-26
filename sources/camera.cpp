@@ -217,20 +217,12 @@ void Vision::YOLOProcess()
 {
     std::cout << "Y.O.L.O RUNNIG...\n";
 
-	//namedWindow(kWinName, WINDOW_NORMAL);
+
 
 	while (waitKey(1) < 0)
 	{
 		// get frame from the video
 		frame = imageMat.clone();
-
-		// Stop the program if reached end of video
-//		if (frame.empty()) {
-//			cout << "Done processing !!!" << endl;
-//			cout << "Output file is stored as " << outputFile << endl;
-//			waitKey(3000);
-//			break;
-//		}
 
 		// Create a 4D blob from a frame.
 		blobFromImage(frame, blob, 1 / 255.0, cv::Size(inpWidth, inpHeight), Scalar(0, 0, 0), true, false);
