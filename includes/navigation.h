@@ -30,7 +30,7 @@ private:
 
 	double wReflexVar = 1.0;		// Standard weight that needs to be multiplied with distance to current Obstacle
 	double wReflexConst = 1.0;		//
-	double reflexLearningRate = 2;	// Learning rate for reflex µ
+	double reflexLearningRate = 0.7;	// Learning rate for reflex µ
 	double vLearning = 0.0; 		// Velocity to add to the initial velocity
 	int reflexCounter = 0;
 
@@ -47,12 +47,13 @@ public:
 	void manualInputSteering(Vision * vision_, std::ofstream& outputStream);
 
 	double activationFunction(double input);
+	double avoidanceActivationFunction(double input);
 
 	void obstacleReflex(double angleToObstacle, double curDis, double prevDis, double prevPrevDis);
 
 	void obstacleAvoidance(double angleToObstacle, double soundAngle, double curDis, double prevDis, std::ofstream& outputStream);
 
-	void updateState(double distToObstCurrent, double soundEnergy, states& CURRENT_STATE);
+	void updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states& CURRENT_STATE);
 
 
 

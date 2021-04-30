@@ -112,7 +112,13 @@ int main(int argc, char** argv)
 	double angleToObst = 0;
 	double distToObstPrev;				// Previous Distance to closest obstacle on the track
 
-	double distToObstPrevPrev = 35.0;	// Previous Previus Distance to closest obstacle on the track
+	//double distToObstPrevPrev = 35.0;	// Previous Previus Distance to closest obstacle on the track
+
+	double reflexDistToObstCurrent = 1000;
+	double reflexAngleToObst = 0;
+	double reflexDistToObstPrev = 0;				// Previous Distance to closest obstacle on the track
+
+	double reflexDistToObstPrevPrev = 35.0;
 
 
 	//LIDAR stabilization to prevent wrong readings since first readings are 0
@@ -129,24 +135,33 @@ int main(int argc, char** argv)
     motorControl.setMatrixVoiceLED(9,MAX_BRIGHTNESS,0,0);
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
+		rplidar_response_measurement_node_hq_t closestNodeReflex = lidar.readScanReflex();
 
 
 		//usleep(100000);
 
-        distToObstPrevPrev	= distToObstPrev;
+        //distToObstPrevPrev	= distToObstPrev;
 		distToObstPrev		= distToObstCurrent;
 		distToObstCurrent	= closestNode.dist_mm_q2 / 4.0f;
 		angleToObst			= lidar.getCorrectedAngle(closestNode);
-        navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+
+		reflexDistToObstPrevPrev    = reflexDistToObstPrev;
+        reflexDistToObstPrev        = reflexDistToObstCurrent;
+        reflexDistToObstCurrent     = closestNodeReflex.dist_mm_q2 / 4.0f;
+        reflexAngleToObst           = lidar.getCorrectedAngle(closestNodeReflex);
+
+        navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 		switch (CURRENT_STATE)
 		{
 		case WAIT: //Cyan
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
 		case NAVIGATE: //Blue
 			navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
 			break;
@@ -156,12 +171,13 @@ int main(int argc, char** argv)
 			navigation.obstacleAvoidance(angleToObst, soundLocalization.getAngle(), distToObstCurrent, distToObstPrev, outputStream);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
 			break;
 		case REFLEX: //Red
 			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
-			navigation.obstacleReflex(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev);
+			navigation.obstacleReflex(reflexAngleToObst, reflexDistToObstCurrent, reflexDistToObstPrev, reflexDistToObstPrevPrev);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, 0, 0);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, 0, 0);
 			break;
 		case TARGET_FOUND:
 			//Stop & check for correct target
@@ -174,6 +190,8 @@ int main(int argc, char** argv)
 			break;
 		}
         std::cout <<"Sound energy " <<soundLocalization.getEnergy() <<"\nWAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4. Current state:  "<< CURRENT_STATE << std::endl;
+        std::cout << "90deg dist/angle: " << reflexDistToObstCurrent << " | " << reflexAngleToObst << std::endl;
+        std::cout << "180deg dist/angle: " << distToObstCurrent << " | " << angleToObst << std::endl;
 
         usleep(100000);
 

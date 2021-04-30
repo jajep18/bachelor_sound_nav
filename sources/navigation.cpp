@@ -11,6 +11,10 @@ double navigation::activationFunction(double input) {
 
 }
 
+double navigation::avoidanceActivationFunction(double input){
+    return 2 / (1 + exp(-6 * input)) - 1;	//Sigmoid;
+}
+
 void navigation::obstacleReflex(double angleToObstacle, double curDis, double prevDis, double prevPrevDis)
 {
     //LEFT OR RIGHT REFLEX DODGING
@@ -26,25 +30,31 @@ void navigation::obstacleReflex(double angleToObstacle, double curDis, double pr
      motorControl->setLeftMotorSpeedDirection(activationFunction(angleNorm));
  }
  //Update weight used for vLearning
- wReflexVar = wReflexVar + reflexLearningRate * (curDis / REFLEX_THRESHOLD) * (prevDis - prevPrevDis) / REFLEX_THRESHOLD;
+ wReflexVar = wReflexVar + reflexLearningRate * ((REFLEX_THRESHOLD - curDis) / REFLEX_THRESHOLD) * (prevPrevDis - prevDis) / REFLEX_THRESHOLD;
  reflexCounter += 1;
 }
 
 void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, double curDis, double prevDis, std::ofstream& outputStream)
 {
-    vLearning = (curDis / REFLEX_THRESHOLD) * wReflexVar + (prevDis / REFLEX_THRESHOLD) * wReflexConst;
+    vLearning = ( (AVOIDANCE_THRESHOLD - curDis)  / (AVOIDANCE_THRESHOLD -REFLEX_THRESHOLD)) * wReflexVar + ((AVOIDANCE_THRESHOLD - prevDis) / (AVOIDANCE_THRESHOLD - REFLEX_THRESHOLD)) * wReflexConst;
 
     if (angleToObstacle <= 180){  //RIGHT SIDE OBSTACLE
-        braitenberg(soundAngle, outputStream, 0, vLearning);
+        double angleNorm = (angleToObstacle - 90) / 90;
+        double rightMotorOffset = avoidanceActivationFunction(angleNorm) * vLearning;
+        double leftMotorOffset = avoidanceActivationFunction(-angleNorm) * vLearning;
+        braitenberg(soundAngle, outputStream, leftMotorOffset, rightMotorOffset);
     }
     else { // angleToObst > 180 //LEFT SIDE OBSTACLE
-        braitenberg(soundAngle, outputStream, vLearning, 0);
+        double angleNorm = (90 - (angleToObstacle - 180)) / 90;
+        double rightMotorOffset = avoidanceActivationFunction(-angleNorm) * vLearning;
+        double leftMotorOffset = avoidanceActivationFunction(angleNorm) * vLearning;
+        braitenberg(soundAngle, outputStream, leftMotorOffset, rightMotorOffset);
     }
 }
 
-void navigation::updateState(double distToObstCurrent, double soundEnergy, states &CURRENT_STATE)
+void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE)
 {
-    if (distToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
+    if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
         CURRENT_STATE = REFLEX;
     }
     else if (soundEnergy > ENERGY_THRESHOLD) {
@@ -68,7 +78,7 @@ void  navigation::braitenberg(double angle, std::ofstream& outputStream, double 
 
 	//Calculate motorspeed using activation function
 	motorSpeedL = activationFunction(angleL) + avoidanceLeft;
-	motorSpeedR = activationFunction(angleR) + avoidanceRight + 5;
+	motorSpeedR = activationFunction(angleR) + avoidanceRight + 3;
 
 	std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 

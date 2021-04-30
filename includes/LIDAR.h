@@ -75,6 +75,7 @@ public:
 	void LIDARScan();
 
 	rplidar_response_measurement_node_hq_t readScan();
+	rplidar_response_measurement_node_hq_t readScanReflex();
 
     void ctrlc();
 
