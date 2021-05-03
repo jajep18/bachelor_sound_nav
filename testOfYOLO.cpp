@@ -9,10 +9,7 @@ int main(int argc, char** argv) {
 	while (true) {
 
         vision.printObjConf();
-        if (vision.getObject() == "person" && vision.getConfidence() >= 0.70)
-        {
-            std::cout << "Person detected! we did it bois! \n";
-        }
+
 
         if(vision.inputKey == 27){ //27 = 'ESC'
             std::cout << "Vision thread joining...";
@@ -27,6 +24,7 @@ int main(int argc, char** argv) {
 	return 0;
 }
 
+Mål/person/mobil passer på at være på vinkel 180. Test afstand, den kan fint være 350.
 
 
 

@@ -258,8 +258,8 @@ void Vision::drawPred(int classId, float conf, int left, int top, int right, int
 		object = classes[classId];
 		confidence = conf;
 		label = object + ":" + label;
-		cout << label << endl; //Prints detected object and confidence
-		
+		//cout << label << endl; //Prints detected object and confidence
+
 	}
 
 	//Display the label at the top of the bounding box
@@ -303,7 +303,7 @@ double Vision::getConfidence()
 void Vision::printObjConf()
 {
 
-	if (!object != "n/a")
+	if (object != "n/a")
 	{
 		std::cout << "Detected: " << object << ", confidence: " << confidence << std::endl;
 		object = "n/a";
@@ -311,3 +311,9 @@ void Vision::printObjConf()
 	}
 
 }
+
+//        if (vision.getObject() == "person" && vision.getConfidence() >= 0.70)
+//        {
+//            std::cout << "Person detected!\n";
+//
+//        }
