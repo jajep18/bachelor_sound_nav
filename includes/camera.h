@@ -85,6 +85,8 @@ private:
 
 	void getImageMat();
 
+	std::string object = "n/a";
+	double confidence = 0;
 
 
 public:
@@ -97,6 +99,12 @@ public:
 
 	// Get the names of the output layers
 	vector<String> getOutputsNames(const Net& net);
+
+	std::string getObject();
+	double getConfidence();
+	void printObjConf();
+
+
 
 	std::atomic<char> inputKey;
 };
