@@ -255,8 +255,11 @@ void Vision::drawPred(int classId, float conf, int left, int top, int right, int
 	if (!classes.empty())
 	{
 		CV_Assert(classId < (int)classes.size());
-		label = classes[classId] + ":" + label;
-		cout << label << endl;
+		object = classes[classId];
+		confidence = conf;
+		label = object + ":" + label;
+		cout << label << endl; //Prints detected object and confidence
+		
 	}
 
 	//Display the label at the top of the bounding box
@@ -285,4 +288,26 @@ vector<String> Vision::getOutputsNames(const Net& net)
 			names[i] = layersNames[outLayers[i] - 1];
 	}
 	return names;
+}
+
+std::string Vision::getObject()
+{
+	return object;
+}
+
+double Vision::getConfidence()
+{
+	return confidence;
+}
+
+void Vision::printObjConf()
+{
+
+	if (!object != "n/a")
+	{
+		std::cout << "Detected: " << object << ", confidence: " << confidence << std::endl;
+		object = "n/a";
+		confidence = 0.0;
+	}
+
 }

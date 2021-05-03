@@ -7,6 +7,13 @@ int main(int argc, char** argv) {
 	std::thread threadObjDetect(&Vision::YOLOProcess, &vision);
 
 	while (true) {
+
+        vision.printObjConf();
+        if (vision.getObject() == "person" && vision.getConfidence() >= 0.70)
+        {
+            std::cout << "Person detected! we did it bois! \n";
+        }
+
         if(vision.inputKey == 27){ //27 = 'ESC'
             std::cout << "Vision thread joining...";
             threadVision.join();
