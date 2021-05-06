@@ -83,11 +83,13 @@ int main(int argc, char** argv)
 	ODAS soundLocalization(&bus, &everloop, &everloop_image);
 	std::thread threadODAS(&ODAS::updateODAS, &soundLocalization);
 
+	LIDAR lidar;
+	std::thread threadLIDAR(&LIDAR::LIDARScan, &lidar);
+
 	Vision vision;
 	std::thread threadVision(&Vision::updateCamera, &vision);
 
-    LIDAR lidar;
-	std::thread threadLIDAR(&LIDAR::LIDARScan, &lidar);
+
 
 	/*****************************************************************************
 	************************   ICO LEARNING   ************************************

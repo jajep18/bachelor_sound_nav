@@ -74,8 +74,10 @@ public:
 
 	void LIDARScan();
 
-	rplidar_response_measurement_node_hq_t readScan();
-	rplidar_response_measurement_node_hq_t readScanReflex();
+	//Uncorrected readings:
+	rplidar_response_measurement_node_hq_t readScan();			//Checks between 90 and 270
+	rplidar_response_measurement_node_hq_t readScanReflex();	//Checks between 45 and 315
+	rplidar_response_measurement_node_hq_t readScanObjCheck();	//Checks between 355 and 5
 
     void ctrlc();
 

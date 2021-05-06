@@ -1,15 +1,25 @@
 #include "includes/camera.h"
+#include "includes/LIDAR.h"
 #include <thread>
 
 int main(int argc, char** argv) {
 	Vision vision;
+    LIDAR lidar;
+
 	std::thread threadVision(&Vision::updateCamera, &vision);
 	std::thread threadObjDetect(&Vision::YOLOProcess, &vision);
+    std::thread threadLIDAR(&LIDAR::LIDARScan, &lidar);
+
+    rplidar_response_measurement_node_hq_t objNode;
 
 	while (true) {
 
-        vision.printObjConf();
+        objNode = lidar.readScanObjCheck(); 
 
+        if (vision.getObject() == "person" && vision.getConfidence() >= 0.70 && objNode.dist_mm_q2 <= 300)
+        {
+            std::cout << "Person detected! We did it bois! \n";
+        }
 
         if(vision.inputKey == 27){ //27 = 'ESC'
             std::cout << "Vision thread joining...";
@@ -24,7 +34,7 @@ int main(int argc, char** argv) {
 	return 0;
 }
 
-Mål/person/mobil passer på at være på vinkel 180. Test afstand, den kan fint være 350.
+//Mål/person/mobil passer på at være på vinkel 180. Test afstand, den kan fint være 350.
 
 
 

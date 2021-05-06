@@ -102,7 +102,7 @@ public:
 
 	std::string getObject();
 	double getConfidence();
-	void printObjConf();
+	void printObjAndConf();
 
 
 

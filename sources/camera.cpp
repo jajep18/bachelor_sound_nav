@@ -300,7 +300,7 @@ double Vision::getConfidence()
 	return confidence;
 }
 
-void Vision::printObjConf()
+void Vision::printObjAndConf()
 {
 
 	if (object != "n/a")
@@ -312,8 +312,4 @@ void Vision::printObjConf()
 
 }
 
-//        if (vision.getObject() == "person" && vision.getConfidence() >= 0.70)
-//        {
-//            std::cout << "Person detected!\n";
-//
-//        }
+
