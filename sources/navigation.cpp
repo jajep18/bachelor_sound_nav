@@ -52,14 +52,14 @@ void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, do
     }
 }
 
-void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE_, std::string detectedObj, double objConf, double distToObj)
+void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE_, std::string detectedObj, double objConf, double distToObj, double soundAngle)
 {
     if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
         CURRENT_STATE_ = REFLEX;
     }
     else if (soundEnergy > ENERGY_THRESHOLD) {
 
-        if( detectedObj == "person" && objConf >= 0.70 && distToObj <= 400){
+        if( detectedObj == "person" && objConf >= 0.70 && distToObj <= 400 && soundAngle <= 190 && soundAngle >= 170) {
             CURRENT_STATE_ = TARGET_FOUND;
         }
         else if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold

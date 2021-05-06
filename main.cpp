@@ -160,7 +160,7 @@ int main(int argc, char** argv)
         distToDetectedObj = objNode.dist_mm_q2/4.0f;
 
 
-        navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE, vision.getObject(), vision.getConfidence(), distToDetectedObj);
+        navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE, vision.getObject(), vision.getConfidence(), distToDetectedObj, soundLocalization.getAngle());
 		switch (CURRENT_STATE)
 		{
 		case WAIT: //Cyan
@@ -195,11 +195,13 @@ int main(int argc, char** argv)
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
 			//navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE)
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
+
+            navigation.manualInputSteering(&vision, outputStreamICO);
 			break;
 		default:
 			break;
 		}
-//        std::cout <<"Sound energy " <<soundLocalization.getEnergy() <<"\nWAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4. Current state:  "<< CURRENT_STATE << std::endl;
+        std::cout <<"WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4. Current state:  "<< CURRENT_STATE << std::endl;
 //        std::cout << "90deg dist/angle: " << reflexDistToObstCurrent << " | " << reflexAngleToObst << std::endl;
 //        std::cout << "180deg dist/angle: " << distToObstCurrent << " | " << angleToObst << std::endl;
 

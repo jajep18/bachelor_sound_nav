@@ -253,12 +253,15 @@ void Vision::drawPred(int classId, float conf, int left, int top, int right, int
 
 	//Get the label for the class name and its confidence
 	string label = format("%.2f", conf);
-	if (!classes.empty())
+	if (!classes.empty() )
 	{
 		CV_Assert(classId < (int)classes.size());
-		object = classes[classId];
-		confidence = conf;
-		label = object + ":" + label;
+		label = classes[classId] + ":" + label;
+
+		if(classes[classId] == "person" && conf >=0.70){
+            object = classes[classId];
+            confidence = conf;
+		}
 		//cout << label << endl; //Prints detected object and confidence
 
 	}
@@ -293,24 +296,18 @@ vector<String> Vision::getOutputsNames(const Net& net)
 
 std::string Vision::getObject()
 {
-	return object;
+    std::string tempObj = object;
+    object = "n/a";
+	return tempObj;
 }
 
 double Vision::getConfidence()
 {
-	return confidence;
+    double tempConf = confidence;
+    confidence = 0.0;
+	return tempConf;
 }
 
-void Vision::printObjAndConf()
-{
 
-	if (object != "n/a")
-	{
-		std::cout << "Detected: " << object << ", confidence: " << confidence << std::endl;
-		object = "n/a";
-		confidence = 0.0;
-	}
-
-}
 
 
