@@ -88,6 +88,7 @@ int main(int argc, char** argv)
 
 	Vision vision;
 	std::thread threadVision(&Vision::updateCamera, &vision);
+    std::thread threadObjDetect(&Vision::YOLOProcess, &vision);
 
 
 
@@ -122,6 +123,8 @@ int main(int argc, char** argv)
 
 	double reflexDistToObstPrevPrev = 35.0;
 
+	double distToDetectedObj = 999.0;
+
 
 	//LIDAR stabilization to prevent wrong readings since first readings are 0
 	rplidar_response_measurement_node_hq_t closest_node = lidar.readScan();
@@ -138,6 +141,7 @@ int main(int argc, char** argv)
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
 		rplidar_response_measurement_node_hq_t closestNodeReflex = lidar.readScanReflex();
+		rplidar_response_measurement_node_hq_t objNode = lidar.readScanObjCheck();
 
 
 		//usleep(100000);
@@ -152,7 +156,11 @@ int main(int argc, char** argv)
         reflexDistToObstCurrent     = closestNodeReflex.dist_mm_q2 / 4.0f;
         reflexAngleToObst           = lidar.getCorrectedAngle(closestNodeReflex);
 
-        navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+
+        distToDetectedObj = objNode.dist_mm_q2/4.0f;
+
+
+        navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE, vision.getObject(), vision.getConfidence(), distToDetectedObj);
 		switch (CURRENT_STATE)
 		{
 		case WAIT: //Cyan
@@ -183,7 +191,7 @@ int main(int argc, char** argv)
 			break;
 		case TARGET_FOUND:
 			//Stop & check for correct target
-			std::cout << "Target found !?\n";
+			std::cout << "Target found !\n";
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
 			//navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE)
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
@@ -191,9 +199,9 @@ int main(int argc, char** argv)
 		default:
 			break;
 		}
-        std::cout <<"Sound energy " <<soundLocalization.getEnergy() <<"\nWAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4. Current state:  "<< CURRENT_STATE << std::endl;
-        std::cout << "90deg dist/angle: " << reflexDistToObstCurrent << " | " << reflexAngleToObst << std::endl;
-        std::cout << "180deg dist/angle: " << distToObstCurrent << " | " << angleToObst << std::endl;
+//        std::cout <<"Sound energy " <<soundLocalization.getEnergy() <<"\nWAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4. Current state:  "<< CURRENT_STATE << std::endl;
+//        std::cout << "90deg dist/angle: " << reflexDistToObstCurrent << " | " << reflexAngleToObst << std::endl;
+//        std::cout << "180deg dist/angle: " << distToObstCurrent << " | " << angleToObst << std::endl;
 
         usleep(100000);
 

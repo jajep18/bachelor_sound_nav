@@ -151,8 +151,9 @@ void Vision::setUpYOLO()
 
 void Vision::YOLOProcess()
 {
+    std::cout << "YOLO RUNNING...\n";
     while(true){
-        std::cout << "Y.O.L.O RUNNING...\n";
+
 
         getImageMat();
         if(frame.empty()){
@@ -177,8 +178,8 @@ void Vision::YOLOProcess()
         freq = getTickFrequency() / 1000;
         t = net.getPerfProfile(layersTimes) / freq;
 
-        label = format("Inference time for a frame : %.2f ms", t);
-        std::cout << label << endl;
+        label = format("Inference time for a frame in YOLOv3-lite: %.2f ms", t);
+        //std::cout << label << endl;
         putText(frame, label, Point(0, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
 
         // Write the frame with the detection boxes

@@ -52,21 +52,26 @@ void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, do
     }
 }
 
-void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE)
+void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE_, std::string detectedObj, double objConf, double distToObj)
 {
     if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
-        CURRENT_STATE = REFLEX;
+        CURRENT_STATE_ = REFLEX;
     }
     else if (soundEnergy > ENERGY_THRESHOLD) {
-        if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
-            CURRENT_STATE = AVOID;
+
+        if( detectedObj == "person" && objConf >= 0.70 && distToObj <= 400){
+            CURRENT_STATE_ = TARGET_FOUND;
         }
+        else if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
+            CURRENT_STATE_ = AVOID;
+        }
+
         else {	//Braitenberg
-            CURRENT_STATE = NAVIGATE;
+            CURRENT_STATE_ = NAVIGATE;
         }
     }
     else { // If no sound
-        CURRENT_STATE = WAIT;
+        CURRENT_STATE_ = WAIT;
     }
 }
 
@@ -80,7 +85,7 @@ void  navigation::braitenberg(double angle, std::ofstream& outputStream, double 
 	motorSpeedL = activationFunction(angleL) + avoidanceLeft;
 	motorSpeedR = activationFunction(angleR) + avoidanceRight + 3;
 
-	std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
+	//std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
 	//motorControl->changeMotorCommand(motorCommand, motorSpeedL, motorSpeedR);
 	motorControl->setLeftMotorSpeedDirection(motorSpeedL, FORWARD);
@@ -97,7 +102,7 @@ void navigation::navigationICO(double angle, double w_A) {
 
 
 	//TEST - Print motor values
-	std::cout << "Left speed: " << (activationFunction(angleL) + VELOCITY_OFFSET) << " - Right speed: " << (activationFunction(angleR) + VELOCITY_OFFSET) << std::endl;
+	//std::cout << "Left speed: " << (activationFunction(angleL) + VELOCITY_OFFSET) << " - Right speed: " << (activationFunction(angleR) + VELOCITY_OFFSET) << std::endl;
 }
 
 

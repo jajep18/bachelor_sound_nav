@@ -14,9 +14,11 @@ int main(int argc, char** argv) {
 
 	while (true) {
 
-        objNode = lidar.readScanObjCheck(); 
+        objNode = lidar.readScanObjCheck();
 
-        if (vision.getObject() == "person" && vision.getConfidence() >= 0.70 && objNode.dist_mm_q2 <= 300)
+        //std::cout << "Angle: " << lidar.getCorrectedAngle(objNode) << " Distance: "<< objNode.dist_mm_q2/4.0f << std::endl;
+
+        if (vision.getObject() == "person" && vision.getConfidence() >= 0.70 && objNode.dist_mm_q2/ 4.0f <= 300)
         {
             std::cout << "Person detected! We did it bois! \n";
         }

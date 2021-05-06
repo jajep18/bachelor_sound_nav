@@ -53,7 +53,7 @@ public:
 
 	void obstacleAvoidance(double angleToObstacle, double soundAngle, double curDis, double prevDis, std::ofstream& outputStream);
 
-	void updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states& CURRENT_STATE);
+	void updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states& CURRENT_STATE,  std::string detectedObj, double objConf, double distToObj);
 
 
 
