@@ -125,7 +125,8 @@ int main(int argc, char** argv)
 
 	double distToDetectedObj = 999.0;
 
-	double curSoundAngle;
+
+
 
 
 	//LIDAR stabilization to prevent wrong readings since first readings are 0
@@ -140,6 +141,7 @@ int main(int argc, char** argv)
 
 	states CURRENT_STATE = WAIT;
     motorControl.setMatrixVoiceLED(9,MAX_BRIGHTNESS,0,0);
+
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
 		rplidar_response_measurement_node_hq_t closestNodeReflex = lidar.readScanReflex();
@@ -161,19 +163,19 @@ int main(int argc, char** argv)
 
         distToDetectedObj = objNode.dist_mm_q2/4.0f;
 
-		curSoundAngle = soundLocalization.getAngle();
 
-        navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE, vision.getObject(), vision.getConfidence(), distToDetectedObj, curSoundAngle);
+        navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE, vision.getObject(), vision.getConfidence(), distToDetectedObj, soundLocalization.getAngle());
 		switch (CURRENT_STATE)
 		{
 		case WAIT: //Cyan
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+			//std::cout << "waiting for sound\n";
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
 		case NAVIGATE: //Blue
-			navigation.braitenberg(curSoundAngle, outputStream, 0, 0);
+			navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
@@ -181,7 +183,7 @@ int main(int argc, char** argv)
 		case AVOID: // Yellow
 			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
 			//navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev, outputStream);
-			navigation.obstacleAvoidance(angleToObst, curSoundAngle, distToObstCurrent, distToObstPrev, outputStream);
+			navigation.obstacleAvoidance(angleToObst, soundLocalization.getAngle(), distToObstCurrent, distToObstPrev, outputStream);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
 //			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
@@ -202,13 +204,14 @@ int main(int argc, char** argv)
             navigation.manualInputSteering(&vision, outputStreamICO);
 			break;
 		case NAVIGATE_TO_PERSON:
-			std::cout << "There he is! Get the fucker!!\n";
-			navigation.braitenberg(curSoundAngle, outputStream, 0, 0);
+			//std::cout << "There he is! Get the fucker!!\n";
+			motorControl.changeMotorCommand(FORWARD,30,30);
+                motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
 			break;
 		default:
 			break;
 		}
-        std::cout <<"WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4. Current state:  "<< CURRENT_STATE << std::endl;
+        std::cout <<"WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4, NAVIGATE_TO_PERSON = 5. \n Current state:  "<< CURRENT_STATE << std::endl;
 //        std::cout << "90deg dist/angle: " << reflexDistToObstCurrent << " | " << reflexAngleToObst << std::endl;
 //        std::cout << "180deg dist/angle: " << distToObstCurrent << " | " << angleToObst << std::endl;
 

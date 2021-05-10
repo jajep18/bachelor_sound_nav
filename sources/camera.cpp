@@ -260,7 +260,12 @@ void Vision::drawPred(int classId, float conf, int left, int top, int right, int
 
 		if(classes[classId] == "person" && conf >=0.70){
             object = classes[classId];
-            confidence = conf;
+            if(conf > confidence)
+                confidence = conf;
+		}
+		else{
+		object == "n/a";
+		confidence = 0;
 		}
 		//cout << label << endl; //Prints detected object and confidence
 
@@ -296,16 +301,12 @@ vector<String> Vision::getOutputsNames(const Net& net)
 
 std::string Vision::getObject()
 {
-    std::string tempObj = object;
-    object = "n/a";
-	return tempObj;
+	return object;
 }
 
 double Vision::getConfidence()
 {
-    double tempConf = confidence;
-    confidence = 0.0;
-	return tempConf;
+	return confidence;
 }
 
 

@@ -54,16 +54,19 @@ void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, do
 
 void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE_, std::string detectedObj, double objConf, double distToObj, double soundAngle)
 {
+
+    std::cout << distToObj << std::endl;
+
     if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
         CURRENT_STATE_ = REFLEX;
     }
     else if (soundEnergy > ENERGY_THRESHOLD) {
 
-        if( detectedObj == "person" && objConf >= 0.70 && distToObj <= 400 && soundAngle <= 190 && soundAngle >= 170) {
-            CURRENT_STATE_ = TARGET_FOUND;
-        }
-        else if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
+        if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
             CURRENT_STATE_ = AVOID;
+        }
+        else if( detectedObj == "person" && objConf >= 0.70 && distToObj <= 400 && soundAngle <= 190 && soundAngle >= 170 ){
+            CURRENT_STATE_ = TARGET_FOUND;
         }
 
         else {	//Braitenberg
@@ -71,8 +74,16 @@ void navigation::updateState(double distToObstCurrent, double reflexDistToObstCu
         }
     }
     else { // If no sound
-        if (detectedObj == "person" && objConf >= 0.70 && /* distToObj <= 400 && */ soundAngle <= 190 && soundAngle >= 170) { //If person is detected
-            CURRENT_STATE_ = NAVIGATE_TO_PERSON;
+        if( detectedObj == "person" && objConf >= 0.70) {
+
+            if(distToObj <= 400){
+                CURRENT_STATE_ = TARGET_FOUND;
+            }
+
+            else{
+                CURRENT_STATE_ = NAVIGATE_TO_PERSON;
+            }
+
         }
         else //No sound no person = stop
             CURRENT_STATE_ = WAIT;

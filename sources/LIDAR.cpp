@@ -233,7 +233,7 @@ rplidar_response_measurement_node_hq_t LIDAR::readScanObjCheck()
 
     for (int i = 0; i < (int)count; i++)
     {
-        if (compDist > tempNodes[i].dist_mm_q2 && (tempNodes[i].quality != 0) && (((tempNodes[i].angle_z_q14 * 90.f / (1 << 14)) <= 185) || ((tempNodes[i].angle_z_q14 * 90.f / (1 << 14)) >= 175))) {
+        if (compDist > tempNodes[i].dist_mm_q2 && (tempNodes[i].quality != 0) && (((tempNodes[i].angle_z_q14 * 90.f / (1 << 14)) <= 5) || ((tempNodes[i].angle_z_q14 * 90.f / (1 << 14)) >= 355))) {
             compDist = tempNodes[i].dist_mm_q2;
             nodeIndex = i;
         }

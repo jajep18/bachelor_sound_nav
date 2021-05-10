@@ -88,6 +88,7 @@ void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/
 // Speed -> 0-100% in steps of 1%
 void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ double speed, int dir)
 {
+    speed += 2;
 	if (speed <= 0 ) // Reverse
 	{
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN1, 0); // Rotate right motor counter-clockwise
