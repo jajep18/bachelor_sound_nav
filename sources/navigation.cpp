@@ -71,7 +71,11 @@ void navigation::updateState(double distToObstCurrent, double reflexDistToObstCu
         }
     }
     else { // If no sound
-        CURRENT_STATE_ = WAIT;
+        if (detectedObj == "person" && objConf >= 0.70 && /* distToObj <= 400 && */ soundAngle <= 190 && soundAngle >= 170) { //If person is detected
+            CURRENT_STATE_ = NAVIGATE_TO_PERSON;
+        }
+        else //No sound no person = stop
+            CURRENT_STATE_ = WAIT;
     }
 }
 

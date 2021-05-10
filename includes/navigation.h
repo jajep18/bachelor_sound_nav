@@ -14,7 +14,7 @@
 #include <math.h>
 #include <fstream>
 
-enum states { WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4 };
+enum states { WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4, NAVIGATE_TO_PERSON = 5 };
 
 class navigation
 {
