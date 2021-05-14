@@ -22,6 +22,8 @@
 #include <sstream>
 #include <mutex>
 
+#include "defines.h"
+
 
 
 using namespace cv;

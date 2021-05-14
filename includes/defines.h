@@ -52,3 +52,6 @@
 //Obstacle avoidance
 #define REFLEX_THRESHOLD 250
 #define AVOIDANCE_THRESHOLD 500
+
+//Object Recognition
+#define CONFIDENCE_THRESHOLD 0.50

@@ -258,7 +258,7 @@ void Vision::drawPred(int classId, float conf, int left, int top, int right, int
 		CV_Assert(classId < (int)classes.size());
 		label = classes[classId] + ":" + label;
 
-		if(classes[classId] == "person" && conf >=0.70){
+		if(classes[classId] == "person" && conf >= CONFIDENCE_THRESHOLD){
             object = classes[classId];
             if(conf > confidence)
                 confidence = conf;

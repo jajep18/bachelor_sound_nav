@@ -161,7 +161,7 @@ int main(int argc, char** argv)
         reflexAngleToObst           = lidar.getCorrectedAngle(closestNodeReflex);
 
 
-        distToDetectedObj = objNode.dist_mm_q2/4.0f;
+        distToDetectedObj = objNode.dist_mm_q2/4.0f; //Object detection
 
 
         navigation.updateState(distToObstCurrent, reflexDistToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE, vision.getObject(), vision.getConfidence(), distToDetectedObj, soundLocalization.getAngle());
@@ -185,8 +185,9 @@ int main(int argc, char** argv)
 			//navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev, outputStream);
 			navigation.obstacleAvoidance(angleToObst, soundLocalization.getAngle(), distToObstCurrent, distToObstPrev, outputStream);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
+
 			break;
 		case REFLEX: //Red
 			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;

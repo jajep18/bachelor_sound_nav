@@ -39,13 +39,13 @@ void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, do
     vLearning = ( (AVOIDANCE_THRESHOLD - curDis)  / (AVOIDANCE_THRESHOLD -REFLEX_THRESHOLD)) * wReflexVar + ((AVOIDANCE_THRESHOLD - prevDis) / (AVOIDANCE_THRESHOLD - REFLEX_THRESHOLD)) * wReflexConst;
 
     if (angleToObstacle <= 180){  //RIGHT SIDE OBSTACLE
-        double angleNorm = (angleToObstacle - 90) / 90;
+        double angleNorm = (angleToObstacle - 90.0f) / 90.0f;
         double rightMotorOffset = avoidanceActivationFunction(angleNorm) * vLearning;
         double leftMotorOffset = avoidanceActivationFunction(-angleNorm) * vLearning;
         braitenberg(soundAngle, outputStream, leftMotorOffset, rightMotorOffset);
     }
     else { // angleToObst > 180 //LEFT SIDE OBSTACLE
-        double angleNorm = (90 - (angleToObstacle - 180)) / 90;
+        double angleNorm = (90.0f - (angleToObstacle - 180.0f)) / 90.0f;
         double rightMotorOffset = avoidanceActivationFunction(-angleNorm) * vLearning;
         double leftMotorOffset = avoidanceActivationFunction(angleNorm) * vLearning;
         braitenberg(soundAngle, outputStream, leftMotorOffset, rightMotorOffset);
@@ -65,16 +65,16 @@ void navigation::updateState(double distToObstCurrent, double reflexDistToObstCu
         if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
             CURRENT_STATE_ = AVOID;
         }
-        else if( detectedObj == "person" && objConf >= 0.70 && distToObj <= 400 && soundAngle <= 190 && soundAngle >= 170 ){
-            CURRENT_STATE_ = TARGET_FOUND;
-        }
+//        else if( detectedObj == "person" && objConf >= CONFIDENCE_THRESHOLD && distToObj <= 400 && soundAngle <= 190 && soundAngle >= 170 ){
+//            CURRENT_STATE_ = TARGET_FOUND;
+//        }
 
         else {	//Braitenberg
             CURRENT_STATE_ = NAVIGATE;
         }
     }
     else { // If no sound
-        if( detectedObj == "person" && objConf >= 0.70) {
+        if( detectedObj == "person" && objConf >= CONFIDENCE_THRESHOLD) {
 
             if(distToObj <= 400){
                 CURRENT_STATE_ = TARGET_FOUND;
@@ -93,12 +93,12 @@ void navigation::updateState(double distToObstCurrent, double reflexDistToObstCu
 void  navigation::braitenberg(double angle, std::ofstream& outputStream, double avoidanceLeft, double avoidanceRight)  { //Braitenberg aggression vehicle
 
 	// Update sensor signals
-	angleL = (((360 - angle) - 180) / 180); // Normalize
-	angleR = (angle - 180) / 180; // Normalize
+	angleL = (((360.0f - angle) - 180.0f) / 180.0f); // Normalize
+	angleR = (angle - 180.0f) / 180.0f; // Normalize
 
 	//Calculate motorspeed using activation function
 	motorSpeedL = activationFunction(angleL) + avoidanceLeft;
-	motorSpeedR = activationFunction(angleR) + avoidanceRight + 3;
+	motorSpeedR = activationFunction(angleR) + avoidanceRight + 3.0f;
 
 	//std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
 
