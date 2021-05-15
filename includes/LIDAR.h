@@ -74,10 +74,10 @@ public:
 
 	void LIDARScan();
 
-	//Uncorrected readings:
-	rplidar_response_measurement_node_hq_t readScan();			//Checks between 90 and 270
-	rplidar_response_measurement_node_hq_t readScanReflex();	//Checks between 45 and 315
-	rplidar_response_measurement_node_hq_t readScanObjCheck();	//Checks between 355 and 5
+	//Uncorrected readings, using the native angles of the lIDAR:
+	rplidar_response_measurement_node_hq_t readScan();			//Checks between 90 and 270		= 180 degrees
+	rplidar_response_measurement_node_hq_t readScanReflex();	//Checks between 45 and 315		= 90 degrees
+	rplidar_response_measurement_node_hq_t readScanObjCheck();	//Checks between 355 and 5		= 10 degrees
 
     void ctrlc();
 
