@@ -139,7 +139,7 @@ int main(int argc, char** argv)
 
 	/*********************************   CONTROLLER LOOP   *********************************/
 
-	states CURRENT_STATE = WAIT;
+	states CURRENT_STATE = TARGET_FOUND;
     motorControl.setMatrixVoiceLED(9,MAX_BRIGHTNESS,0,0);
 
 	while (true) {
@@ -212,7 +212,7 @@ int main(int argc, char** argv)
 		default:
 			break;
 		}
-        std::cout <<"WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4, NAVIGATE_TO_PERSON = 5. \n Current state:  "<< CURRENT_STATE << std::endl;
+        //std::cout <<"WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4, NAVIGATE_TO_PERSON = 5. \n Current state:  "<< CURRENT_STATE << std::endl;
 //        std::cout << "90deg dist/angle: " << reflexDistToObstCurrent << " | " << reflexAngleToObst << std::endl;
 //        std::cout << "180deg dist/angle: " << distToObstCurrent << " | " << angleToObst << std::endl;
 

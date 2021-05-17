@@ -28,9 +28,9 @@ private:
 
 	//Obstacle avoidance / ICO Learning
 
-	double wReflexVar = 5.0;		// Standard weight that needs to be multiplied with distance to current Obstacle
+	double wReflexVar = 6.77988;		// Standard weight that needs to be multiplied with distance to current Obstacle
 	double wReflexConst = 5.0;		//
-	double reflexLearningRate = 2;	// Learning rate for reflex µ.  0.7 den 14-05 - test1
+	double reflexLearningRate = 5;	// Learning rate for reflex µ.  0.7 den 14-05 - test1
 	double vLearning = 0.0; 		// Velocity to add to the initial velocity
 	int reflexCounter = 0;
 

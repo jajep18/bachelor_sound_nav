@@ -55,12 +55,12 @@ void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, do
 void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE_, std::string detectedObj, double objConf, double distToObj, double soundAngle)
 {
 
-    std::cout << distToObj << std::endl;
+    //std::cout << distToObj << std::endl;
 
-    if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
-        CURRENT_STATE_ = REFLEX;
-    }
-    else if (soundEnergy > ENERGY_THRESHOLD) {
+//    if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
+//        CURRENT_STATE_ = REFLEX;
+//    }
+    /*else*/ if (soundEnergy > ENERGY_THRESHOLD) {
 
         if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
             CURRENT_STATE_ = AVOID;
