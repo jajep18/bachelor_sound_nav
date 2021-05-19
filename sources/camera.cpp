@@ -189,7 +189,7 @@ void Vision::YOLOProcess()
         //frame.copyTo(processedFrame);
         processedFrame = frame.clone();
         //waitKey(1);
-        frame.release();
+        //frame.release();
 
         if(inputKey == 27) //27 = 'ESC'
             break;

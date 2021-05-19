@@ -140,7 +140,7 @@ int main(int argc, char** argv)
 	/*********************************   CONTROLLER LOOP   *********************************/
 
 	states CURRENT_STATE = TARGET_FOUND;
-    motorControl.setMatrixVoiceLED(9,MAX_BRIGHTNESS,0,0);
+    motorControl.setMatrixVoiceLED(MATRIX_LED_L_1 ,MAX_BRIGHTNESS,0,0);
 
 	while (true) {
 		rplidar_response_measurement_node_hq_t closestNode = lidar.readScan();
@@ -169,16 +169,16 @@ int main(int argc, char** argv)
 		{
 		case WAIT: //Cyan
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
 			//std::cout << "waiting for sound\n";
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
 		case NAVIGATE: //Blue
 			navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
-			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
 //			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
 			break;
 		case AVOID: // Yellow
 			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
@@ -204,10 +204,11 @@ int main(int argc, char** argv)
 
             navigation.manualInputSteering(&vision, outputStreamICO);
 			break;
-		case NAVIGATE_TO_PERSON:
+		case NAVIGATE_TO_PERSON: //White
 			//std::cout << "There he is! Get the fucker!!\n";
-			motorControl.changeMotorCommand(FORWARD,30,30);
-                motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+			motorControl.changeMotorCommand(FORWARD,30,33);
+//            motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+            motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
 		default:
 			break;
@@ -247,6 +248,8 @@ int main(int argc, char** argv)
 	threadODAS.join();
 	std::cout << "ODAS thread joined" << std::endl;
 
+	threadObjDetect.join();
+	std::cout << "YOLO thread joined" << std::endl;
 
 
 	motorControl.resetMatrixVoiceLEDs();		//RESET ALL LEDS

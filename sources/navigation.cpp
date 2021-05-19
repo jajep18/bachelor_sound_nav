@@ -57,17 +57,14 @@ void navigation::updateState(double distToObstCurrent, double reflexDistToObstCu
 
     //std::cout << distToObj << std::endl;
 
-//    if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
-//        CURRENT_STATE_ = REFLEX;
-//    }
-    /*else*/ if (soundEnergy > ENERGY_THRESHOLD) {
+    if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
+        CURRENT_STATE_ = REFLEX;
+    }
+    else if (soundEnergy > ENERGY_THRESHOLD) {
 
         if (distToObstCurrent < AVOIDANCE_THRESHOLD) { //Obstacle avoidance - obstacle inside avoidance threshold
             CURRENT_STATE_ = AVOID;
         }
-//        else if( detectedObj == "person" && objConf >= CONFIDENCE_THRESHOLD && distToObj <= 400 && soundAngle <= 190 && soundAngle >= 170 ){
-//            CURRENT_STATE_ = TARGET_FOUND;
-//        }
 
         else {	//Braitenberg
             CURRENT_STATE_ = NAVIGATE;

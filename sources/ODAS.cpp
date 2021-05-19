@@ -192,7 +192,7 @@ void ODAS::updateODAS() {
 //				std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
 
 //				image1d->leds[i].red = 0;
-				if(i != 9)
+				if((i != MATRIX_LED_L_1) && (i != MATRIX_LED_R_9))
                     image1d->leds[i].green = color;
 //				image1d->leds[i].blue = 0;
 //				image1d->leds[i].white = 0;
