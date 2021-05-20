@@ -105,8 +105,5 @@ public:
 	std::string getObject();
 	double getConfidence();
 
-
-
-
 	std::atomic<char> inputKey;
 };

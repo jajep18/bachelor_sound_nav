@@ -139,7 +139,7 @@ int main(int argc, char** argv)
 
 	/*********************************   CONTROLLER LOOP   *********************************/
 
-	states CURRENT_STATE = TARGET_FOUND;
+	states CURRENT_STATE = WAIT;
     motorControl.setMatrixVoiceLED(MATRIX_LED_L_1 ,MAX_BRIGHTNESS,0,0);
 
 	while (true) {
