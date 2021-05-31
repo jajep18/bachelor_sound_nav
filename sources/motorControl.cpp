@@ -4,26 +4,6 @@
 MotorControl::MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* everloop_image_, matrix_hal::GPIOControl* gpio_){
 	/*********   INITIALISE MATRIX VOICE DEVICE   **********************/
 
-
-	//if (!bus.Init())
-	//	throw("Bus Init failed");										// Initialize bus and exit program if error occurs
-
-	//std::cout << "Bus Init successful..." << std::endl;
-
-
-	//ledCount = bus.MatrixLeds();										// Holds the number of LEDs on MATRIX device
-
-	//everloop_image = new matrix_hal::EverloopImage(ledCount);			// Create EverloopImage object, with size of ledCount
-
-
-	//everloop = new matrix_hal::Everloop;								// Create Everloop object
-
-	//everloop->Setup(&bus);												// Set everloop to use MatrixIOBus bus
-
-	//gpio = new matrix_hal::GPIOControl;									// Create GPIOControl object - General Purpose Input Output
-
-	//gpio->Setup(&bus);													// Set gpio to use MatrixIOBus bus
-
 	bus = bus_;
 	everloop = everloop_;
 	everloop_image = everloop_image_;
@@ -84,17 +64,17 @@ void MotorControl::setLeftMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/
 }
 
 // Set speed and direction of RIGHT motor
-// Directiom -> 1 = forward, 0 = reverse
+// Direction -> 1 = forward, 0 = reverse
 // Speed -> 0-100% in steps of 1%
 void MotorControl::setRightMotorSpeedDirection(/*matrix_hal::GPIOControl* gpio,*/ double speed, int dir)
 {
 
-	if (speed <= 0 ) // Reverse
+	if (speed <= 0 || dir <= 0) // Reverse
 	{
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN1, 0); // Rotate right motor counter-clockwise
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN2, 1);
 	}
-	if ((speed > 0) || (speed >= 1)) // Forward
+	if (speed >= 1 || dir > 0) // Forward
 	{
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN1, 1); // Rotate right motor clockwise
 		gpio->SetGPIOValue(TB6612_RIGHT_MOTOR_AIN2, 0);

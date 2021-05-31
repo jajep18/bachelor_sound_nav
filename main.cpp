@@ -74,7 +74,7 @@ int main(int argc, char** argv)
 	gpio.Setup(&bus);
 
 	/*****************************************************************************
-	************************   INITIALISE CLASSES  ************************
+	************************   INITIALISE CLASSES & THREADS **********************
 	*****************************************************************************/
 	MotorControl motorControl(&bus, &everloop, &everloop_image, &gpio);
 
@@ -91,14 +91,6 @@ int main(int argc, char** argv)
     std::thread threadObjDetect(&Vision::YOLOProcess, &vision);
 
 
-
-	/*****************************************************************************
-	************************   ICO LEARNING   ************************************
-	*****************************************************************************/
-	/*****************************************************************************
-	************************   CONTROLLER LOOP   *********************************
-	*****************************************************************************/
-
 	/*****************************************************************************
 	************************  OUTOUT STREAM	    **********************************
 	*****************************************************************************/
@@ -108,19 +100,20 @@ int main(int argc, char** argv)
     outputStreamICO.open("./data/dummyICO.csv", std::ofstream::out | std::ofstream::trunc);
 	//outputStream << "Left angle" << "," << "Activation output left" << "," << "Right angle" << "," << "Activation output right" << std::endl;
 
+	/*****************************************************************************
+	************************  SETUP VARIABLES   **********************************
+	*****************************************************************************/
 
 
 	//Obstacle avoidance / ICO Learning
-	double distToObstCurrent = 1000;		// Distance to closest obstacle on the track
+	double distToObstCurrent = 1000;			// Distance to closest obstacle on the track
 	double angleToObst = 0;
-	double distToObstPrev;				// Previous Distance to closest obstacle on the track
+	double distToObstPrev;						// Previous Distance to closest obstacle on the track
 
-	//double distToObstPrevPrev = 35.0;	// Previous Previus Distance to closest obstacle on the track
 
 	double reflexDistToObstCurrent = 1000;
 	double reflexAngleToObst = 0;
-	double reflexDistToObstPrev = 0;				// Previous Distance to closest obstacle on the track
-
+	double reflexDistToObstPrev = 0;			// Previous Distance to closest obstacle on the track
 	double reflexDistToObstPrevPrev = 35.0;
 
 	double distToDetectedObj = 999.0;
@@ -148,9 +141,6 @@ int main(int argc, char** argv)
 		rplidar_response_measurement_node_hq_t objNode = lidar.readScanObjCheck();
 
 
-		//usleep(100000);
-
-        //distToObstPrevPrev	= distToObstPrev;
 		distToObstPrev		= distToObstCurrent;
 		distToObstCurrent	= closestNode.dist_mm_q2 / 4.0f;
 		angleToObst			= lidar.getCorrectedAngle(closestNode);
@@ -169,53 +159,46 @@ int main(int argc, char** argv)
 		{
 		case WAIT: //Cyan
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
-			//std::cout << "waiting for sound\n";
-//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
 		case NAVIGATE: //Blue
 			navigation.braitenberg(soundLocalization.getAngle(), outputStream, 0, 0);
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
-//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, MAX_BRIGHTNESS);
 			break;
 		case AVOID: // Yellow
-			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
-			//navigation.obstacleAvoidance(angleToObst, distToObstCurrent, distToObstPrev, distToObstPrevPrev, outputStream);
+
 			navigation.obstacleAvoidance(angleToObst, soundLocalization.getAngle(), distToObstCurrent, distToObstPrev, outputStream);
-//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, 0);
 
 			break;
 		case REFLEX: //Red
-			//std::cout << "Angle: " << lidar.getCorrectedAngle(closestNode) << " Nearest distance to obstacle: " << closestNode.dist_mm_q2 / 4.0f << std::endl;
+
 			navigation.obstacleReflex(reflexAngleToObst, reflexDistToObstCurrent, reflexDistToObstPrev, reflexDistToObstPrevPrev);
-//			navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE);
+
 			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, 0, 0);
 			break;
 		case TARGET_FOUND:
 			//Stop & check for correct target
 			std::cout << "Target found !\n";
 			motorControl.changeMotorCommand(STOP, STOP, STOP);		//STOP ALL MOTORS
-			//navigation.updateState(distToObstCurrent, soundLocalization.getEnergy(), CURRENT_STATE)
-//			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
+			motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, MAX_BRIGHTNESS, 0);
+
 
             navigation.manualInputSteering(&vision, outputStreamICO);
 			break;
 		case NAVIGATE_TO_PERSON: //White
-			//std::cout << "There he is! Get the fucker!!\n";
+
 			motorControl.changeMotorCommand(FORWARD,30,33);
-//            motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, 0, 0, 0);
+
             motorControl.setMatrixVoiceLED(MATRIX_LED_R_9, MAX_BRIGHTNESS, MAX_BRIGHTNESS, MAX_BRIGHTNESS);
 			break;
 		default:
 			break;
 		}
-        //std::cout <<"WAIT = 0, NAVIGATE = 1, AVOID = 2, REFLEX = 3, TARGET_FOUND = 4, NAVIGATE_TO_PERSON = 5. \n Current state:  "<< CURRENT_STATE << std::endl;
-//        std::cout << "90deg dist/angle: " << reflexDistToObstCurrent << " | " << reflexAngleToObst << std::endl;
-//        std::cout << "180deg dist/angle: " << distToObstCurrent << " | " << angleToObst << std::endl;
+
 
         usleep(100000);
 

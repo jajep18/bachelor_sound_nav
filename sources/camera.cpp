@@ -114,7 +114,6 @@ void Vision::getImageMat()
 
         if (imageMatMutex.try_lock()) {
             frame = imageMat.clone();
-            //imageMat.copyTo(frame);
             imageMatMutex.unlock();
             break;
         }
@@ -129,7 +128,6 @@ void Vision::setUpYOLO()
 	ifstream ifs(classesFile.c_str());
 	string line;
 	while (getline(ifs, line)){
-        //if(line == "person")
             classes.push_back(line);
     }
 
@@ -186,10 +184,9 @@ void Vision::YOLOProcess()
         Mat detectedFrame;
         frame.convertTo(detectedFrame, CV_8U);
 
-        //frame.copyTo(processedFrame);
+
         processedFrame = frame.clone();
-        //waitKey(1);
-        //frame.release();
+
 
         if(inputKey == 27) //27 = 'ESC'
             break;
@@ -264,10 +261,9 @@ void Vision::drawPred(int classId, float conf, int left, int top, int right, int
                 confidence = conf;
 		}
 		else{
-		object == "n/a";
-		confidence = 0;
+			object == "n/a";
+			confidence = 0;
 		}
-		//cout << label << endl; //Prints detected object and confidence
 
 	}
 

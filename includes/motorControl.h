@@ -31,14 +31,15 @@ private:
 	matrix_hal::Everloop* everloop;				// Create Everloop object
 	matrix_hal::GPIOControl* gpio;				// Create GPIOControl object - General Purpose Input Output
 
+
 public:
 	MotorControl(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* everloop_image_, matrix_hal::GPIOControl* gpio_);
 	~MotorControl();
 
-	void initGPIOPins();														//Initializes General Purpose IO Pins
+	void initGPIOPins();															//Initializes General Purpose IO Pins
 
 	void setLeftMotorSpeedDirection(double speed, int dir = 1);						//Controls speed and direction of left motor
-	void setRightMotorSpeedDirection(double speed, int dir = 1);						//Controls speed and direction of left motor
+	void setRightMotorSpeedDirection(double speed, int dir = 1);					//Controls speed and direction of left motor
 	void changeMotorCommand(int command, double speedL = 0, double speedR = 0);		//Changes motor speed and direction from commands: STOP, FORWARD, REVERSE, LEFTTURN, RIGHTTURN
 
 

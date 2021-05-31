@@ -60,10 +60,8 @@ private:
 	//MUTEX
 	std::mutex LIDARMutex;
 
+	//LIDAR methods
 	bool checkRPLIDARHealth(RPlidarDriver* drv);
-
-
-
 	void writeScan();
 
 
@@ -81,7 +79,7 @@ public:
 
     void ctrlc();
 
-    double getCorrectedAngle(rplidar_response_measurement_node_hq_t closestNode);
+    double getCorrectedAngle(rplidar_response_measurement_node_hq_t closestNode); //Corrects the angles from the LIDAR
 
 
 };

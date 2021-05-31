@@ -50,8 +50,8 @@
 #define ENERGY_THRESHOLD 50 // 50
 
 //Obstacle avoidance
-#define REFLEX_THRESHOLD 200
-#define AVOIDANCE_THRESHOLD 350
+#define REFLEX_THRESHOLD 200		//This number is in mm
+#define AVOIDANCE_THRESHOLD 350		//This number is in mm
 
 //Object Recognition
 #define CONFIDENCE_THRESHOLD 0.50

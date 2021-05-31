@@ -6,7 +6,6 @@ navigation::navigation(MotorControl* motorControl_)
 }
 
 double navigation::activationFunction(double input) {
-	/* Test functions */
 	return 20 / (1 + exp(-10 * input)) + 20;	//Sigmoid
 
 }
@@ -55,8 +54,6 @@ void navigation::obstacleAvoidance(double angleToObstacle, double soundAngle, do
 void navigation::updateState(double distToObstCurrent, double reflexDistToObstCurrent, double soundEnergy, states &CURRENT_STATE_, std::string detectedObj, double objConf, double distToObj, double soundAngle)
 {
 
-    //std::cout << distToObj << std::endl;
-
     if (reflexDistToObstCurrent < REFLEX_THRESHOLD) { //Reflex avoidance
         CURRENT_STATE_ = REFLEX;
     }
@@ -90,16 +87,13 @@ void navigation::updateState(double distToObstCurrent, double reflexDistToObstCu
 void  navigation::braitenberg(double angle, std::ofstream& outputStream, double avoidanceLeft, double avoidanceRight)  { //Braitenberg aggression vehicle
 
 	// Update sensor signals
-	angleL = (((360.0f - angle) - 180.0f) / 180.0f); // Normalize
-	angleR = (angle - 180.0f) / 180.0f; // Normalize
+	angleL = (((360.0f - angle) - 180.0f) / 180.0f);    // Normalize
+	angleR = (angle - 180.0f) / 180.0f;                 // Normalize
 
 	//Calculate motorspeed using activation function
 	motorSpeedL = activationFunction(angleL) + avoidanceLeft;
 	motorSpeedR = activationFunction(angleR) + avoidanceRight + 3.0f;
 
-	//std::cout << "Motorspeed left: " << motorSpeedL << ". Motorspeed right: " << motorSpeedR << std::endl;
-
-	//motorControl->changeMotorCommand(motorCommand, motorSpeedL, motorSpeedR);
 	motorControl->setLeftMotorSpeedDirection(motorSpeedL, FORWARD);
 	motorControl->setRightMotorSpeedDirection(motorSpeedR,FORWARD);
 
@@ -108,13 +102,10 @@ void  navigation::braitenberg(double angle, std::ofstream& outputStream, double 
 
 void navigation::navigationICO(double angle, double w_A) {
 
-		// Update sensor signals
+	// Update sensor signals
 	angleL = (((360 - angle) - 180) / 180); // Normalize
 	angleR = (angle - 180) / 180; // Normalize
 
-
-	//TEST - Print motor values
-	//std::cout << "Left speed: " << (activationFunction(angleL) + VELOCITY_OFFSET) << " - Right speed: " << (activationFunction(angleR) + VELOCITY_OFFSET) << std::endl;
 }
 
 

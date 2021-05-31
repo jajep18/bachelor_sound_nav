@@ -24,8 +24,6 @@
 
 #include "defines.h"
 
-
-
 using namespace cv;
 using namespace dnn;
 using namespace std;
@@ -46,7 +44,7 @@ private:
 	cv::Mat imageThreshold_red, imageThreshold_black;			// OpenCV image Mat that holds the thresholded image data
 	cv::Mat imageKeypoints_red, imageKeypoints_black;			// OpenCV image Mat to store image with detected blobs
 	std::vector<cv::KeyPoint> keypts_red, keypts_black;
-	std::vector<cv::Point2f> keyptXY_red, keyptXY_black;				// Vector storing [x,y] co-ordinates of detected blobs
+	std::vector<cv::Point2f> keyptXY_red, keyptXY_black;		// Vector storing [x,y] co-ordinates of detected blobs
 
 	std::mutex imageMatMutex;
 
@@ -73,7 +71,6 @@ private:
 	Net net;
 
 	string kWinName = "Object detection";
-
 
 
 	void setUpYOLO();

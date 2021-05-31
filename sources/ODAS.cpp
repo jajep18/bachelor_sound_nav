@@ -1,15 +1,16 @@
 #include "../includes/ODAS.h"
 
 void ODAS::increase_pots() {
-	// Convert x,y to angle. TODO: See why x axis from ODAS is inverted
+	// Convert x,y to angle. 
 	double angle_xy = fmodf((atan2(y, x) * (180.0 / M_PI)) + 360, 360);
-	//std::cout << "angle_xy: " <<angle_xy << std::endl;
+
 	// Convert angle to index
 	double d_angle = angle_xy / 360 * ENERGY_COUNT;  // convert degrees to index
 	int i_angle = d_angle;
-	//std::cout << "i_angle & d_anle: " << i_angle << d_angle <<std::endl;
+
 	// Set energy for this angle
 	energyArray[i_angle] += INCREMENT * E;
+
 	// Set limit at MAX_VALUE
 	energyArray[i_angle] =
 		energyArray[i_angle] > MAX_VALUE ? MAX_VALUE : energyArray[i_angle];
@@ -21,11 +22,9 @@ void ODAS::decrease_pots() {
 	}
 }
 
-//void ODAS::json_parse(json_object* jobj);
+
 
 void ODAS::json_parse_array(json_object* jobj, char* key) {
-	// Forward Declaration
-	//void ODAS::json_parse2(json_object * jobj);
 	enum json_type type;
 	json_object* jarray = jobj;
 	if (key) {
@@ -102,26 +101,10 @@ void ODAS::json_parse(json_object* jobj)
 
 ODAS::ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matrix_hal::EverloopImage* image1d_) {
 
-//	// Everloop Initialization
-//	// Initialize bus and exit program if error occurs
-//	if (!bus.Init())
-//		throw("Bus Init failed");
-//
-//// Holds the number of LEDs on MATRIX device
-//	ledCount = bus.MatrixLeds();
-//	//std::cout << "\n bus.MatrixLeds: " <<  bus.MatrixLeds() <<std::endl;
-//	// Create EverloopImage object, with size of ledCount
-//	image1d = new matrix_hal::EverloopImage(ledCount);
-//
-//	// Create Everloop object
-//	everloop = new matrix_hal::Everloop;
-//	// Set everloop to use MatrixIOBus bus
-//	everloop->Setup(&bus);
-/******************************************/
 	bus = bus_;
 	everloop = everloop_;
 	image1d = image1d_;
-/******************************************/
+
 	 //Clear all LEDs
 	for (matrix_hal::LedValue& led : image1d->leds) {
 		led.red = 0;
@@ -131,8 +114,6 @@ ODAS::ODAS(matrix_hal::MatrixIOBus* bus_, matrix_hal::Everloop* everloop_, matri
 	}
 	everloop->Write(image1d);
 
-	//Test values - 25/02 problems with not all matrix voice LEDs lighting up as expected
-	//printf("\nDefines: ENERGY_COUNT:%d - MAX_BRIGHTNESS:%d - MAX_VALUE%d - MIN_THRESHOLD:%d - INCREMENT:%d",ENERGY_COUNT, MAX_BRIGHTNESS, MAX_VALUE, MIN_THRESHOLD,INCREMENT);
 	printf("\nbus.MatrixLeds(): %d --------------\n", bus->MatrixLeds());
 
 
@@ -173,30 +154,19 @@ void ODAS::updateODAS() {
 
 			message[messageSize] = 0x00;
 
-			//printf("message: %s\n\n", message);
 			json_object* jobj = json_tokener_parse(message);
 			json_parse(jobj);
 
 			for (int i = 0; i < bus->MatrixLeds(); i++) {
 
-				int led_angle = led_angles_mvoice[i];								//Define angle for `
+				int led_angle = led_angles_mvoice[i];								//Define angle 
 				int index_pots = led_angle * ENERGY_COUNT / 360;					// Convert from angle to pots index
 				int color = energyArray[index_pots] * MAX_BRIGHTNESS / MAX_VALUE; 	// Mapping from pots values to color+
 				color = (color < MIN_THRESHOLD) ? 0 : color; 						// Removing colors below the threshold
 
 
-//				if(energyArray[index_pots] > 100)
-//				std::cout << "\nLED nr " << i+1 << ". Energy array value: " << energyArray[index_pots] << " Index pots value: "<< index_pots << std::endl;
-//
-//				if(color > 0)
-//				std::cout << "\nLED nr " << i+1 << ". Color value: "<< color << std::endl;
-
-//				image1d->leds[i].red = 0;
-				if((i != MATRIX_LED_L_1) && (i != MATRIX_LED_R_9))
+				if((i != MATRIX_LED_L_1) && (i != MATRIX_LED_R_9)) // These LEDS are used for tracking and debugging
                     image1d->leds[i].green = color;
-//				image1d->leds[i].blue = 0;
-//				image1d->leds[i].white = 0;
-
 			}
 
 			everloop->Write(image1d); //Writes to LEDs
@@ -231,7 +201,6 @@ double ODAS::getSoundAngle() {
 		}
 	}
 	return (largest_element_index * 360 / ENERGY_COUNT);
-	//int index_pots = led_angle * ENERGY_COUNT / 360;
 }
 
 void ODAS::updateSoundInformation() {
@@ -257,8 +226,7 @@ void ODAS::updateSoundInformation() {
 
 	if (angle != prevAngle) {
         if(energy > ENERGY_THRESHOLD)
-            //std::cout << "Angle: " << angle << " Energy: " << energy << std::endl;
-		prevAngle = angle;
+			prevAngle = angle;
 	}
 }
 

@@ -28,11 +28,11 @@ private:
 
 	//Obstacle avoidance / ICO Learning
 
-	double wReflexVar = 7.01413;//6.77988;		// Standard weight that needs to be multiplied with distance to current Obstacle
+	double wReflexVar = 0;			// Standard weight that needs to be multiplied with distance to current Obstacle
 	double wReflexConst = 5.0;		//
-	double reflexLearningRate = 5;	// Learning rate for reflex µ.  0.7 den 14-05 - test1
+	double reflexLearningRate = 5;	// Learning rate for reflex
 	double vLearning = 0.0; 		// Velocity to add to the initial velocity
-	int reflexCounter = 23;
+	int reflexCounter = 0;
 
 
 
@@ -42,7 +42,7 @@ public:
 
 	void braitenberg(double angle, std::ofstream& outputStream, double avoidanceLeft = 0, double avoidanceRight = 0) ;				//Braitenberg aggression vehicle
 
-	void navigationICO(double angle, double w_A);	//ICO learning - work in progress
+	void navigationICO(double angle, double w_A);	//ICO learning 
 
 	void manualInputSteering(Vision * vision_, std::ofstream& outputStream);
 
